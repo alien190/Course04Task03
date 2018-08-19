@@ -1,10 +1,7 @@
 package com.example.alien.course04task03.di;
 
-import com.elegion.test.behancer.BuildConfig;
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.GitHubApi;
-import com.example.data.api.ApiKeyInterceptor;
-import com.example.data.api.BehanceApi;
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
@@ -14,12 +11,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import toothpick.config.Module;
 
-/**
- * Created by tanchuev on 23.04.2018.
- */
 
-
-public class NetworkModule extends Module{
+public class NetworkModule extends Module {
 
     private final OkHttpClient mOkHttpClient = provideClient();
     private final Gson mGson = provideGson();
@@ -34,7 +27,7 @@ public class NetworkModule extends Module{
 
     OkHttpClient provideClient() {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
-        builder.addInterceptor(new ApiKeyInterceptor());
+
         if (!BuildConfig.BUILD_TYPE.contains("release")) {
             builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         }
@@ -49,7 +42,7 @@ public class NetworkModule extends Module{
 
     Retrofit provideRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(com.example.data.BuildConfig.API_URL)
+                .baseUrl(BuildConfig.API_URL)
                 // need for interceptors
                 .client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(mGson))
