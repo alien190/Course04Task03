@@ -1,22 +1,16 @@
-package com.example.alien.course04task03.ui;
+package com.example.alien.course04task03.ui.Token;
 
-import android.arch.lifecycle.Observer;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
-import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
 

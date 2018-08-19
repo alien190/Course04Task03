@@ -2,8 +2,8 @@ package com.example.alien.course04task03.di.tokenActivity;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.alien.course04task03.ui.ITokenViewModel;
-import com.example.alien.course04task03.ui.TokenViewModelFactory;
+import com.example.alien.course04task03.ui.Token.ITokenViewModel;
+import com.example.alien.course04task03.ui.Token.TokenViewModelFactory;
 
 import toothpick.config.Module;
 

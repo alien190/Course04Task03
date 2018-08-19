@@ -1,7 +1,7 @@
 package com.example.alien.course04task03.di.tokenActivity;
 
-import com.example.alien.course04task03.ui.TokenViewModelFactory;
-import com.example.alien.course04task03.ui.TokenViewModel;
+import com.example.alien.course04task03.ui.Token.TokenViewModelFactory;
+import com.example.alien.course04task03.ui.Token.TokenViewModel;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;

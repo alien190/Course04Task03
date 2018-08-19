@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui;
+package com.example.alien.course04task03.ui.Token;
 
 import android.arch.lifecycle.MutableLiveData;
 
