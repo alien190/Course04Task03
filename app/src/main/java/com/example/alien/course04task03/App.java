@@ -2,7 +2,7 @@ package com.example.alien.course04task03;
 
 import android.app.Application;
 
-import com.example.alien.course04task03.di.ApplicationModule;
+import com.example.alien.course04task03.di.application.ApplicationModule;
 
 import timber.log.Timber;
 import toothpick.Scope;

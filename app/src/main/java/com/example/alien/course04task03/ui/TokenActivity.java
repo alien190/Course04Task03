@@ -1,23 +1,26 @@
-package com.example.alien.course04task03;
+package com.example.alien.course04task03.ui;
 
-import android.net.Uri;
+import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
+import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
+import toothpick.Scope;
+import toothpick.Toothpick;
 
-public class MainActivity extends AppCompatActivity {
+public class TokenActivity extends AppCompatActivity {
 
 
     /*CONSTANT FOR THE AUTHORIZATION PROCESS*/
@@ -53,30 +56,48 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.webView)
     protected WebView mWebView;
 
+    @Inject
+    protected ITokenViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
         ButterKnife.bind(this);
 
-        mWebView = findViewById(R.id.webView);
+        Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
+        scope.installModules(new TokenActivityModule(this));
+        Toothpick.inject(this, scope);
 
-        WebSettings webViewSettings = mWebView.getSettings();
-        webViewSettings.setJavaScriptEnabled(true);
+        mViewModel.getState();
+        //  Timber.d("Token initial value: %d", mITokenValidator.getTokenState().getValue());
+        //  mITokenValidator.getTokenState().observe(this, integer -> Timber.d("Token change: %d", integer));
 
-        CustomWebViewClient customWebViewClient = new CustomWebViewClient();
-        customWebViewClient.setOnAuthCallback(new CustomWebViewClient.IOnAuthCallback() {
-            @Override
-            public void onAuthComplete(String code, String state) {
-                if (state.equals(STATE))
-                    Toast.makeText(MainActivity.this, code, Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        mWebView.setWebViewClient(customWebViewClient);
+//        mWebView = findViewById(R.id.webView);
+//
+//        WebSettings webViewSettings = mWebView.getSettings();
+//        webViewSettings.setJavaScriptEnabled(true);
+//
+//        CustomWebViewClient customWebViewClient = new CustomWebViewClient();
+//        customWebViewClient.setOnAuthCallback(new CustomWebViewClient.IOnAuthCallback() {
+//            @Override
+//            public void onAuthComplete(String code, String state) {
+//                if (state.equals(STATE))
+//                    Toast.makeText(TokenActivity.this, code, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mWebView.setWebViewClient(customWebViewClient);
+//
+//        mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id=b53de5616b92c534190b&state=" + STATE);
 
-        mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id=b53de5616b92c534190b&state=" + STATE);
+    }
 
+    @Override
+    protected void onDestroy() {
+        Toothpick.closeScope(this.getClass().getSimpleName());
+        super.onDestroy();
     }
 
     /**

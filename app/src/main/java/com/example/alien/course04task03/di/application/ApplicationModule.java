@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.di;
+package com.example.alien.course04task03.di.application;
 
 import android.content.Context;
 
@@ -32,9 +32,9 @@ public class ApplicationModule extends Module {
         bind(Gson.class).toInstance(mGson);
         bind(Retrofit.class).toInstance(mRetrofit);
         bind(IGitHubApi.class).toProviderInstance(this::provideApiService).providesSingletonInScope();
-        bind(ITokenValidator.class).toProvider(ITokenValidatorProvider.class).providesSingletonInScope();
-        bind(IGHRepository.class).toProvider(IGHRepositoryProvider.class).providesSingletonInScope();
-        bind(ISharedPref.class).toProvider(ISharedPrefProvider.class).providesSingletonInScope();
+        bind(ITokenValidator.class).toProvider(TokenValidatorProvider.class).providesSingletonInScope();
+        bind(IGHRepository.class).toProvider(GHRepositoryProvider.class).providesSingletonInScope();
+        bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
     }
 
     OkHttpClient provideClient() {

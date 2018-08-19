@@ -1,4 +1,4 @@
-package com.example.alien.course04task03;
+package com.example.alien.course04task03.ui;
 
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;

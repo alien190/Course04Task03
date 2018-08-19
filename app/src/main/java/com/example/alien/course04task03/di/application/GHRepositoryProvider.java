@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.di;
+package com.example.alien.course04task03.di.application;
 
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.GHRepositoryImpl;
@@ -7,12 +7,12 @@ import com.example.alien.course04task03.repository.gitHubRepository.IGHRepositor
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-class IGHRepositoryProvider implements Provider<IGHRepository> {
+class GHRepositoryProvider implements Provider<IGHRepository> {
 
     private IGitHubApi mIGitHubApi;
 
     @Inject
-    public IGHRepositoryProvider(IGitHubApi IGitHubApi) {
+    public GHRepositoryProvider(IGitHubApi IGitHubApi) {
         mIGitHubApi = IGitHubApi;
     }
 

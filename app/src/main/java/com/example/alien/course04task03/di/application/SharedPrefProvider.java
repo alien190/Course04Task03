@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.di;
+package com.example.alien.course04task03.di.application;
 
 import android.content.Context;
 
@@ -8,11 +8,11 @@ import com.example.alien.course04task03.repository.sharedPref.SharedPrefImpl;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-class ISharedPrefProvider implements Provider<ISharedPref> {
+class SharedPrefProvider implements Provider<ISharedPref> {
     private Context mContext;
 
     @Inject
-    public ISharedPrefProvider(Context context) {
+    public SharedPrefProvider(Context context) {
         mContext = context;
     }
 
