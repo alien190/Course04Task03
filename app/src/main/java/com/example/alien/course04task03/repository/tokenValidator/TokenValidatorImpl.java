@@ -25,7 +25,10 @@ public class TokenValidatorImpl implements ITokenValidator {
     private Lock mTokenLock = new ReentrantLock();
 
 
-    public TokenValidatorImpl() {
+    public TokenValidatorImpl(ISharedPref sharedPref, IGHRepository ghRepository) {
+        this.mSharedPref = sharedPref;
+        this.mIGHRepository = ghRepository;
+
         mTokenState.postValue(ITokenValidator.TOKEN_IN_PROGRESS);
 
         obtainToken();

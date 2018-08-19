@@ -1,7 +1,7 @@
 package com.example.alien.course04task03.di;
 
 import com.example.alien.course04task03.BuildConfig;
-import com.example.alien.course04task03.api.GitHubApi;
+import com.example.alien.course04task03.api.IGitHubApi;
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
@@ -22,7 +22,7 @@ public class NetworkModule extends Module {
         bind(OkHttpClient.class).toInstance(mOkHttpClient);
         bind(Gson.class).toInstance(mGson);
         bind(Retrofit.class).toInstance(mRetrofit);
-        bind(GitHubApi.class).toProviderInstance(this::provideApiService);
+        bind(IGitHubApi.class).toProviderInstance(this::provideApiService);
     }
 
     OkHttpClient provideClient() {
@@ -51,7 +51,7 @@ public class NetworkModule extends Module {
     }
 
 
-    GitHubApi provideApiService() {
-        return mRetrofit.create(GitHubApi.class);
+    IGitHubApi provideApiService() {
+        return mRetrofit.create(IGitHubApi.class);
     }
 }
