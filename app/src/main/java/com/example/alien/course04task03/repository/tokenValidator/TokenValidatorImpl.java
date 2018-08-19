@@ -39,7 +39,7 @@ public class TokenValidatorImpl implements ITokenValidator {
         try {
             mTokenLock.lock();
 
-            Single<String> token = mSharedPref.getToken();
+            Single<String> token = mSharedPref.readToken();
 
             token.observeOn(Schedulers.io())
                     .subscribe(value -> {

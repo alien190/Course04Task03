@@ -1,7 +1,12 @@
 package com.example.alien.course04task03.di;
 
+import android.content.Context;
+
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.IGitHubApi;
+import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
+import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
+import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
@@ -12,17 +17,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import toothpick.config.Module;
 
 
-public class NetworkModule extends Module {
+public class ApplicationModule extends Module {
 
     private final OkHttpClient mOkHttpClient = provideClient();
     private final Gson mGson = provideGson();
     private final Retrofit mRetrofit = provideRetrofit();
+    private final Context mContext;
 
-    public NetworkModule() {
+    public ApplicationModule(Context context) {
+        mContext = context;
+
+        bind(Context.class).toInstance(mContext);
         bind(OkHttpClient.class).toInstance(mOkHttpClient);
         bind(Gson.class).toInstance(mGson);
         bind(Retrofit.class).toInstance(mRetrofit);
-        bind(IGitHubApi.class).toProviderInstance(this::provideApiService);
+        bind(IGitHubApi.class).toProviderInstance(this::provideApiService).providesSingletonInScope();
+        bind(ITokenValidator.class).toProvider(ITokenValidatorProvider.class).providesSingletonInScope();
+        bind(IGHRepository.class).toProvider(IGHRepositoryProvider.class).providesSingletonInScope();
+        bind(ISharedPref.class).toProvider(ISharedPrefProvider.class).providesSingletonInScope();
     }
 
     OkHttpClient provideClient() {

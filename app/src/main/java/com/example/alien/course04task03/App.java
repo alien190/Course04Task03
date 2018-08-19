@@ -2,6 +2,8 @@ package com.example.alien.course04task03;
 
 import android.app.Application;
 
+import com.example.alien.course04task03.di.ApplicationModule;
+
 import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
@@ -20,13 +22,20 @@ public class App extends Application {
         Timber.plant(new Timber.DebugTree());
 
         Toothpick.setConfiguration(Configuration.forProduction().disableReflection());
+        Toothpick.setConfiguration(Configuration.forProduction().preventMultipleRootScopes());
+
         // Toothpick.setConfiguration(Configuration.forDevelopment().enableReflection());
 
-       // MemberInjectorRegistryLocator.setRootRegistry(new com.example.alien.course04task03.MemberInjectorRegistry());
-       // FactoryRegistryLocator.setRootRegistry(new com.example.alien.course04task03.FactoryRegistry());
+        MemberInjectorRegistryLocator.setRootRegistry(new com.example.alien.course04task03.MemberInjectorRegistry());
+        FactoryRegistryLocator.setRootRegistry(new com.example.alien.course04task03.FactoryRegistry());
 
-       // sAppScope = Toothpick.openScope("Application");
-       // sAppScope.installModules(new AppModule(this), new ContextModule(getApplicationContext()), new NetworkModule(), new RepositoryModule(), new ServiceModule());
-        //, new ServiceModule()
+        sAppScope = Toothpick.openScope("Application");
+        sAppScope.installModules(new ApplicationModule(this));
+    }
+
+    @Override
+    public void onTerminate() {
+        Toothpick.closeScope("Application");
+        super.onTerminate();
     }
 }
