@@ -2,6 +2,7 @@ package com.example.alien.course04task03.di.tokenActivity;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.alien.course04task03.ui.token.CustomWebViewClient;
 import com.example.alien.course04task03.ui.token.ITokenViewModel;
 import com.example.alien.course04task03.ui.token.TokenFragment;
 import com.example.alien.course04task03.ui.token.TokenViewModelFactory;
@@ -17,5 +18,6 @@ public class TokenActivityModule extends Module {
         bind(ITokenViewModel.class).toProvider(TokenViewModelProvider.class).providesSingletonInScope();
         bind(TokenViewModelFactory.class).toProvider(TokenViewModelFactoryPovider.class).providesSingletonInScope();
         bind(TokenFragment.class).toInstance(TokenFragment.newInstance());
+        bind(CustomWebViewClient.class).toInstance(new CustomWebViewClient());
     }
 }

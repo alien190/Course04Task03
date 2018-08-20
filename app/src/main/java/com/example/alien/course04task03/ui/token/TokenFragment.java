@@ -27,6 +27,9 @@ public class TokenFragment extends Fragment {
     @Inject
     protected ITokenViewModel mViewModel;
 
+    @Inject
+    CustomWebViewClient mCustomWebViewClient;
+
     public static TokenFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -42,6 +45,7 @@ public class TokenFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_token, container, false);
         mWebView = view.findViewById(R.id.webView);
+        initCustomWebViewClient();
         initWebView();
         mSplash = view.findViewById(R.id.splash);
         mViewModel.getState().observe(this, this::onChangeState);
@@ -49,27 +53,31 @@ public class TokenFragment extends Fragment {
 
     }
 
-
-    private void initWebView() {
-        WebSettings webViewSettings = mWebView.getSettings();
-        webViewSettings.setJavaScriptEnabled(true);
-
-        CustomWebViewClient customWebViewClient = new CustomWebViewClient();
-        customWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
-        customWebViewClient.setOnAuthCallback((code, state) -> {
+    private void initCustomWebViewClient() {
+        mCustomWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
+        mCustomWebViewClient.setOnAuthCallback((code, state) -> {
             if (state.equals(STATE)) {
                 mViewModel.createToken(code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
             } else {
                 //todo реализовать обработку ошибки
             }
         });
-        mWebView.setWebViewClient(customWebViewClient);
+    }
+
+    private void initWebView() {
+        WebSettings webViewSettings = mWebView.getSettings();
+        webViewSettings.setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(mCustomWebViewClient);
     }
 
     private void onChangeState(Integer state) {
         switch (state) {
             case ITokenViewModel.STATE_AUTH: {
-                mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id=" + BuildConfig.CLIENT_ID + "&state=" + STATE);
+                mWebView.loadUrl(BuildConfig.AUTH_URL +
+                        BuildConfig.AUTH_PATH +
+                        "?scopes=" + BuildConfig.AUTH_SCOPES +
+                        "&client_id=" + BuildConfig.CLIENT_ID +
+                        "&state=" + STATE);
                 break;
             }
             case ITokenViewModel.STATE_SPLASH: {

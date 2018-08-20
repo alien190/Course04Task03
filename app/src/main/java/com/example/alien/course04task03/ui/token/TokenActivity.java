@@ -18,7 +18,6 @@ import toothpick.Toothpick;
 
 public class TokenActivity extends SingleFragmentActivity {
 
-
     @Inject
     protected ITokenViewModel mViewModel;
 
@@ -55,7 +54,6 @@ public class TokenActivity extends SingleFragmentActivity {
         switch (viewModelSate) {
 
         }
-
         Timber.d("ViewModel state change: %d", viewModelSate);
     }
 }
