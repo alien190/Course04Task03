@@ -1,10 +1,12 @@
 package com.example.alien.course04task03.ui.token;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
+import com.example.alien.course04task03.ui.gHR.GhrActivity;
 
 import javax.inject.Inject;
 
@@ -47,8 +49,10 @@ public class TokenActivity extends SingleFragmentActivity {
 
 
     private void changeUiState(int viewModelSate) {
-        switch (viewModelSate) {
-
+        if (viewModelSate == ITokenViewModel.STATE_COMPLETE) {
+            Intent intent = new Intent(this, GhrActivity.class);
+            startActivity(intent);
+            finish();
         }
         Timber.d("ViewModel state change: %d", viewModelSate);
     }

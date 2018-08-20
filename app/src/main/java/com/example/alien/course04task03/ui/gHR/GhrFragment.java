@@ -10,7 +10,14 @@ import android.view.ViewGroup;
 
 import com.example.alien.course04task03.R;
 
+import javax.inject.Inject;
+
 public class GhrFragment extends Fragment {
+
+    @Inject
+    protected GhrViewModel mGhrViewModel;
+
+
     public static GhrFragment newInstance() {
 
         Bundle args = new Bundle();
