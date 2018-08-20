@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.Token;
+package com.example.alien.course04task03.ui.token;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
 
@@ -63,7 +64,8 @@ public class TokenActivity extends AppCompatActivity {
         scope.installModules(new TokenActivityModule(this));
         Toothpick.inject(this, scope);
 
-        mViewModel.getState();
+        //changeUiState(mViewModel.getState().getValue());
+        mViewModel.getState().observe(this, this::changeUiState);
         //  Timber.d("Token initial value: %d", mITokenValidator.getTokenState().getValue());
         //  mITokenValidator.getTokenState().observe(this, integer -> Timber.d("Token change: %d", integer));
 
@@ -126,6 +128,10 @@ public class TokenActivity extends AppCompatActivity {
                 + AMPERSAND + CLIENT_ID_PARAM + EQUALS + API_KEY
                 + AMPERSAND + STATE_PARAM + EQUALS + STATE
                 + AMPERSAND + REDIRECT_URI_PARAM + EQUALS + REDIRECT_URI;
+    }
+
+    private void changeUiState(int viewModelSate) {
+        Timber.d("ViewModel state change: %d", viewModelSate);
     }
 }
 

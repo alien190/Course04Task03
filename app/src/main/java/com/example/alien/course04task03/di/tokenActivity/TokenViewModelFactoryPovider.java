@@ -1,7 +1,7 @@
 package com.example.alien.course04task03.di.tokenActivity;
 
 import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
-import com.example.alien.course04task03.ui.Token.TokenViewModelFactory;
+import com.example.alien.course04task03.ui.token.TokenViewModelFactory;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

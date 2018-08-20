@@ -10,6 +10,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -39,9 +41,8 @@ public class TokenValidatorImpl implements ITokenValidator {
         try {
             mTokenLock.lock();
 
-            Single<String> token = mSharedPref.readToken();
-
-            token.observeOn(Schedulers.io())
+            Disposable disposable = mSharedPref.readToken()
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(value -> {
                         if (value.isEmpty()) {
                             mTokenState.postValue(TOKEN_EMPTY);
