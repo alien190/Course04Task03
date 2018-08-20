@@ -32,18 +32,12 @@ public class CustomWebViewClient extends WebViewClient {
             if (mOnNeedShowCallback != null) {
                 mOnNeedShowCallback.onNeedShow();
             }
-
-                return false;
+            return false;
         } else {
             if (mOnAuthCallback != null) {
                 mOnAuthCallback.onAuthComplete(request.getUrl().getQueryParameter("code"),
                         request.getUrl().getQueryParameter("state"));
             }
-//            Intent intent = new Intent(Intent.ACTION_VIEW, request.getUrl());
-//            view.getContext().startActivity(intent);
-            Timber.d("host:%s", request.getUrl().getHost());
-            Timber.d("path:%s", request.getUrl().getPath());
-
             return true;
         }
 
