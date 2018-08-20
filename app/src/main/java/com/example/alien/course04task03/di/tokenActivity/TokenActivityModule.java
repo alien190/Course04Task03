@@ -3,7 +3,7 @@ package com.example.alien.course04task03.di.tokenActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.ui.token.ITokenViewModel;
-import com.example.alien.course04task03.ui.token.SplashFragment;
+import com.example.alien.course04task03.ui.token.TokenFragment;
 import com.example.alien.course04task03.ui.token.TokenViewModelFactory;
 import com.example.alien.course04task03.ui.token.AuthFragment;
 
@@ -17,7 +17,7 @@ public class TokenActivityModule extends Module {
         bind(AppCompatActivity.class).toInstance(mAppCompatActivity);
         bind(ITokenViewModel.class).toProvider(TokenViewModelProvider.class).providesSingletonInScope();
         bind(TokenViewModelFactory.class).toProvider(TokenViewModelFactoryPovider.class).providesSingletonInScope();
-        bind(SplashFragment.class).toInstance(SplashFragment.newInstance());
+        bind(TokenFragment.class).toInstance(TokenFragment.newInstance());
         bind(AuthFragment.class).toInstance(AuthFragment.newInstance());
     }
 }

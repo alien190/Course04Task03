@@ -18,6 +18,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
         toothpickInject();
 
+        if (savedInstanceState == null) {
+            changeFragment(getFragment());
+        }
     }
 
     protected abstract void toothpickInject();
@@ -47,6 +50,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .addToBackStack(fragment.getClass().getSimpleName())
                 .commit();
     }
 }

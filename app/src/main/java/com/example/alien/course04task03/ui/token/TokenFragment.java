@@ -9,15 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.R;
 
 import javax.inject.Inject;
 
-public class AuthFragment extends Fragment {
+public class TokenFragment extends Fragment {
 
     private WebView mWebView;
+    private TextView mSplash;
 
     //todo сделать генератор
     private static final String STATE = "Ece<WIX\":6WQ!Du";
@@ -25,22 +27,30 @@ public class AuthFragment extends Fragment {
     @Inject
     protected ITokenViewModel mViewModel;
 
-    public static AuthFragment newInstance() {
+    public static TokenFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        AuthFragment fragment = new AuthFragment();
+        TokenFragment fragment = new TokenFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_token, container, false);
         mWebView = view.findViewById(R.id.webView);
+        initWebView();
+        mSplash = view.findViewById(R.id.splash);
+        mViewModel.getState().observe(this, this::onChangeState);
+        return view;
+
+    }
 
 
+    private void initWebView() {
         WebSettings webViewSettings = mWebView.getSettings();
         webViewSettings.setJavaScriptEnabled(true);
 
@@ -53,19 +63,20 @@ public class AuthFragment extends Fragment {
                 //todo реализовать обработку ошибки
             }
         });
-
         mWebView.setWebViewClient(customWebViewClient);
-
-        mViewModel.getState().observe(this, this::onChangeState);
-        return view;
-
     }
-
 
     private void onChangeState(Integer state) {
-        if(state == ITokenViewModel.STATE_AUTH) {
-            mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id="+ BuildConfig.CLIENT_ID +"&state=" + STATE);
+        switch (state) {
+            case ITokenViewModel.STATE_AUTH: {
+                mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id=" + BuildConfig.CLIENT_ID + "&state=" + STATE);
+                break;
+            }
+            case ITokenViewModel.STATE_SHOW_AUTH: {
+                mSplash.setVisibility(View.GONE);
+                mWebView.setVisibility(View.VISIBLE);
+                break;
+            }
         }
     }
-
 }
