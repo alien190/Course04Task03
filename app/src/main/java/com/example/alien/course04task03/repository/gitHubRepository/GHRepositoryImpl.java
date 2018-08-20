@@ -3,6 +3,7 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 import com.example.alien.course04task03.api.IAuthApi;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.model.Token;
+import com.example.alien.course04task03.model.User;
 
 import javax.inject.Scope;
 
@@ -15,8 +16,7 @@ public class GHRepositoryImpl implements IGHRepository {
     private IGitHubApi mIGitHubApi;
     private IAuthApi mIAuthApi;
 
-    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi)
-    {
+    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi) {
         mIGitHubApi = iGitHubApi;
         mIAuthApi = iAuthApi;
     }
@@ -33,6 +33,13 @@ public class GHRepositoryImpl implements IGHRepository {
     public Single<String> createToken(String code, String clientId, String clientSecret) {
         return mIAuthApi.getToken(code, clientId, clientSecret)
                 .subscribeOn(Schedulers.io())
-                .map(token -> token.getAccessToken());
+                .map(Token::getAccessToken);
+    }
+
+    @Override
+    public Single<User> getUser(String token) {
+        return mIGitHubApi.getUser(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
     }
 }

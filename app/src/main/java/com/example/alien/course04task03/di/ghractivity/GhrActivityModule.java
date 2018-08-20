@@ -13,12 +13,9 @@ public class GhrActivityModule extends Module {
 
     public GhrActivityModule(AppCompatActivity appCompatActivity) {
         mAppCompatActivity = appCompatActivity;
-    }
-
-    public GhrActivityModule() {
         bind(GhrFragment.class).toInstance(GhrFragment.newInstance());
         bind(AppCompatActivity.class).toInstance(mAppCompatActivity);
         bind(IGhrViewModel.class).toProvider(GhrViewModelProvider.class).providesSingletonInScope();
-        bind(GhrViewModelFactory.class).toProvider(GhrViewModelFactoryPovider.class).providesSingletonInScope();
+        bind(GhrViewModelFactory.class).toProvider(GhrViewModelFactoryProvider.class).providesSingletonInScope();
     }
 }

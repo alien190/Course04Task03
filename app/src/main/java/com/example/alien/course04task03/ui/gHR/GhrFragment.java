@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class GhrFragment extends Fragment {
 
     @Inject
-    protected GhrViewModel mGhrViewModel;
+    protected IGhrViewModel mGhrViewModel;
 
 
     public static GhrFragment newInstance() {

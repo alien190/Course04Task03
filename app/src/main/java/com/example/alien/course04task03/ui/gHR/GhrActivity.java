@@ -1,5 +1,7 @@
 package com.example.alien.course04task03.ui.gHR;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.example.alien.course04task03.di.ghractivity.GhrActivityModule;
@@ -13,6 +15,9 @@ import toothpick.Toothpick;
 public class GhrActivity extends SingleFragmentActivity {
     @Inject
     GhrFragment mGhrFragment;
+
+    @Inject
+    IGhrViewModel mViewModel;
 
     @Override
     protected void toothpickInject() {
@@ -30,5 +35,11 @@ public class GhrActivity extends SingleFragmentActivity {
     @Override
     protected void toothpickCloseScope() {
         Toothpick.closeScope(this.getClass().getSimpleName());
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mViewModel.getUserName().observe(this, this::setTitle);
     }
 }
