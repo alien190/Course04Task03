@@ -6,6 +6,7 @@ import android.webkit.WebView;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
+import com.example.alien.course04task03.ui.SingleFragmentActivity;
 
 import javax.inject.Inject;
 
@@ -15,7 +16,7 @@ import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
 
-public class TokenActivity extends AppCompatActivity {
+public class TokenActivity extends SingleFragmentActivity {
 
 
     /*CONSTANT FOR THE AUTHORIZATION PROCESS*/
