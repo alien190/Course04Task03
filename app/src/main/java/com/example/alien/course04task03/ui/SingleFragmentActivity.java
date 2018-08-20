@@ -16,6 +16,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_single_fragment);
 
+        toothpickInject();
+
         if(savedInstanceState==null){
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -24,6 +26,8 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    protected abstract void toothpickInject();
 
     protected abstract Fragment getFragment();
 
@@ -38,4 +42,12 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             fragmentManager.popBackStack();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        toothpickCloseScope();
+        super.onDestroy();
+    }
+
+    protected abstract void toothpickCloseScope();
 }

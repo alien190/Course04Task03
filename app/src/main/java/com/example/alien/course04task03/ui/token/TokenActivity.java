@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.ui.token;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -55,15 +56,15 @@ public class TokenActivity extends SingleFragmentActivity {
     @Inject
     protected ITokenViewModel mViewModel;
 
+    @Inject
+    protected SplashFragment mSplashFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ac_main);
+
         ButterKnife.bind(this);
 
-        Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
-        scope.installModules(new TokenActivityModule(this));
-        Toothpick.inject(this, scope);
 
         //changeUiState(mViewModel.getState().getValue());
         mViewModel.getState().observe(this, this::changeUiState);
@@ -91,10 +92,22 @@ public class TokenActivity extends SingleFragmentActivity {
 
     }
 
+
     @Override
-    protected void onDestroy() {
+    protected Fragment getFragment() {
+        return mSplashFragment;
+    }
+
+    @Override
+    protected void toothpickInject() {
+        Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
+        scope.installModules(new TokenActivityModule(this));
+        Toothpick.inject(this, scope);
+    }
+
+    @Override
+    protected void toothpickCloseScope() {
         Toothpick.closeScope(this.getClass().getSimpleName());
-        super.onDestroy();
     }
 
     /**
