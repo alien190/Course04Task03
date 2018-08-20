@@ -2,16 +2,12 @@ package com.example.alien.course04task03.ui.token;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.webkit.WebView;
 
-import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
-import com.example.alien.course04task03.ui.SingleFragmentActivity;
+import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
