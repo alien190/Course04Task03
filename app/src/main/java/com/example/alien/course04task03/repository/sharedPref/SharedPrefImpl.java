@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SharedPrefImpl implements ISharedPref {
 
     private static final String TOKEN_PREF = "TokenPref";
-    private static final String TOKEN_KEY = "TokenKey1";
+    private static final String TOKEN_KEY = "TokenKey2";
     private SharedPreferences mSharedPreferences;
 
     public SharedPrefImpl(Context context) {

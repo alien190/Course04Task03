@@ -72,6 +72,11 @@ public class TokenFragment extends Fragment {
                 mWebView.loadUrl("https://github.com/login/oauth/authorize?scopes=user,repo&client_id=" + BuildConfig.CLIENT_ID + "&state=" + STATE);
                 break;
             }
+            case ITokenViewModel.STATE_SPLASH: {
+                mSplash.setVisibility(View.VISIBLE);
+                mWebView.setVisibility(View.GONE);
+                break;
+            }
             case ITokenViewModel.STATE_SHOW_AUTH: {
                 mSplash.setVisibility(View.GONE);
                 mWebView.setVisibility(View.VISIBLE);
