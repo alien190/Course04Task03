@@ -2,6 +2,8 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 
 import com.example.alien.course04task03.api.IAuthApi;
 import com.example.alien.course04task03.api.IGitHubApi;
+import com.example.alien.course04task03.model.NewRepoRequest;
+import com.example.alien.course04task03.model.NewRepoResponse;
 import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.model.User;
 
@@ -41,5 +43,11 @@ public class GHRepositoryImpl implements IGHRepository {
         return mIGitHubApi.getUser(token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<NewRepoResponse> createRepo(String token, NewRepoRequest newRepoRequest) {
+        return mIGitHubApi.createRepo(token, newRepoRequest)
+                .subscribeOn(Schedulers.io());
     }
 }

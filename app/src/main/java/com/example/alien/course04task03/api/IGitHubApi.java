@@ -13,7 +13,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface IGitHubApi {
-
     @GET("user")
     Single<User> getUser(@Query("access_token") String token);
 

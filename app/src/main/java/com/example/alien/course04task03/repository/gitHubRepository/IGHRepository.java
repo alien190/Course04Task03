@@ -11,5 +11,5 @@ public interface IGHRepository {
     Single<Boolean> validateToken(String token);
     Single<String> createToken(String code, String clientId, String clientSecret);
     Single<User> getUser(String token);
-    Single<NewRepoResponse> createRepo(NewRepoRequest newRepoRequest);
+    Single<NewRepoResponse> createRepo(String token, NewRepoRequest newRepoRequest);
 }
