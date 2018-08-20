@@ -4,5 +4,5 @@ import io.reactivex.Single;
 
 public interface ISharedPref {
     Single<String> readToken();
-    Single<Boolean> writeToken(String token);
+    void writeToken(String token);
 }

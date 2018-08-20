@@ -105,6 +105,7 @@ public class TokenActivity extends SingleFragmentActivity {
         Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
         scope.installModules(new TokenActivityModule(this));
         Toothpick.inject(this, scope);
+        Toothpick.inject(mAuthFragment, scope);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class TokenActivity extends SingleFragmentActivity {
     private void changeUiState(int viewModelSate) {
         switch (viewModelSate) {
 
-            case ITokenViewModel.STATE_AUTH: {
+            case ITokenViewModel.STATE_SHOW_AUTH: {
                 changeFragment(mAuthFragment);
                 break;
             }

@@ -4,4 +4,5 @@ import io.reactivex.Single;
 
 public interface IGHRepository {
     Single<Boolean> validateToken(String token);
+    Single<String> createToken(String code, String clientId, String clientSecret);
 }

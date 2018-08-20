@@ -3,13 +3,12 @@ package com.example.alien.course04task03.ui.token;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.Nullable;
 
 import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
 
 public class TokenViewModel extends ViewModel implements ITokenViewModel {
     private MutableLiveData<Integer> mState = new MutableLiveData<>();
-    private ITokenValidator mITokenValidator;
+    private ITokenValidator mTokenValidator;
     private Observer<Integer> mStateObserver = state -> {
         switch (state) {
             case  ITokenValidator.TOKEN_IN_PROGRESS:
@@ -37,17 +36,23 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
                 mState.postValue(ITokenViewModel.STATE_AUTH);
                 break;
             }
+            case  ITokenValidator.TOKEN_CREATION_ERROR:
+            {
+                mState.postValue(ITokenViewModel.STATE_AUTH);
+                break;
+            }
+
             default: {
-                mState.postValue(ITokenViewModel.STATE_SPLASH);
+               // mState.postValue(ITokenViewModel.STATE_SPLASH );
                 break;
             }
         }
     };
 
-    public TokenViewModel(ITokenValidator ITokenValidator) {
-        mITokenValidator = ITokenValidator;
+    public TokenViewModel(ITokenValidator TokenValidator) {
+        mTokenValidator = TokenValidator;
 
-        mITokenValidator.getTokenState().observeForever(mStateObserver);
+        mTokenValidator.getTokenState().observeForever(mStateObserver);
     }
 
     @Override
@@ -57,7 +62,17 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
 
     @Override
     protected void onCleared() {
-        mITokenValidator.getTokenState().removeObserver(mStateObserver);
+        mTokenValidator.getTokenState().removeObserver(mStateObserver);
         super.onCleared();
+    }
+
+    @Override
+    public void createToken(String code, String clientId, String clientSecret) {
+        mTokenValidator.createToken(code, clientId, clientSecret);
+    }
+
+    @Override
+    public void showAuthorizationForm() {
+        mState.postValue(ITokenViewModel.STATE_SHOW_AUTH);
     }
 }

@@ -1,11 +1,17 @@
 package com.example.alien.course04task03.api;
 
 
+import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.model.User;
 
 import io.reactivex.Single;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IGitHubApi {
-    Single<User> getUser(String token);
+
+    @GET("user")
+    Single<User> getUser(@Query("access_token") String token);
 
 }

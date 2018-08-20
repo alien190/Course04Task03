@@ -1,16 +1,24 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
+import com.example.alien.course04task03.api.IAuthApi;
 import com.example.alien.course04task03.api.IGitHubApi;
+import com.example.alien.course04task03.model.Token;
+
+import javax.inject.Scope;
 
 import io.reactivex.Single;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class GHRepositoryImpl implements IGHRepository {
 
     private IGitHubApi mIGitHubApi;
+    private IAuthApi mIAuthApi;
 
-    public GHRepositoryImpl(IGitHubApi IGitHubApi) {
-        mIGitHubApi = IGitHubApi;
+    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi)
+    {
+        mIGitHubApi = iGitHubApi;
+        mIAuthApi = iAuthApi;
     }
 
     @Override
@@ -19,5 +27,12 @@ public class GHRepositoryImpl implements IGHRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .map(user -> true);
+    }
+
+    @Override
+    public Single<String> createToken(String code, String clientId, String clientSecret) {
+        return mIAuthApi.getToken(code, clientId, clientSecret)
+                .subscribeOn(Schedulers.io())
+                .map(token -> token.getAccessToken());
     }
 }

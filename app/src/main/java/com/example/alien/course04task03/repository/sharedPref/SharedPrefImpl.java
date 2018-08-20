@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SharedPrefImpl implements ISharedPref {
 
     private static final String TOKEN_PREF = "TokenPref";
-    private static final String TOKEN_KEY = "TokenKey";
+    private static final String TOKEN_KEY = "TokenKey1";
     private SharedPreferences mSharedPreferences;
 
     public SharedPrefImpl(Context context) {
@@ -25,12 +25,14 @@ public class SharedPrefImpl implements ISharedPref {
     }
 
     @Override
-    public Single<Boolean> writeToken(String token) {
-        return Single.fromCallable(() -> {
+    public void writeToken(String token) {
+        Single.fromCallable(() -> {
             mSharedPreferences.edit()
                     .putString(TOKEN_KEY, token)
                     .apply();
             return true;
-        });
+        })
+                .observeOn(Schedulers.io())
+                .subscribe();
     }
 }
