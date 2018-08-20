@@ -1,7 +1,6 @@
 package com.example.alien.course04task03.ui.token;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
@@ -58,6 +57,9 @@ public class TokenActivity extends SingleFragmentActivity {
 
     @Inject
     protected SplashFragment mSplashFragment;
+
+    @Inject
+    protected AuthFragment mAuthFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +147,19 @@ public class TokenActivity extends SingleFragmentActivity {
     }
 
     private void changeUiState(int viewModelSate) {
+        switch (viewModelSate) {
+
+            case ITokenViewModel.STATE_AUTH: {
+                changeFragment(mAuthFragment);
+                break;
+            }
+
+            default: {
+                changeFragment(mSplashFragment);
+                break;
+            }
+        }
+
         Timber.d("ViewModel state change: %d", viewModelSate);
     }
 }

@@ -18,13 +18,6 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
         toothpickInject();
 
-        if(savedInstanceState==null){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container,getFragment())
-                    .addToBackStack(getFragment().getClass().getSimpleName())
-                    .commit();
-        }
     }
 
     protected abstract void toothpickInject();
@@ -35,10 +28,9 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(fragmentManager.getBackStackEntryCount()==1){
+        if (fragmentManager.getBackStackEntryCount() == 1) {
             finish();
-        }
-        else {
+        } else {
             fragmentManager.popBackStack();
         }
     }
@@ -50,4 +42,11 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     }
 
     protected abstract void toothpickCloseScope();
+
+    protected void changeFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
+    }
 }
