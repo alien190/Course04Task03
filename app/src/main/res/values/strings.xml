@@ -2,5 +2,7 @@
     <string name="app_name">Course04Task03</string>
     <string name="load_in_progress">Загружаемся...</string>
     <string name="create">Создать</string>
-    <string name="et_new_repo_hint">Название репозитория</string>
+    <string name="et_name_repo_hint">Название репозитория</string>
+    <string name="et_desc_repo_hint">Описание репозитория</string>
+    <string name="et_home_page_repo_hint">Домашняя страница</string>
 </resources>

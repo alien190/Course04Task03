@@ -15,6 +15,9 @@ public interface IGitHubApi {
     @GET("user")
     Single<User> getUser(@Query("access_token") String token);
 
+    @GET("user")
+    Single<User> getUser();
+
     @POST("/user/repos")
     Single<RepoResponse> createRepo(@Body RepoRequest repoRequest);
 }

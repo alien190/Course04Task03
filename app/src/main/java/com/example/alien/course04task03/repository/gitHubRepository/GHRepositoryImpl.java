@@ -27,7 +27,6 @@ public class GHRepositoryImpl implements IGHRepository {
     public Single<Boolean> validateToken(String token) {
         return mIGitHubApi.getUser(token)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
                 .map(user -> true);
     }
 
@@ -41,8 +40,7 @@ public class GHRepositoryImpl implements IGHRepository {
     @Override
     public Single<User> getUser(String token) {
         return mIGitHubApi.getUser(token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io());
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -54,5 +52,11 @@ public class GHRepositoryImpl implements IGHRepository {
     @Override
     public void setAuthHeaderToken(String token) {
         mIAuthInterceptor.setToken(token);
+    }
+
+    @Override
+    public Single<User> getUser() {
+        return mIGitHubApi.getUser()
+                .subscribeOn(Schedulers.io());
     }
 }

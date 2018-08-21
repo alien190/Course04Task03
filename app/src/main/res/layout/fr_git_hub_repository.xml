@@ -6,8 +6,20 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etNewRepo"
-        android:hint="@string/et_new_repo_hint"/>
+        android:id="@+id/etNameNewRepo"
+        android:hint="@string/et_name_repo_hint"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etDescriptionNewRepo"
+        android:hint="@string/et_desc_repo_hint"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etHomePageNewRepo"
+        android:hint="@string/et_home_page_repo_hint"/>
 
     <Button
         android:layout_width="match_parent"

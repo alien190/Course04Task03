@@ -29,7 +29,7 @@ public class GhrViewModel extends ViewModel implements IGhrViewModel {
                 .flatMap((Function<String, Single<User>>) token -> {
                     mToken.postValue(token);
                     mIGHRepository.setAuthHeaderToken(token);
-                    return mIGHRepository.getUser(token);
+                    return mIGHRepository.getUser();
                 })
                 .subscribe(user -> {
                             mUserName.postValue(user.getLogin());
