@@ -23,10 +23,9 @@ public class GhrActivity extends SingleFragmentActivity {
 
     @Override
     protected void toothpickInject() {
-        Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
+        Scope scope = Toothpick.openScopes("Application", "GitHubRepository");
         scope.installModules(new GhrActivityModule(this));
         Toothpick.inject(this, scope);
-        Toothpick.inject(mGhrFragment, scope);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class GhrActivity extends SingleFragmentActivity {
 
     @Override
     protected void toothpickCloseScope() {
-        Toothpick.closeScope(this.getClass().getSimpleName());
+        Toothpick.closeScope("GitHubRepository");
     }
 
     @Override

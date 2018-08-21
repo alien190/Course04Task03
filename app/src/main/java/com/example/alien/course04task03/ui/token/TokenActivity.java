@@ -45,15 +45,14 @@ public class TokenActivity extends SingleFragmentActivity {
 
     @Override
     protected void toothpickInject() {
-        Scope scope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
+        Scope scope = Toothpick.openScopes("Application", "Token");
         scope.installModules(new TokenActivityModule(this));
         Toothpick.inject(this, scope);
-        Toothpick.inject(mTokenFragment, scope);
     }
 
     @Override
     protected void toothpickCloseScope() {
-        Toothpick.closeScope(this.getClass().getSimpleName());
+        Toothpick.closeScope("Token");
     }
 
 

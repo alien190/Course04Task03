@@ -43,7 +43,7 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
             }
 
             default: {
-               // mState.postValue(ITokenViewModel.STATE_SPLASH );
+                mState.postValue(ITokenViewModel.STATE_SPLASH );
                 break;
             }
         }

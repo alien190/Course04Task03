@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.di.ghractivity.GhrActivityModule;
 import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.ui.token.TokenActivity;
 
@@ -24,6 +25,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import toothpick.Scope;
+import toothpick.Toothpick;
 
 public class GhrFragment extends Fragment implements IGhrViewModel.createRepositoryCallBack {
 
@@ -55,7 +58,7 @@ public class GhrFragment extends Fragment implements IGhrViewModel.createReposit
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_git_hub_repository, container, false);
         ButterKnife.bind(this, view);
-
+        toothpickInject();
         return view;
     }
 
@@ -102,5 +105,10 @@ public class GhrFragment extends Fragment implements IGhrViewModel.createReposit
         } else {
             return true;
         }
+    }
+
+    protected void toothpickInject() {
+        Scope scope = Toothpick.openScopes("Application", "GitHubRepository");
+        Toothpick.inject(this, scope);
     }
 }

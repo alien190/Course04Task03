@@ -13,13 +13,21 @@ import android.widget.TextView;
 
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import toothpick.Scope;
+import toothpick.Toothpick;
+
 public class TokenFragment extends Fragment {
 
-    private WebView mWebView;
-    private TextView mSplash;
+    @BindView(R.id.webView)
+    protected WebView mWebView;
+    @BindView(R.id.splash)
+    protected TextView mSplash;
 
     //todo сделать генератор
     private static final String STATE = "Ece<WIX\":6WQ!Du";
@@ -44,13 +52,12 @@ public class TokenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_token, container, false);
-        mWebView = view.findViewById(R.id.webView);
+        ButterKnife.bind(this, view);
+        toothpickInject();
         initCustomWebViewClient();
         initWebView();
-        mSplash = view.findViewById(R.id.splash);
         mViewModel.getState().observe(this, this::onChangeState);
         return view;
-
     }
 
     private void initCustomWebViewClient() {
@@ -110,5 +117,10 @@ public class TokenFragment extends Fragment {
                 "&client_id=" + BuildConfig.CLIENT_ID +
                 "&state=" + STATE +
                 "&scope=" + BuildConfig.AUTH_SCOPES);
+    }
+
+    private void toothpickInject(){
+        Scope scope = Toothpick.openScopes("Application", "Token");
+        Toothpick.inject(this, scope);
     }
 }
