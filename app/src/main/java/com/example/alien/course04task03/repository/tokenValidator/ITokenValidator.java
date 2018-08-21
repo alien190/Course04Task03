@@ -15,9 +15,12 @@ public interface ITokenValidator {
     int TOKEN_CREATION_ERROR = 7;
 
     String getToken();
+
     MutableLiveData<Integer> getTokenState();
 
     void validateToken(String token);
 
     void createToken(String code, String clientId, String clientSecret);
+
+    void obtainToken();
 }

@@ -37,7 +37,7 @@ public class TokenValidatorImpl implements ITokenValidator {
         obtainToken();
     }
 
-    private void obtainToken() {
+    public void obtainToken() {
 
         try {
             //mTokenLock.lock();
@@ -79,6 +79,7 @@ public class TokenValidatorImpl implements ITokenValidator {
         try {
 
             mToken = token;
+            mIGHRepository.setAuthHeaderToken(null);
             Disposable disposable = mIGHRepository.validateToken(token)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(isTokenValid -> {

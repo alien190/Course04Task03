@@ -73,24 +73,42 @@ public class TokenFragment extends Fragment {
     private void onChangeState(Integer state) {
         switch (state) {
             case ITokenViewModel.STATE_AUTH: {
-                mWebView.loadUrl(BuildConfig.AUTH_URL +
-                        BuildConfig.AUTH_PATH +
-                        "?scopes=" + BuildConfig.AUTH_SCOPES +
-                        "&client_id=" + BuildConfig.CLIENT_ID +
-                        "&state=" + STATE +
-                        "&scope=" + BuildConfig.AUTH_SCOPES);
+                startAuth();
                 break;
             }
+            case ITokenViewModel.STATE_AUTH_INTERACTIVE: {
+                startAuth();
+                showWebView();
+                break;
+            }
+
             case ITokenViewModel.STATE_SPLASH: {
-                mSplash.setVisibility(View.VISIBLE);
-                mWebView.setVisibility(View.GONE);
+                hideWebView();
                 break;
             }
             case ITokenViewModel.STATE_SHOW_AUTH: {
-                mSplash.setVisibility(View.GONE);
-                mWebView.setVisibility(View.VISIBLE);
+                showWebView();
                 break;
             }
         }
+    }
+
+    private void showWebView() {
+        mSplash.setVisibility(View.GONE);
+        mWebView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideWebView() {
+        mSplash.setVisibility(View.VISIBLE);
+        mWebView.setVisibility(View.GONE);
+    }
+
+    private void startAuth() {
+        mWebView.loadUrl(BuildConfig.AUTH_URL +
+                BuildConfig.AUTH_PATH +
+                "?scopes=" + BuildConfig.AUTH_SCOPES +
+                "&client_id=" + BuildConfig.CLIENT_ID +
+                "&state=" + STATE +
+                "&scope=" + BuildConfig.AUTH_SCOPES);
     }
 }

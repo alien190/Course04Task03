@@ -9,8 +9,10 @@ import com.example.alien.course04task03.repository.gitHubRepository.IGHRepositor
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
+import retrofit2.HttpException;
 import timber.log.Timber;
 
 public class GhrViewModel extends ViewModel implements IGhrViewModel {
@@ -52,15 +54,30 @@ public class GhrViewModel extends ViewModel implements IGhrViewModel {
     }
 
     @Override
-    public void createRepository() {
+    public void createRepository(String name, String description, String homePage, createRepositoryCallBack callBack) {
         RepoRequest repoRequest = new RepoRequest();
-        repoRequest.setName("test");
+        repoRequest.setName(name);
+        repoRequest.setDescription(description);
+        repoRequest.setHomepage(homePage);
 
         mDisposable.add(mIGHRepository.createRepo(mToken.getValue(), repoRequest)
-        .subscribe(repoResponse ->
-        {
-            int i=1;
-            i=2;
-        }, Timber::e));
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(repoResponse ->
+                {
+                    if (callBack != null) {
+                        callBack.onSuccessRepoCreation();
+                    }
+                }, throwable -> {
+                    if (callBack != null) {
+                        if (throwable instanceof HttpException && ((HttpException) throwable).code() == 401) {
+                            callBack.onAuthErrorRepoCreation();
+                        } else {
+                            //todo сделать кастомизацию ошибок
+                            callBack.onCommonErrorRepoCreation();
+                        }
+                    }
+                    Timber.e(throwable);
+                }));
     }
+
 }

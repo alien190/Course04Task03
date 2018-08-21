@@ -1,5 +1,7 @@
 package com.example.alien.course04task03.ui.gHR;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -41,5 +43,10 @@ public class GhrActivity extends SingleFragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewModel.getUserName().observe(this, this::setTitle);
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, GhrActivity.class);
+        context.startActivity(intent);
     }
 }

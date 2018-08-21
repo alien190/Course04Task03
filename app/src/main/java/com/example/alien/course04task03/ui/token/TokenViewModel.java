@@ -33,7 +33,7 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
             }
             case  ITokenValidator.TOKEN_VALIDATION_ERROR:
             {
-                mState.postValue(ITokenViewModel.STATE_AUTH);
+                mState.postValue(ITokenViewModel.STATE_AUTH_INTERACTIVE);
                 break;
             }
             case  ITokenValidator.TOKEN_CREATION_ERROR:
@@ -74,5 +74,11 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     @Override
     public void showAuthorizationForm() {
         mState.postValue(ITokenViewModel.STATE_SHOW_AUTH);
+    }
+
+    @Override
+    public void startNewAuth() {
+        mState.postValue(ITokenViewModel.STATE_SPLASH);
+        mTokenValidator.obtainToken();
     }
 }

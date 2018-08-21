@@ -5,4 +5,9 @@
     <string name="et_name_repo_hint">Название репозитория</string>
     <string name="et_desc_repo_hint">Описание репозитория</string>
     <string name="et_home_page_repo_hint">Домашняя страница</string>
+    <string name="success_repo_creation">Репозиторий создан успешно</string>
+    <string name="common_error_repo_creation">Неизвестная ошибка создания репозитория</string>
+    <string name="auth_error_title">Ошибка авторизации</string>
+    <string name="auth_error_msg">При создании репозитория произошла ошибка авторизации. Необходимо выполнить заново процедуру авторизации.</string>
+    <string name="understand">Понятно</string>
 </resources>

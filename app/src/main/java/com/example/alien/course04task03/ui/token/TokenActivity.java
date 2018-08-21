@@ -1,10 +1,12 @@
 package com.example.alien.course04task03.ui.token;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
+import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
 import com.example.alien.course04task03.ui.gHR.GhrActivity;
 
@@ -16,6 +18,8 @@ import toothpick.Toothpick;
 
 public class TokenActivity extends SingleFragmentActivity {
 
+    private static final String START_NEW_AUTH_KEY = "StartNewAuthKey";
+
     @Inject
     protected ITokenViewModel mViewModel;
 
@@ -25,6 +29,11 @@ public class TokenActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(getIntent().getBooleanExtra(START_NEW_AUTH_KEY, false)) {
+            mViewModel.startNewAuth();
+        }
+
         mViewModel.getState().observe(this, this::changeUiState);
     }
 
@@ -50,11 +59,16 @@ public class TokenActivity extends SingleFragmentActivity {
 
     private void changeUiState(int viewModelSate) {
         if (viewModelSate == ITokenViewModel.STATE_COMPLETE) {
-            Intent intent = new Intent(this, GhrActivity.class);
-            startActivity(intent);
+            GhrActivity.startActivity(this);
             finish();
         }
         Timber.d("ViewModel state change: %d", viewModelSate);
+    }
+
+    public static void startActivity(Context context) {
+        Intent intent = new Intent(context, TokenActivity.class);
+        intent.putExtra(START_NEW_AUTH_KEY, true);
+        context.startActivity(intent);
     }
 }
 
