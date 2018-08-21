@@ -2,7 +2,7 @@ package com.example.alien.course04task03.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class NewRepoRequest{
+public class RepoRequest {
 	@SerializedName("name")
 	private String name;
 
@@ -39,7 +39,7 @@ public class NewRepoRequest{
 	@Override
  	public String toString(){
 		return 
-			"NewRepoRequest{" + 
+			"RepoRequest{" +
 			"name = '" + name + '\'' + 
 			",description = '" + description + '\'' + 
 			",homepage = '" + homepage + '\'' + 

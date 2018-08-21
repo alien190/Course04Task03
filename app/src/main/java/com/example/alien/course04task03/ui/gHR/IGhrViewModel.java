@@ -4,4 +4,5 @@ import android.arch.lifecycle.MutableLiveData;
 
 public interface IGhrViewModel {
     MutableLiveData<String> getUserName();
+    void createRepository();
 }

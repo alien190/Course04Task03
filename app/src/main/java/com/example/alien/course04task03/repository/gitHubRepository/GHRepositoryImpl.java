@@ -2,15 +2,12 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 
 import com.example.alien.course04task03.api.IAuthApi;
 import com.example.alien.course04task03.api.IGitHubApi;
-import com.example.alien.course04task03.model.NewRepoRequest;
-import com.example.alien.course04task03.model.NewRepoResponse;
+import com.example.alien.course04task03.model.RepoRequest;
+import com.example.alien.course04task03.model.RepoResponse;
 import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.model.User;
 
-import javax.inject.Scope;
-
 import io.reactivex.Single;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class GHRepositoryImpl implements IGHRepository {
@@ -46,8 +43,8 @@ public class GHRepositoryImpl implements IGHRepository {
     }
 
     @Override
-    public Single<NewRepoResponse> createRepo(String token, NewRepoRequest newRepoRequest) {
-        return mIGitHubApi.createRepo(token, newRepoRequest)
+    public Single<RepoResponse> createRepo(String token, RepoRequest repoRequest) {
+        return mIGitHubApi.createRepo( repoRequest)
                 .subscribeOn(Schedulers.io());
     }
 }

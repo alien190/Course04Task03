@@ -3,7 +3,7 @@ package com.example.alien.course04task03.model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class NewRepoResponse{
+public class RepoResponse {
 
 	@SerializedName("stargazers_count")
 	private int stargazersCount;
@@ -833,7 +833,7 @@ public class NewRepoResponse{
 	@Override
  	public String toString(){
 		return 
-			"NewRepoResponse{" + 
+			"RepoResponse{" +
 			"stargazers_count = '" + stargazersCount + '\'' + 
 			",pushed_at = '" + pushedAt + '\'' + 
 			",subscription_url = '" + subscriptionUrl + '\'' + 
