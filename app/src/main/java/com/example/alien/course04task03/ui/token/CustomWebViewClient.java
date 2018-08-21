@@ -15,7 +15,7 @@ public class CustomWebViewClient extends WebViewClient {
     private IOnAuthCallback mOnAuthCallback;
     private IOnNeedShowCallback mOnNeedShowCallback;
 
-    List<String> allowedPath = new ArrayList<String>() {{
+    private List<String> allowedPath = new ArrayList<String>() {{
         add("/login/oauth/authorize");
         add("/login");
         add("/password_reset");
