@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.alien.course04task03.R;
@@ -24,14 +25,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GhrFragment extends Fragment implements IGhrViewModel.createRepositoryCallBack{
+public class GhrFragment extends Fragment implements IGhrViewModel.createRepositoryCallBack {
 
     @Inject
     protected IGhrViewModel mGhrViewModel;
 
 
-    @BindView(R.id.btCreate)
-    Button btnCreate;
+    @BindView(R.id.etNameNewRepo)
+    EditText etName;
+
+    @BindView(R.id.etDescriptionNewRepo)
+    EditText etDescription;
+
+    @BindView(R.id.etHomePageNewRepo)
+    EditText etHomePage;
 
 
     public static GhrFragment newInstance() {
@@ -74,13 +81,26 @@ public class GhrFragment extends Fragment implements IGhrViewModel.createReposit
         Toast.makeText(getContext(), getText(msgId), Toast.LENGTH_SHORT).show();
     }
 
-    private void startTokenActivity(){
+    private void startTokenActivity() {
         TokenActivity.startActivity(getContext());
         getActivity().finish();
     }
 
     @OnClick(R.id.btCreate)
-    protected void createRepository(){
-        mGhrViewModel.createRepository("test", "", "", this);
+    protected void createRepository() {
+        if(validateInput()) {
+            mGhrViewModel.createRepository(etName.getText().toString(),
+                    etDescription.getText().toString(),
+                    etHomePage.getText().toString(),
+                    this);
+        }
+    }
+    boolean validateInput(){
+        if(etName.getText().toString().isEmpty()) {
+            etName.setError(getText(R.string.et_empty_error));
+            return false;
+        } else {
+            return true;
+        }
     }
 }
