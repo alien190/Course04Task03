@@ -5,10 +5,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import timber.log.Timber;
 
 public class CustomWebViewClient extends WebViewClient {
 
@@ -25,9 +26,17 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        return checkRequestURL(request.getUrl());
+    }
 
-        if (request.getUrl().getHost().equals("github.com")
-                && allowedPath.contains(request.getUrl().getPath())) {
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        return checkRequestURL(Uri.parse(url));
+    }
+
+    private boolean checkRequestURL(Uri uri) {
+        if (uri.getHost().equals("github.com")
+                && allowedPath.contains(uri.getPath())) {
 
             if (mOnNeedShowCallback != null) {
                 mOnNeedShowCallback.onNeedShow();
@@ -35,12 +44,11 @@ public class CustomWebViewClient extends WebViewClient {
             return false;
         } else {
             if (mOnAuthCallback != null) {
-                mOnAuthCallback.onAuthComplete(request.getUrl().getQueryParameter("code"),
-                        request.getUrl().getQueryParameter("state"));
+                mOnAuthCallback.onAuthComplete(uri.getQueryParameter("code"),
+                        uri.getQueryParameter("state"));
             }
             return true;
         }
-
     }
 
     @Override
