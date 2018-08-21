@@ -17,7 +17,7 @@ public class HeaderInterceptor implements Interceptor, IAuthInterceptor {
 
         builder.addHeader("Accept", "application/json");
         if (mToken != null) {
-            builder.addHeader("Authorization", "mToken " + mToken);
+            builder.addHeader("Authorization", "token " + mToken);
         }
 
         return chain.proceed(builder.build());

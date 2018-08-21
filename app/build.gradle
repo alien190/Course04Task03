@@ -12,7 +12,7 @@ android {
         buildConfigField "String", "API_URL", '"https://api.github.com"'
         buildConfigField "String", "AUTH_URL", '"https://github.com"'
         buildConfigField "String", "AUTH_PATH", '"/login/oauth/authorize"'
-        buildConfigField "String", "AUTH_SCOPES", '"user,repo"'
+        buildConfigField "String", "AUTH_SCOPES", '"user repo"'
         buildConfigField "String", "CLIENT_ID", '"b53de5616b92c534190b"'
         buildConfigField "String", "CLIENT_SECRET", '"0922fc147a905a77cf6b55e2be2a82ad395791e9"'
 

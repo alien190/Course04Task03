@@ -77,7 +77,8 @@ public class TokenFragment extends Fragment {
                         BuildConfig.AUTH_PATH +
                         "?scopes=" + BuildConfig.AUTH_SCOPES +
                         "&client_id=" + BuildConfig.CLIENT_ID +
-                        "&state=" + STATE);
+                        "&state=" + STATE +
+                        "&scope=" + BuildConfig.AUTH_SCOPES);
                 break;
             }
             case ITokenViewModel.STATE_SPLASH: {
