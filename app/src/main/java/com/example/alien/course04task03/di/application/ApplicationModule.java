@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.HeaderInterceptor;
 import com.example.alien.course04task03.api.IAuthApi;
+import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
@@ -22,7 +23,7 @@ import toothpick.config.Module;
 
 public class ApplicationModule extends Module {
 
-    private final Interceptor mHeaderInterceptor = new HeaderInterceptor();
+    private final HeaderInterceptor mHeaderInterceptor = new HeaderInterceptor();
     private final OkHttpClient mOkHttpClient = provideClient();
     private final Gson mGson = provideGson();
     private final Retrofit mGitHubRetrofit = provideRetrofit(BuildConfig.API_URL);
@@ -42,6 +43,7 @@ public class ApplicationModule extends Module {
         bind(ITokenValidator.class).toProvider(TokenValidatorProvider.class).providesSingletonInScope();
         bind(IGHRepository.class).toProvider(GHRepositoryProvider.class).providesSingletonInScope();
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
+        bind(IAuthInterceptor.class).toInstance(mHeaderInterceptor);
     }
 
     OkHttpClient provideClient() {

@@ -1,6 +1,7 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
 import com.example.alien.course04task03.api.IAuthApi;
+import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.model.RepoRequest;
 import com.example.alien.course04task03.model.RepoResponse;
@@ -14,10 +15,12 @@ public class GHRepositoryImpl implements IGHRepository {
 
     private IGitHubApi mIGitHubApi;
     private IAuthApi mIAuthApi;
+    private IAuthInterceptor mIAuthInterceptor;
 
-    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi) {
+    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi, IAuthInterceptor iAuthInterceptor) {
         mIGitHubApi = iGitHubApi;
         mIAuthApi = iAuthApi;
+        mIAuthInterceptor = iAuthInterceptor;
     }
 
     @Override
@@ -46,5 +49,10 @@ public class GHRepositoryImpl implements IGHRepository {
     public Single<RepoResponse> createRepo(String token, RepoRequest repoRequest) {
         return mIGitHubApi.createRepo( repoRequest)
                 .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public void setAuthHeaderToken(String token) {
+        mIAuthInterceptor.setToken(token);
     }
 }

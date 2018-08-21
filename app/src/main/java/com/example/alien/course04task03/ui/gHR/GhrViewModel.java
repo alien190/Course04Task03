@@ -4,15 +4,12 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.alien.course04task03.model.RepoRequest;
-import com.example.alien.course04task03.model.RepoResponse;
 import com.example.alien.course04task03.model.User;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import timber.log.Timber;
 
@@ -28,9 +25,10 @@ public class GhrViewModel extends ViewModel implements IGhrViewModel {
         mIGHRepository = ighRepository;
         mSharedPref = sharedPref;
 
-        mDisposable.add(sharedPref.readToken()
+        mDisposable.add(mSharedPref.readToken()
                 .flatMap((Function<String, Single<User>>) token -> {
                     mToken.postValue(token);
+                    mIGHRepository.setAuthHeaderToken(token);
                     return mIGHRepository.getUser(token);
                 })
                 .subscribe(user -> {
