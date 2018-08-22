@@ -37,19 +37,16 @@ public class TokenFragment extends Fragment {
     @Inject
     CustomWebViewClient mCustomWebViewClient;
 
-    private static final String TOKEN_KEY = "TokenKey";
     private static final String PARENT_SCOPE_NAME_KEY = "ParentScopeNameKey";
     private String mParentScopeName;
-    private String mToken;
 
-    public static TokenFragment newInstance(String token, String parentScopeName) {
+    public static TokenFragment newInstance(String parentScopeName) {
 
 //        if (parentScopeName.isEmpty()) {
 //            throw new Throwable("parentScopeName cant be empty");
 //        }
 
         Bundle args = new Bundle();
-        args.putString(TOKEN_KEY, token);
         args.putString(PARENT_SCOPE_NAME_KEY, parentScopeName);
         TokenFragment fragment = new TokenFragment();
         fragment.setArguments(args);
@@ -67,11 +64,10 @@ public class TokenFragment extends Fragment {
             Bundle args = getArguments();
             if (args != null) {
                 mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
-                mToken = args.getString(TOKEN_KEY, "");
             }
             toothpickInject();
             mViewModel.getState().observe(this, this::onChangeState);
-            mViewModel.startNewAuth(mToken);
+            mViewModel.startNewAuth();
         }
         return view;
     }

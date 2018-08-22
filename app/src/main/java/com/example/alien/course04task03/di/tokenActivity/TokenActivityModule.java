@@ -8,12 +8,10 @@ import toothpick.config.Module;
 public class TokenActivityModule extends Module {
 
     private String mScopeName;
-    private String mToken;
 
-    public TokenActivityModule(String scopeName, String token) {
+    public TokenActivityModule(String scopeName) {
 
         this.mScopeName = scopeName;
-        this.mToken = token;
-        bind(TokenFragment.class).toInstance(TokenFragment.newInstance(mToken, mScopeName));
+        bind(TokenFragment.class).toInstance(TokenFragment.newInstance(mScopeName));
     }
 }

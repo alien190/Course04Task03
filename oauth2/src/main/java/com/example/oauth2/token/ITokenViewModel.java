@@ -17,5 +17,5 @@ public interface ITokenViewModel {
 
     void showAuthorizationForm();
 
-    void startNewAuth(String token);
+    void startNewAuth();
 }

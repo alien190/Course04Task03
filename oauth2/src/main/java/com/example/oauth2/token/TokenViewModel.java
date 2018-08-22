@@ -73,15 +73,10 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     }
 
     @Override
-    public void startNewAuth(String token) {
+    public void startNewAuth() {
         mState.postValue(ITokenViewModel.STATE_SPLASH);
         mToken.postValue("");
-        if (token.isEmpty()) {
-            mTokenValidator.obtainToken();
-        }
-        else {
-            mTokenValidator.validateToken(token);
-        }
+        mTokenValidator.obtainToken();
     }
 
     public MutableLiveData<String> getToken() {
