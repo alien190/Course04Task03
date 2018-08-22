@@ -3,10 +3,10 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 import com.example.alien.course04task03.api.IAuthApi;
 import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
-import com.example.alien.course04task03.model.RepoRequest;
-import com.example.alien.course04task03.model.RepoResponse;
-import com.example.alien.course04task03.model.Token;
-import com.example.alien.course04task03.model.User;
+import com.example.alien.course04task03.data.model.RepoRequest;
+import com.example.alien.course04task03.data.model.RepoResponse;
+import com.example.alien.course04task03.data.model.Token;
+import com.example.alien.course04task03.data.model.User;
 
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;

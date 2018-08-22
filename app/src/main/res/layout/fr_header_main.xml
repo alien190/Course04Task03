@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data class="MainBindin">
+
+        <import type="com.example.alien.course04task03.ui.main.MainActivity"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_NAME)}"-->
+            <!--android:text="name"-->
+            <!--android:id="@+id/btn_name_search"/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_DIRECTOR)}"-->
+            <!--android:text="director"-->
+            <!--android:layout_toEndOf="@+id/btn_name_search"-->
+            <!--android:layout_toRightOf="@+id/btn_name_search"-->
+            <!--android:id="@+id/btn_director_search"/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_YEAR)}"-->
+            <!--android:text="year"-->
+            <!--android:layout_toEndOf="@+id/btn_director_search"-->
+            <!--android:layout_toRightOf="@+id/btn_director_search"-->
+            <!--android:id="@+id/btn_year_search"/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_TOP)}"-->
+            <!--android:text="top"-->
+            <!--android:layout_toEndOf="@+id/btn_year_search"-->
+            <!--android:layout_toRightOf="@+id/btn_year_search"-->
+            <!--android:id="@+id/btn_top_search"/>-->
+
+
+    </RelativeLayout>
+</layout>

@@ -1,11 +1,9 @@
 package com.example.alien.course04task03.api;
 
 
-import com.example.alien.course04task03.model.Token;
-import com.example.alien.course04task03.model.User;
+import com.example.alien.course04task03.data.model.Token;
 
 import io.reactivex.Single;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 

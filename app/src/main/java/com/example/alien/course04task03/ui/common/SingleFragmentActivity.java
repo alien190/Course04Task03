@@ -49,7 +49,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void changeFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
+                .replace(R.id.single_fragment_container, fragment)
                 .addToBackStack(fragment.getClass().getSimpleName())
                 .commit();
     }

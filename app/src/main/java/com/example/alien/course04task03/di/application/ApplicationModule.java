@@ -9,11 +9,9 @@ import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
-import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
 import com.example.oauth2.repository.tokenStorage.ITokenStorage;
 import com.google.gson.Gson;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -41,7 +39,6 @@ public class ApplicationModule extends Module {
 //        bind(Retrofit.class).toInstance(mGitHubRetrofit);
         bind(IGitHubApi.class).toProviderInstance(this::provideGitHubApiService).providesSingletonInScope();
         bind(IAuthApi.class).toProviderInstance(this::provideAuthApiService).providesSingletonInScope();
-        bind(ITokenValidator.class).toProvider(TokenValidatorProvider.class).providesSingletonInScope();
         bind(IGHRepository.class).toProvider(GHRepositoryProvider.class).providesSingletonInScope();
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
         bind(ITokenStorage.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();

@@ -1,9 +1,9 @@
 package com.example.alien.course04task03.api;
 
 
-import com.example.alien.course04task03.model.RepoRequest;
-import com.example.alien.course04task03.model.RepoResponse;
-import com.example.alien.course04task03.model.User;
+import com.example.alien.course04task03.data.model.RepoRequest;
+import com.example.alien.course04task03.data.model.RepoResponse;
+import com.example.alien.course04task03.data.model.User;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
