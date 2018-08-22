@@ -11,6 +11,8 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class CustomWebViewClient extends WebViewClient {
 
     private IOnAuthCallback mOnAuthCallback;
@@ -35,6 +37,9 @@ public class CustomWebViewClient extends WebViewClient {
     }
 
     private boolean checkRequestURL(Uri uri) {
+
+        Timber.d("CustomWebViewClient.checkRequestURL: %s", uri.toString());
+
         if (uri.getHost().equals("github.com")
                 && allowedPath.contains(uri.getPath())) {
 
