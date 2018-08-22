@@ -97,7 +97,7 @@ public class TokenFragment extends Fragment {
         switch (state) {
             case ITokenViewModel.STATE_AUTH: {
                 startAuth();
-                //showWebView();
+                showWebView();
                 break;
             }
             case ITokenViewModel.STATE_AUTH_INTERACTIVE: {

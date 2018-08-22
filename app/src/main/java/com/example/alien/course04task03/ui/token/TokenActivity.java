@@ -20,7 +20,6 @@ public class TokenActivity extends SingleFragmentActivity {
 
     private static final String START_NEW_AUTH_KEY = "StartNewAuthKey";
 
-
     @Inject
     protected TokenFragment mTokenFragment;
 
@@ -49,7 +48,7 @@ public class TokenActivity extends SingleFragmentActivity {
 
     @Override
     protected void toothpickCloseScope() {
-        Toothpick.closeScope(getClass().getSimpleName());
+       // Toothpick.closeScope(getClass().getSimpleName());
     }
 
 
