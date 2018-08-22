@@ -10,7 +10,7 @@ public interface ITokenViewModel {
     int STATE_AUTH_INTERACTIVE = 5;
 
     MutableLiveData<Integer> getState();
-    void createToken(String code, String clientId, String clientSecret);
+    void createToken(String code);
     void showAuthorizationForm();
-    void startNewAuth();
+    void startNewAuth(String token);
 }

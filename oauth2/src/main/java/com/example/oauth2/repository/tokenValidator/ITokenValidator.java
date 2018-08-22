@@ -20,7 +20,7 @@ public interface ITokenValidator {
 
     void validateToken(String token);
 
-    void createToken(String code, String clientId, String clientSecret);
+    void createToken(String code);
 
     void obtainToken();
 }

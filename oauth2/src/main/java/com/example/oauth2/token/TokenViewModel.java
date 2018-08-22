@@ -12,39 +12,33 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     private ITokenValidator mTokenValidator;
     private Observer<Integer> mStateObserver = state -> {
         switch (state) {
-            case  ITokenValidator.TOKEN_IN_PROGRESS:
-            {
+            case ITokenValidator.TOKEN_IN_PROGRESS: {
                 mState.postValue(ITokenViewModel.STATE_SPLASH);
                 break;
             }
-            case  ITokenValidator.TOKEN_EMPTY:
-            {
+            case ITokenValidator.TOKEN_EMPTY: {
                 mState.postValue(ITokenViewModel.STATE_AUTH);
                 break;
             }
-            case  ITokenValidator.TOKEN_VALID:
-            {
+            case ITokenValidator.TOKEN_VALID: {
                 mState.postValue(ITokenViewModel.STATE_COMPLETE);
                 break;
             }
-            case  ITokenValidator.TOKEN_INVALID:
-            {
+            case ITokenValidator.TOKEN_INVALID: {
                 mState.postValue(ITokenViewModel.STATE_AUTH);
                 break;
             }
-            case  ITokenValidator.TOKEN_VALIDATION_ERROR:
-            {
+            case ITokenValidator.TOKEN_VALIDATION_ERROR: {
                 mState.postValue(ITokenViewModel.STATE_AUTH_INTERACTIVE);
                 break;
             }
-            case  ITokenValidator.TOKEN_CREATION_ERROR:
-            {
+            case ITokenValidator.TOKEN_CREATION_ERROR: {
                 mState.postValue(ITokenViewModel.STATE_AUTH);
                 break;
             }
 
             default: {
-                mState.postValue(ITokenViewModel.STATE_SPLASH );
+                mState.postValue(ITokenViewModel.STATE_SPLASH);
                 break;
             }
         }
@@ -52,7 +46,6 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
 
     public TokenViewModel(ITokenValidator TokenValidator) {
         mTokenValidator = TokenValidator;
-
         mTokenValidator.getTokenState().observeForever(mStateObserver);
     }
 
@@ -68,8 +61,8 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     }
 
     @Override
-    public void createToken(String code, String clientId, String clientSecret) {
-        mTokenValidator.createToken(code, clientId, clientSecret);
+    public void createToken(String code) {
+        mTokenValidator.createToken(code);
     }
 
     @Override
@@ -78,8 +71,13 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     }
 
     @Override
-    public void startNewAuth() {
+    public void startNewAuth(String token) {
         mState.postValue(ITokenViewModel.STATE_SPLASH);
-        mTokenValidator.obtainToken();
+        if (token.isEmpty()) {
+            mTokenValidator.obtainToken();
+        }
+        else {
+            mTokenValidator.validateToken(token);
+        }
     }
 }

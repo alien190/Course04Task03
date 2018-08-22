@@ -12,27 +12,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
-
 public class TokenValidatorImpl implements ITokenValidator {
-
     private String mToken = "";
     private MutableLiveData<Integer> mTokenState = new MutableLiveData<>();
-
     private IGHRepository mIGHRepository;
-
     private Lock mTokenLock = new ReentrantLock();
 
 
     public TokenValidatorImpl(IGHRepository ghRepository) {
-
         this.mIGHRepository = ghRepository;
-
-        mTokenState.postValue(ITokenValidator.TOKEN_IN_PROGRESS);
-
-        obtainToken();
     }
 
     public void obtainToken() {
+        mTokenState.postValue(ITokenValidator.TOKEN_IN_PROGRESS);
         mTokenState.postValue(TOKEN_EMPTY);
     }
 
@@ -50,9 +42,8 @@ public class TokenValidatorImpl implements ITokenValidator {
     @Override
     public void validateToken(String token) {
         try {
-
+            mTokenState.postValue(ITokenValidator.TOKEN_IN_PROGRESS);
             mToken = token;
-
             Disposable disposable = mIGHRepository.validateToken(token)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(isTokenValid -> {
@@ -72,8 +63,8 @@ public class TokenValidatorImpl implements ITokenValidator {
     }
 
     @Override
-    public void createToken(String code, String clientId, String clientSecret) {
-        Disposable disposable = mIGHRepository.createToken(code, clientId, clientSecret)
+    public void createToken(String code) {
+        Disposable disposable = mIGHRepository.createToken(code)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(token -> {
                             mToken = token;
@@ -84,6 +75,5 @@ public class TokenValidatorImpl implements ITokenValidator {
                             mTokenState.postValue(ITokenValidator.TOKEN_CREATION_ERROR);
                             Timber.e(throwable);
                         });
-
     }
 }

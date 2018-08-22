@@ -17,16 +17,13 @@ import com.example.oauth2.R;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import toothpick.Scope;
 import toothpick.Toothpick;
 
 public class TokenFragment extends Fragment {
 
-    @BindView(R.id.webView)
+
     protected WebView mWebView;
-    @BindView(R.id.splash)
     protected TextView mSplash;
 
     //todo сделать генератор
@@ -38,10 +35,20 @@ public class TokenFragment extends Fragment {
     @Inject
     CustomWebViewClient mCustomWebViewClient;
 
-    public static TokenFragment newInstance() {
+    private static final String TOKEN_KEY = "TokenKey";
+    private static final String PARENT_SCOPE_NAME_KEY = "ParentScopeNameKey";
+    private String mParentScopeName;
+    private String mToken;
+
+    public static TokenFragment newInstance(String token, String parentScopeName) throws Throwable {
+
+        if (parentScopeName.isEmpty()) {
+            throw new Throwable("parentScopeName cant be empty");
+        }
 
         Bundle args = new Bundle();
-
+        args.putString(TOKEN_KEY, token);
+        args.putString(PARENT_SCOPE_NAME_KEY, parentScopeName);
         TokenFragment fragment = new TokenFragment();
         fragment.setArguments(args);
         return fragment;
@@ -52,11 +59,17 @@ public class TokenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_token, container, false);
-        ButterKnife.bind(this, view);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
+            mToken = args.getString(TOKEN_KEY, "");
+        }
+
         toothpickInject();
-        initCustomWebViewClient();
-        initWebView();
+
         mViewModel.getState().observe(this, this::onChangeState);
+        mViewModel.createToken(mToken);
         return view;
     }
 
@@ -64,7 +77,7 @@ public class TokenFragment extends Fragment {
         mCustomWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
         mCustomWebViewClient.setOnAuthCallback((code, state) -> {
             if (state.equals(STATE)) {
-                mViewModel.createToken(code, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
+                mViewModel.createToken(code);
             } else {
                 //todo реализовать обработку ошибки
             }
@@ -112,6 +125,9 @@ public class TokenFragment extends Fragment {
     }
 
     private void startAuth() {
+        initCustomWebViewClient();
+        initWebView();
+
         mWebView.loadUrl(BuildConfig.AUTH_URL +
                 BuildConfig.AUTH_PATH +
                 "?scopes=" + BuildConfig.AUTH_SCOPES +
@@ -120,8 +136,13 @@ public class TokenFragment extends Fragment {
                 "&scope=" + BuildConfig.AUTH_SCOPES);
     }
 
-    private void toothpickInject(){
-        Scope scope = Toothpick.openScopes("Application", "Token");
+    private void toothpickInject() {
+        Scope scope = Toothpick.openScopes(mParentScopeName, "Token");
         Toothpick.inject(this, scope);
+    }
+
+    private void initUI(View view) {
+        mWebView = view.findViewById(R.id.webView);
+        mSplash = view.findViewById(R.id.splash);
     }
 }
