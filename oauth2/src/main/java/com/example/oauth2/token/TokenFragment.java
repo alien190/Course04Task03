@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.oauth2.BuildConfig;
 import com.example.oauth2.R;
-import com.example.oauth2.di.TokenActivityModule;
+import com.example.oauth2.di.TokenModule;
 
 import javax.inject.Inject;
 
@@ -23,9 +23,9 @@ import toothpick.Toothpick;
 
 public class TokenFragment extends Fragment {
 
-
-    protected WebView mWebView;
-    protected TextView mSplash;
+    private WebView mWebView;
+    private TextView mSplash;
+    private View view;
 
     //todo сделать генератор
     private static final String STATE = "Ece<WIX\":6WQ!Du";
@@ -52,6 +52,7 @@ public class TokenFragment extends Fragment {
         args.putString(PARENT_SCOPE_NAME_KEY, parentScopeName);
         TokenFragment fragment = new TokenFragment();
         fragment.setArguments(args);
+        fragment.setRetainInstance(true);
         return fragment;
     }
 
@@ -59,18 +60,18 @@ public class TokenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fr_token, container, false);
-
-        Bundle args = getArguments();
-        if (args != null) {
-            mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
-            mToken = args.getString(TOKEN_KEY, "");
+        if (view == null) {
+            view = inflater.inflate(R.layout.fr_token, container, false);
+            initUI(view);
+            Bundle args = getArguments();
+            if (args != null) {
+                mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
+                mToken = args.getString(TOKEN_KEY, "");
+            }
+            toothpickInject();
+            mViewModel.getState().observe(this, this::onChangeState);
+            mViewModel.validateToken(mToken);
         }
-
-        toothpickInject();
-
-        mViewModel.getState().observe(this, this::onChangeState);
-        mViewModel.createToken(mToken);
         return view;
     }
 
@@ -78,7 +79,7 @@ public class TokenFragment extends Fragment {
         mCustomWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
         mCustomWebViewClient.setOnAuthCallback((code, state) -> {
             if (state.equals(STATE)) {
-                mViewModel.createToken(code);
+                mViewModel.validateToken(code);
             } else {
                 //todo реализовать обработку ошибки
             }
@@ -139,12 +140,18 @@ public class TokenFragment extends Fragment {
 
     private void toothpickInject() {
         Scope scope = Toothpick.openScopes(mParentScopeName, "Token");
-        scope.installModules(new TokenActivityModule(this));
+        scope.installModules(new TokenModule(this));
         Toothpick.inject(this, scope);
     }
 
     private void initUI(View view) {
         mWebView = view.findViewById(R.id.webView);
         mSplash = view.findViewById(R.id.splash);
+    }
+
+    @Override
+    public void onDestroy() {
+        Toothpick.closeScope("Token");
+        super.onDestroy();
     }
 }

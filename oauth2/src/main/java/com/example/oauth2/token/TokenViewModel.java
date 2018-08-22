@@ -61,7 +61,7 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     }
 
     @Override
-    public void createToken(String code) {
+    public void validateToken(String code) {
         mTokenValidator.createToken(code);
     }
 

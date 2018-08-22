@@ -8,10 +8,10 @@ import com.example.oauth2.token.TokenViewModelFactory;
 
 import toothpick.config.Module;
 
-public class TokenActivityModule extends Module {
+public class TokenModule extends Module {
     private Fragment mFragment;
 
-    public TokenActivityModule(Fragment fragment) {
+    public TokenModule(Fragment fragment) {
         this.mFragment = fragment;
         bind(Fragment.class).toInstance(mFragment);
         bind(ITokenViewModel.class).toProvider(TokenViewModelProvider.class).providesSingletonInScope();
