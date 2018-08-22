@@ -14,6 +14,6 @@ public class TokenActivityModule extends Module {
 
         this.mScopeName = scopeName;
         this.mToken = token;
-        bind(TokenFragment.class).toInstance(TokenFragment.newInstance(mScopeName, mToken));
+        bind(TokenFragment.class).toInstance(TokenFragment.newInstance(mToken, mScopeName));
     }
 }
