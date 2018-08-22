@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.oauth2.BuildConfig;
 import com.example.oauth2.R;
+import com.example.oauth2.di.TokenActivityModule;
 
 import javax.inject.Inject;
 
@@ -138,6 +139,7 @@ public class TokenFragment extends Fragment {
 
     private void toothpickInject() {
         Scope scope = Toothpick.openScopes(mParentScopeName, "Token");
+        scope.installModules(new TokenActivityModule(this));
         Toothpick.inject(this, scope);
     }
 

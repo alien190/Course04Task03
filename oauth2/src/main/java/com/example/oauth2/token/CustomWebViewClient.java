@@ -11,7 +11,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-class CustomWebViewClient extends WebViewClient {
+public class CustomWebViewClient extends WebViewClient {
 
     private IOnAuthCallback mOnAuthCallback;
     private IOnNeedShowCallback mOnNeedShowCallback;
