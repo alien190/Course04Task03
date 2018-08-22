@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.ui.gHR.GhrViewModel;
 import com.example.alien.course04task03.ui.gHR.GhrViewModelFactory;
-import com.example.alien.course04task03.ui.token.TokenViewModel;
-import com.example.alien.course04task03.ui.token.TokenViewModelFactory;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

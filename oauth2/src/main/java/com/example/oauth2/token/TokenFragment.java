@@ -41,11 +41,11 @@ public class TokenFragment extends Fragment {
     private String mParentScopeName;
     private String mToken;
 
-    public static TokenFragment newInstance(String token, String parentScopeName) throws Throwable {
+    public static TokenFragment newInstance(String token, String parentScopeName) {
 
-        if (parentScopeName.isEmpty()) {
-            throw new Throwable("parentScopeName cant be empty");
-        }
+//        if (parentScopeName.isEmpty()) {
+//            throw new Throwable("parentScopeName cant be empty");
+//        }
 
         Bundle args = new Bundle();
         args.putString(TOKEN_KEY, token);
@@ -70,7 +70,7 @@ public class TokenFragment extends Fragment {
             }
             toothpickInject();
             mViewModel.getState().observe(this, this::onChangeState);
-            mViewModel.validateToken(mToken);
+            mViewModel.startNewAuth(mToken);
         }
         return view;
     }
@@ -79,7 +79,7 @@ public class TokenFragment extends Fragment {
         mCustomWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
         mCustomWebViewClient.setOnAuthCallback((code, state) -> {
             if (state.equals(STATE)) {
-                mViewModel.validateToken(code);
+                mViewModel.createToken(code);
             } else {
                 //todo реализовать обработку ошибки
             }

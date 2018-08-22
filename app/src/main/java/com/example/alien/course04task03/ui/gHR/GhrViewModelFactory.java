@@ -2,14 +2,10 @@ package com.example.alien.course04task03.ui.gHR;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
-import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
-import com.example.alien.course04task03.repository.tokenValidator.ITokenValidator;
-import com.example.alien.course04task03.ui.token.TokenViewModel;
 
 import javax.inject.Inject;
 

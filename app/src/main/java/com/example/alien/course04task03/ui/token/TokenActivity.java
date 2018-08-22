@@ -9,6 +9,7 @@ import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
 import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
 import com.example.alien.course04task03.ui.gHR.GhrActivity;
+import com.example.oauth2.token.TokenFragment;
 
 import javax.inject.Inject;
 
@@ -20,8 +21,6 @@ public class TokenActivity extends SingleFragmentActivity {
 
     private static final String START_NEW_AUTH_KEY = "StartNewAuthKey";
 
-    @Inject
-    protected ITokenViewModel mViewModel;
 
     @Inject
     protected TokenFragment mTokenFragment;
@@ -30,11 +29,11 @@ public class TokenActivity extends SingleFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getIntent().getBooleanExtra(START_NEW_AUTH_KEY, false)) {
-            mViewModel.startNewAuth();
-        }
-
-        mViewModel.getState().observe(this, this::changeUiState);
+//        if(getIntent().getBooleanExtra(START_NEW_AUTH_KEY, false)) {
+//            mViewModel.startNewAuth();
+//        }
+//
+//        mViewModel.getState().observe(this, this::changeUiState);
     }
 
 
@@ -45,23 +44,23 @@ public class TokenActivity extends SingleFragmentActivity {
 
     @Override
     protected void toothpickInject() {
-        Scope scope = Toothpick.openScopes("Application", "Token");
-        scope.installModules(new TokenActivityModule(this));
+        Scope scope = Toothpick.openScopes("Application", getClass().getSimpleName());
+        scope.installModules(new TokenActivityModule(getClass().getSimpleName(), ""));
         Toothpick.inject(this, scope);
     }
 
     @Override
     protected void toothpickCloseScope() {
-        Toothpick.closeScope("Token");
+        Toothpick.closeScope(getClass().getSimpleName());
     }
 
 
     private void changeUiState(int viewModelSate) {
-        if (viewModelSate == ITokenViewModel.STATE_COMPLETE) {
-            GhrActivity.startActivity(this);
-            finish();
-        }
-        Timber.d("ViewModel state change: %d", viewModelSate);
+//        if (viewModelSate == ITokenViewModel.STATE_COMPLETE) {
+//            GhrActivity.startActivity(this);
+//            finish();
+//        }
+//        Timber.d("ViewModel state change: %d", viewModelSate);
     }
 
     public static void startActivity(Context context) {
