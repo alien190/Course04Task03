@@ -10,6 +10,7 @@ import com.example.oauth2.repository.tokenValidator.ITokenValidator;
 public class TokenViewModel extends ViewModel implements ITokenViewModel {
     private MutableLiveData<Integer> mState = new MutableLiveData<>();
     private ITokenValidator mTokenValidator;
+    private MutableLiveData<String> mToken = new MutableLiveData<>();
     private Observer<Integer> mStateObserver = state -> {
         switch (state) {
             case ITokenValidator.TOKEN_IN_PROGRESS: {
@@ -21,6 +22,7 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
                 break;
             }
             case ITokenValidator.TOKEN_VALID: {
+                mToken.postValue(mTokenValidator.getToken());
                 mState.postValue(ITokenViewModel.STATE_COMPLETE);
                 break;
             }
@@ -73,11 +75,16 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
     @Override
     public void startNewAuth(String token) {
         mState.postValue(ITokenViewModel.STATE_SPLASH);
+        mToken.postValue("");
         if (token.isEmpty()) {
             mTokenValidator.obtainToken();
         }
         else {
             mTokenValidator.validateToken(token);
         }
+    }
+
+    public MutableLiveData<String> getToken() {
+        return mToken;
     }
 }

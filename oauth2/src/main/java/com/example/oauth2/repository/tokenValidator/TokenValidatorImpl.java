@@ -24,7 +24,6 @@ public class TokenValidatorImpl implements ITokenValidator {
     }
 
     public void obtainToken() {
-        mTokenState.postValue(ITokenValidator.TOKEN_IN_PROGRESS);
         mTokenState.postValue(TOKEN_EMPTY);
     }
 

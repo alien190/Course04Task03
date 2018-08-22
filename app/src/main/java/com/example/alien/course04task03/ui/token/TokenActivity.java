@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
-import com.example.alien.course04task03.model.Token;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
 import com.example.alien.course04task03.ui.gHR.GhrActivity;
 import com.example.oauth2.token.TokenFragment;
@@ -28,14 +27,13 @@ public class TokenActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        if(getIntent().getBooleanExtra(START_NEW_AUTH_KEY, false)) {
-//            mViewModel.startNewAuth();
-//        }
-//
-//        mViewModel.getState().observe(this, this::changeUiState);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTokenFragment.getToken().observe(this, this::tokenObserver);
+    }
 
     @Override
     protected Fragment getFragment() {
@@ -55,12 +53,12 @@ public class TokenActivity extends SingleFragmentActivity {
     }
 
 
-    private void changeUiState(int viewModelSate) {
-//        if (viewModelSate == ITokenViewModel.STATE_COMPLETE) {
-//            GhrActivity.startActivity(this);
-//            finish();
-//        }
-//        Timber.d("ViewModel state change: %d", viewModelSate);
+    private void tokenObserver(String token) {
+        if (token!=null && !token.isEmpty()) {
+            GhrActivity.startActivity(this);
+            finish();
+        }
+        Timber.d("tokenObserver.token: %s", token);
     }
 
     public static void startActivity(Context context) {

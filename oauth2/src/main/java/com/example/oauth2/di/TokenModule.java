@@ -25,7 +25,7 @@ public class TokenModule extends Module {
     private final HeaderInterceptor mHeaderInterceptor = new HeaderInterceptor();
     private final OkHttpClient mOkHttpClient = provideClient();
     private final Gson mGson = provideGson();
-    private final Retrofit mAuthRetrofit = provideRetrofit(BuildConfig.AUTH_URL);
+    private final Retrofit mAuthRetrofit = provideRetrofit(BuildConfig.BASE_URL);
 
 
     public TokenModule(Fragment fragment) {

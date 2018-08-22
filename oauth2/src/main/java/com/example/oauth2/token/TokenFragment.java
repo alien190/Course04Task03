@@ -1,5 +1,6 @@
 package com.example.oauth2.token;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -130,12 +131,7 @@ public class TokenFragment extends Fragment {
         initCustomWebViewClient();
         initWebView();
 
-        mWebView.loadUrl(BuildConfig.AUTH_URL +
-                BuildConfig.AUTH_PATH +
-                "?scopes=" + BuildConfig.AUTH_SCOPES +
-                "&client_id=" + BuildConfig.CLIENT_ID +
-                "&state=" + STATE +
-                "&scope=" + BuildConfig.AUTH_SCOPES);
+        mWebView.loadUrl(BuildConfig.GET_CODE_URL + "&state=" + STATE);
     }
 
     private void toothpickInject() {
@@ -153,5 +149,9 @@ public class TokenFragment extends Fragment {
     public void onDestroy() {
         Toothpick.closeScope("Token");
         super.onDestroy();
+    }
+
+    public MutableLiveData<String> getToken() {
+        return mViewModel.getToken();
     }
 }
