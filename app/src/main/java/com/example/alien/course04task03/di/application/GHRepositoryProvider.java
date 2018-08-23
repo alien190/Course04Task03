@@ -10,18 +10,14 @@ import javax.inject.Provider;
 class GHRepositoryProvider implements Provider<IGHRepository> {
 
     private IGitHubApi mIGitHubApi;
-    private IAuthApi mIAuthApi;
-    private IAuthInterceptor mIAuthInterceptor;
 
     @Inject
-    public GHRepositoryProvider(IGitHubApi iGitHubApi, IAuthApi iAuthApi, IAuthInterceptor iAuthInterceptor) {
+    public GHRepositoryProvider(IGitHubApi iGitHubApi) {
         this.mIGitHubApi = iGitHubApi;
-        this.mIAuthApi = iAuthApi;
-        this.mIAuthInterceptor = iAuthInterceptor;
     }
 
     @Override
     public IGHRepository get() {
-        return new GHRepositoryImpl(mIGitHubApi, mIAuthApi, mIAuthInterceptor);
+        return new GHRepositoryImpl(mIGitHubApi);
     }
 }

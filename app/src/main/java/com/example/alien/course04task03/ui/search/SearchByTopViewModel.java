@@ -35,6 +35,6 @@ public class SearchByTopViewModel extends BaseViewModel {
         } catch (Throwable t) {
             Timber.d(t);
         }
-        mFilmList.postValue(mRepository.getTopFilms(count));
+        mRepoList.postValue(mRepository.getTopRepoSimples(count));
     }
 }

@@ -1,7 +1,7 @@
 package com.example.alien.course04task03.ui.filmList;
 
 import com.example.alien.course04task03.data.IRepoRepository;
-import com.example.alien.course04task03.data.model.Film;
+import com.example.alien.course04task03.data.model.RepoSimple;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 import com.google.gson.Gson;
 
@@ -16,7 +16,7 @@ public class ListAllViewModel extends BaseViewModel {
 
     @Override
     protected void updateFromRepository() {
-        List<Film> films = mRepository.getAll();
-        mFilmList.postValue(films);
+        List<RepoSimple> repos = mRepository.getAll();
+        mRepoList.postValue(repos);
     }
 }

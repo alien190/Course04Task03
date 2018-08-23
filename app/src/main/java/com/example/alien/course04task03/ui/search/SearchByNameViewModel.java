@@ -26,6 +26,6 @@ public class SearchByNameViewModel extends BaseViewModel {
 
     @Override
     protected void updateFromRepository() {
-        mFilmList.postValue(mRepository.search(mSearchByNameQuery.getValue()));
+        mRepoList.postValue(mRepository.search(mSearchByNameQuery.getValue()));
     }
 }

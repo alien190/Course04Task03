@@ -12,27 +12,9 @@ import io.reactivex.schedulers.Schedulers;
 public class GHRepositoryImpl implements IGHRepository {
 
     private IGitHubApi mIGitHubApi;
-    private IAuthApi mIAuthApi;
-    private IAuthInterceptor mIAuthInterceptor;
 
-    public GHRepositoryImpl(IGitHubApi iGitHubApi, IAuthApi iAuthApi, IAuthInterceptor iAuthInterceptor) {
+    public GHRepositoryImpl(IGitHubApi iGitHubApi) {
         mIGitHubApi = iGitHubApi;
-        mIAuthApi = iAuthApi;
-        mIAuthInterceptor = iAuthInterceptor;
-    }
-
-    @Override
-    public Single<Boolean> validateToken(String token) {
-        return mIGitHubApi.getUser(token)
-                .subscribeOn(Schedulers.io())
-                .map(user -> true);
-    }
-
-    @Override
-    public Single<String> createToken(String code, String clientId, String clientSecret) {
-        return mIAuthApi.getToken(code, clientId, clientSecret)
-                .subscribeOn(Schedulers.io())
-                .map(Token::getAccessToken);
     }
 
     @Override
@@ -45,11 +27,6 @@ public class GHRepositoryImpl implements IGHRepository {
     public Single<RepoResponse> createRepo(String token, RepoRequest repoRequest) {
         return mIGitHubApi.createRepo( repoRequest)
                 .subscribeOn(Schedulers.io());
-    }
-
-    @Override
-    public void setAuthHeaderToken(String token) {
-        mIAuthInterceptor.setToken(token);
     }
 
     @Override

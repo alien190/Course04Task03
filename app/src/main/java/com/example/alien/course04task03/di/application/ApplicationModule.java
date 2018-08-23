@@ -36,11 +36,9 @@ public class ApplicationModule extends Module {
 //        bind(Gson.class).toInstance(mGson);
 //        bind(Retrofit.class).toInstance(mGitHubRetrofit);
         bind(IGitHubApi.class).toProviderInstance(this::provideGitHubApiService).providesSingletonInScope();
-        bind(IAuthApi.class).toProviderInstance(this::provideAuthApiService).providesSingletonInScope();
         bind(IGHRepository.class).toProvider(GHRepositoryProvider.class).providesSingletonInScope();
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
         bind(ITokenStorage.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
-        bind(IAuthInterceptor.class).toInstance(mHeaderInterceptor);
     }
 
     OkHttpClient provideClient() {
@@ -74,7 +72,4 @@ public class ApplicationModule extends Module {
         return mGitHubRetrofit.create(IGitHubApi.class);
     }
 
-    IAuthApi provideAuthApiService() {
-        return mAuthRetrofit.create(IAuthApi.class);
-    }
 }

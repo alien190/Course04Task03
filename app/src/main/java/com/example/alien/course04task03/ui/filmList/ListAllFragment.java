@@ -30,7 +30,7 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
     LinearLayout mErrorLayout;
 
     @Inject
-    protected FilmListAdapter mAdapter;
+    protected RepoSimpleListAdapter mAdapter;
 
     @Inject
     protected BaseViewModel mViewModel;
@@ -64,11 +64,11 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
 
         //mRealmAdapter = new FilmListRealmAdapter(this);
 
-        //mRealmAdapter.updateData((OrderedRealmCollection<Film>) mViewModel.getFilmList().getValue());
+        //mRealmAdapter.updateData((OrderedRealmCollection<Film>) mViewModel.getRepoList().getValue());
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mViewModel.getFilmList().observe(this, list -> mAdapter.submitList(list));
+        mViewModel.getRepoList().observe(this, list -> mAdapter.submitList(list));
 
         mViewModel.getIsEmpty().observe(this, isEmpty -> {
             if (isEmpty != null && !isEmpty) {

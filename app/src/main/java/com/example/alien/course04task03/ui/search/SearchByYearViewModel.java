@@ -62,6 +62,6 @@ public class SearchByYearViewModel extends BaseViewModel {
     @Override
     protected void updateFromRepository() {
         Pair<Integer, Integer> parseResult = parseYearQuery();
-        mFilmList.postValue(mRepository.searchInBounds(parseResult.first, parseResult.second));
+        mRepoList.postValue(mRepository.searchInBounds(parseResult.first, parseResult.second));
     }
 }

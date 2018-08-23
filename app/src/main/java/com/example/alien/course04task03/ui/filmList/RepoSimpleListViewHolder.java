@@ -7,13 +7,13 @@ import android.widget.TextView;
 
 
 import com.example.alien.course04task03.R;
-import com.example.alien.course04task03.data.model.Film;
+import com.example.alien.course04task03.data.model.RepoSimple;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FilmListViewHolder extends RecyclerView.ViewHolder {
+public class RepoSimpleListViewHolder extends RecyclerView.ViewHolder {
     private View view;
     private long mId;
 
@@ -27,18 +27,18 @@ public class FilmListViewHolder extends RecyclerView.ViewHolder {
     TextView mTvRate;
 
 
-    public FilmListViewHolder(@NonNull View itemView) {
+    public RepoSimpleListViewHolder(@NonNull View itemView) {
         super(itemView);
         view = itemView;
         ButterKnife.bind(this, view);
     }
 
-    public void bind(Film film) {
-        mTvName.setText(film.getName());
-        mTvDirector.setText(film.getDirector());
-        mTvYear.setText(String.valueOf(film.getYear()));
+    public void bind(RepoSimple repoSimple) {
+        mTvName.setText(repoSimple.getName());
+        //mTvDirector.setText(repoSimple.getDirector());
+        //mTvYear.setText(String.valueOf(repoSimple.getYear()));
         //mTvRate.setText(StringUtils.rateToString(film.getRating()));
-        mId = film.getId();
+        mId = repoSimple.getId();
     }
 
     public void setOnItemClickListener(final IOnItemClickListener listener) {

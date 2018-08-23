@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.data.IRepoRepository;
-import com.example.alien.course04task03.data.model.Film;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 import com.google.gson.Gson;
 
@@ -16,14 +15,14 @@ public class FilmDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> mDirector = new MutableLiveData<>();
     private MutableLiveData<String> mRating = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsSaved = new MutableLiveData<>();
-    private Long mFilmId;
+    private Long mRepoId;
     private int mTitleId;
 
-    public FilmDetailViewModel(IRepoRepository repository, Gson gson, Long filmId) {
+    public FilmDetailViewModel(IRepoRepository repository, Gson gson, Long repoId) {
         super(repository, gson);
         mIsSaved.postValue(false);
-        mFilmId = filmId;
-        if (mFilmId >= 0) {
+        mRepoId = repoId;
+        if (mRepoId >= 0) {
             loadFilm();
             mTitleId = R.string.dialog_title_edit_film;
         } else {
@@ -32,11 +31,11 @@ public class FilmDetailViewModel extends BaseViewModel {
     }
 
     private void loadFilm() {
-        Film film = mRepository.getItem(mFilmId);
-        mName.postValue(film.getName());
-        mDirector.postValue(film.getDirector());
-        mYear.postValue(String.valueOf(film.getYear()));
-        mRating.postValue(String.valueOf(film.getRating()));
+//        Film film = mRepository.getItem(mRepoId);
+//        mName.postValue(film.getName());
+//        mDirector.postValue(film.getDirector());
+//        mYear.postValue(String.valueOf(film.getYear()));
+//        mRating.postValue(String.valueOf(film.getRating()));
     }
 
     public MutableLiveData<String> getName() {
@@ -70,10 +69,10 @@ public class FilmDetailViewModel extends BaseViewModel {
         } catch (Throwable t) {
             Timber.d(t);
         }
-        if (mFilmId < 0) {
-            mRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
+        if (mRepoId < 0) {
+          //  mRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
         } else {
-            mRepository.createFilmAndUpdate(mFilmId, name, director, yearInt, ratingDbl);
+          //  mRepository.createFilmAndUpdate(mRepoId, name, director, yearInt, ratingDbl);
         }
         mIsSaved.postValue(true);
     }

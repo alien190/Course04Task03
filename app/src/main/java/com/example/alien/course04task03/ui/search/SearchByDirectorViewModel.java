@@ -27,6 +27,6 @@ public class SearchByDirectorViewModel extends BaseViewModel {
 
     @Override
     protected void updateFromRepository() {
-        mFilmList.postValue(mRepository.searchByDirector(mSearchByDirectorQuery.getValue()));
+        mRepoList.postValue(mRepository.searchByDirector(mSearchByDirectorQuery.getValue()));
     }
 }
