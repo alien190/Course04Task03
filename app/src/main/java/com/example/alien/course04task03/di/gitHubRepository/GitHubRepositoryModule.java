@@ -2,6 +2,7 @@ package com.example.alien.course04task03.di.gitHubRepository;
 
 import android.content.Context;
 
+import com.example.alien.course04task03.api.HeaderInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
@@ -18,6 +19,7 @@ public class GitHubRepositoryModule extends Module {
         mContext = context;
 
         bind(Context.class).toInstance(mContext);
+        bind(HeaderInterceptor.class).toProvider(HeaderInterceptorProvider.class).providesSingletonInScope();
         bind(IGitHubApi.class).toProvider(GitHubApiProvider.class).providesSingletonInScope();
         bind(IGitHubDao.class).toProvider(GitHubDaoProvider.class).providesSingletonInScope();
         bind(IGitHubRepository.class).withName("REMOTE").toProvider(GitHubRepositoryRemoteProvider.class).providesSingletonInScope();

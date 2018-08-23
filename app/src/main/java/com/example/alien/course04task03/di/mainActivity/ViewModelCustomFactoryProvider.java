@@ -13,7 +13,7 @@ public class ViewModelCustomFactoryProvider implements Provider<ViewModelCustomF
     protected IGitHubRepository mRepository;
 
     @Inject
-    public ViewModelCustomFactoryProvider(@Named("LOCAL") IGitHubRepository mRepository) {
+    public ViewModelCustomFactoryProvider(@Named("REMOTE") IGitHubRepository mRepository) {
         this.mRepository = mRepository;
     }
 

@@ -18,7 +18,7 @@ public interface IGitHubRepository {
 
     boolean deleteItem(long id);
 
-    List<Repo> getAll();
+    Single<List<Repo>> getAll();
 
     List<Repo> search(String query);
 

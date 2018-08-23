@@ -1,9 +1,12 @@
 package com.example.alien.course04task03.api;
 
 
+import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.RepoRequest;
 import com.example.alien.course04task03.data.model.RepoResponse;
 import com.example.alien.course04task03.data.model.User;
+
+import java.util.List;
 
 import io.reactivex.Single;
 import retrofit2.http.Body;
@@ -20,4 +23,7 @@ public interface IGitHubApi {
 
     @POST("/user/repos")
     Single<RepoResponse> createRepo(@Body RepoRequest repoRequest);
+
+    @GET("/user/repos")
+    Single<List<Repo>> getRepos();
 }

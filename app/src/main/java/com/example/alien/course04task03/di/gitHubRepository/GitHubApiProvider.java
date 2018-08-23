@@ -15,14 +15,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GitHubApiProvider implements Provider<IGitHubApi> {
-    private HeaderInterceptor mHeaderInterceptor;
-    private final OkHttpClient mOkHttpClient = provideClient();
     private final Gson mGson = provideGson();
-    private final Retrofit mGitHubRetrofit = provideRetrofit(BuildConfig.API_URL);
+    private HeaderInterceptor mHeaderInterceptor;
+    private OkHttpClient mOkHttpClient;
+    private Retrofit mGitHubRetrofit;
 
     @Inject
     public GitHubApiProvider(HeaderInterceptor headerInterceptor) {
         this.mHeaderInterceptor = headerInterceptor;
+        this.mOkHttpClient = provideClient();
+        this.mGitHubRetrofit = provideRetrofit(BuildConfig.API_URL);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public List<Repo> getAll() {
+    public Single<List<Repo>> getAll() {
         return null;
     }
 
