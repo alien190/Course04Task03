@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.alien.course04task03.R;
-import com.example.alien.course04task03.di.mainActivity.FilmDetailDialogFragmentModule;
+import com.example.alien.course04task03.di.mainActivity.RepoDetailDialogFragmentModule;
 
 import javax.inject.Inject;
 
@@ -87,7 +87,7 @@ public class FilmDetailDialogFragment extends DialogFragment {
         }
 
         mScope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
-        mScope.installModules(new FilmDetailDialogFragmentModule(this, id));
+        mScope.installModules(new RepoDetailDialogFragmentModule(this, id));
         Toothpick.inject(this, mScope);
     }
 

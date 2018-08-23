@@ -8,10 +8,10 @@ import com.example.alien.course04task03.ui.filmList.IOnItemClickListener;
 
 import toothpick.config.Module;
 
-public class FilmListFragmentModule extends Module {
+public class RepoListFragmentModule extends Module {
     private Fragment mFragment;
 
-    public FilmListFragmentModule(Fragment fragment) {
+    public RepoListFragmentModule(Fragment fragment) {
         mFragment = fragment;
 
         if (mFragment instanceof IOnItemClickListener) {

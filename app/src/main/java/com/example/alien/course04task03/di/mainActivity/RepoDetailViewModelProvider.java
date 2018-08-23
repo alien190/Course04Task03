@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 
-class FilmDetailViewModelProvider implements Provider<FilmDetailViewModel> {
+class RepoDetailViewModelProvider implements Provider<FilmDetailViewModel> {
     @Inject
     protected DialogFragment mFragment;
     @Inject

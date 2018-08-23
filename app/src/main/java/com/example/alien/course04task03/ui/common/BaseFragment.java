@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.example.alien.course04task03.di.mainActivity.FilmListFragmentModule;
+import com.example.alien.course04task03.di.mainActivity.RepoListFragmentModule;
 import com.example.alien.course04task03.ui.main.MainActivity;
 
 import toothpick.Scope;
@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
 
         mScopeName = mParentScopeName + "." + this.getClass().getSimpleName();
         Scope scope = Toothpick.openScopes(mParentScopeName, mScopeName);
-        scope.installModules(new FilmListFragmentModule(this));
+        scope.installModules(new RepoListFragmentModule(this));
         Toothpick.inject(this, scope);
     }
 
