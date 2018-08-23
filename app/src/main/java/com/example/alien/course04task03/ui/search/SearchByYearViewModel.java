@@ -4,7 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
-import com.example.alien.course04task03.data.IFilmRepository;
+import com.example.alien.course04task03.data.IRepoRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 import com.google.gson.Gson;
 
@@ -16,7 +16,7 @@ public class SearchByYearViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByYearQuery = new MutableLiveData<>();
 
-    public SearchByYearViewModel(IFilmRepository repository, Gson gson) {
+    public SearchByYearViewModel(IRepoRepository repository, Gson gson) {
         super(repository, gson);
         updateFromRepository();
     }

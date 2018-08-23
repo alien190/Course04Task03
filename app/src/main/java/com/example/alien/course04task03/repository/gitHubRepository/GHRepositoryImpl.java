@@ -1,7 +1,5 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
-import com.example.alien.course04task03.api.IAuthApi;
-import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.data.model.RepoRequest;
 import com.example.alien.course04task03.data.model.RepoResponse;

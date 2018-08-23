@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.HeaderInterceptor;
-import com.example.alien.course04task03.api.IAuthApi;
-import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;

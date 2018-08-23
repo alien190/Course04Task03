@@ -1,6 +1,6 @@
 package com.example.alien.course04task03.di.mainActivity;
 
-import com.example.alien.course04task03.data.IFilmRepository;
+import com.example.alien.course04task03.data.IRepoRepository;
 import com.example.alien.course04task03.ui.filmDetail.FilmDetailViewModelCustomFactory;
 import com.google.gson.Gson;
 
@@ -10,12 +10,12 @@ import javax.inject.Provider;
 
 public class FilmDetailViewModelCustomFactoryProvider implements Provider<FilmDetailViewModelCustomFactory> {
 
-    protected IFilmRepository mRepository;
+    protected IRepoRepository mRepository;
     private Gson mGson;
     private Long mFilmId;
 
     @Inject
-    public FilmDetailViewModelCustomFactoryProvider(IFilmRepository mRepository, Gson gson, @Named("FilmId") Long filmId) {
+    public FilmDetailViewModelCustomFactoryProvider(IRepoRepository mRepository, Gson gson, @Named("FilmId") Long filmId) {
         this.mRepository = mRepository;
         this.mGson = gson;
         this.mFilmId = filmId;

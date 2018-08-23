@@ -3,7 +3,7 @@ package com.example.alien.course04task03.ui.common;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.alien.course04task03.data.IFilmRepository;
+import com.example.alien.course04task03.data.IRepoRepository;
 import com.example.alien.course04task03.data.model.Film;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,11 +20,11 @@ public abstract class BaseViewModel extends ViewModel {
   //  protected OrderedRealmCollection<Film> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
 
-    protected IFilmRepository mRepository;
+    protected IRepoRepository mRepository;
 
     private Gson mGson;
 
-    public BaseViewModel(IFilmRepository repository, Gson gson) {
+    public BaseViewModel(IRepoRepository repository, Gson gson) {
         this.mRepository = repository;
         this.mGson = gson;
 
@@ -71,7 +71,7 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onFilmDataBaseUpdate(IFilmRepository.IOnFilmDataBaseUpdate event)
+    public void onFilmDataBaseUpdate(IRepoRepository.IOnFilmDataBaseUpdate event)
     {
         updateFromRepository();
     }

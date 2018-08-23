@@ -1,7 +1,5 @@
 package com.example.alien.course04task03.di.application;
 
-import com.example.alien.course04task03.api.IAuthApi;
-import com.example.alien.course04task03.api.IAuthInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.GHRepositoryImpl;
 import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
