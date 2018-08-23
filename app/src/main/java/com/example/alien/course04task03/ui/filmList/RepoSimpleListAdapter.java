@@ -8,22 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.alien.course04task03.R;
-import com.example.alien.course04task03.data.model.RepoSimple;
+import com.example.alien.course04task03.data.model.Repo;
 
 
-public class RepoSimpleListAdapter extends ListAdapter<RepoSimple, RepoSimpleListViewHolder> {
+public class RepoSimpleListAdapter extends ListAdapter<Repo, RepoSimpleListViewHolder> {
 
     private IOnItemClickListener mOnItemClickListener;
 
-    private static DiffUtil.ItemCallback<RepoSimple> DIFF_CALLBACK = new DiffUtil.ItemCallback<RepoSimple>() {
+    private static DiffUtil.ItemCallback<Repo> DIFF_CALLBACK = new DiffUtil.ItemCallback<Repo>() {
         @Override
-        public boolean areItemsTheSame(@NonNull RepoSimple RepoSimple, @NonNull RepoSimple t1) {
-            return RepoSimple.getId() == t1.getId();
+        public boolean areItemsTheSame(@NonNull Repo Repo, @NonNull Repo t1) {
+            return Repo.getId() == t1.getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull RepoSimple RepoSimple, @NonNull RepoSimple t1) {
-            return RepoSimple.equals(t1);
+        public boolean areContentsTheSame(@NonNull Repo Repo, @NonNull Repo t1) {
+            return Repo.equals(t1);
         }
     };
 

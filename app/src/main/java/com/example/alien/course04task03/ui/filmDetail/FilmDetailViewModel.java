@@ -3,7 +3,7 @@ package com.example.alien.course04task03.ui.filmDetail;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
-import com.example.alien.course04task03.data.IRepoRepository;
+import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 import com.google.gson.Gson;
 
@@ -18,7 +18,7 @@ public class FilmDetailViewModel extends BaseViewModel {
     private Long mRepoId;
     private int mTitleId;
 
-    public FilmDetailViewModel(IRepoRepository repository, Gson gson, Long repoId) {
+    public FilmDetailViewModel(IGitHubRepository repository, Gson gson, Long repoId) {
         super(repository, gson);
         mIsSaved.postValue(false);
         mRepoId = repoId;

@@ -3,9 +3,8 @@ package com.example.alien.course04task03.ui.common;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.alien.course04task03.data.IRepoRepository;
-import com.example.alien.course04task03.data.model.RepoSimple;
-import com.example.alien.course04task03.data.model.RepoSimple;
+import com.example.alien.course04task03.data.model.Repo;
+import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -17,15 +16,15 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public abstract class BaseViewModel extends ViewModel {
-    protected MutableLiveData<List<RepoSimple>> mRepoList = new MutableLiveData<>();
-  //  protected OrderedRealmCollection<RepoSimple> data;
+    protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
+  //  protected OrderedRealmCollection<Repo> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
 
-    protected IRepoRepository mRepository;
+    protected IGitHubRepository mRepository;
 
     private Gson mGson;
 
-    public BaseViewModel(IRepoRepository repository, Gson gson) {
+    public BaseViewModel(IGitHubRepository repository, Gson gson) {
         this.mRepository = repository;
         this.mGson = gson;
 
@@ -36,13 +35,13 @@ public abstract class BaseViewModel extends ViewModel {
             mIsEmpty.postValue(list != null && list.isEmpty());
 
 //            if (list instanceof RealmResults) {
-//                RealmResults<RepoSimple> RepoSimpleRealmResults = (RealmResults<RepoSimple>) list;
+//                RealmResults<Repo> RepoSimpleRealmResults = (RealmResults<Repo>) list;
 //                RepoSimpleRealmResults.addChangeListener(RepoSimples -> mIsEmpty.postValue(RepoSimples.isEmpty()));
 //            }
         });
     }
 
-    public MutableLiveData<List<RepoSimple>> getRepoList() {
+    public MutableLiveData<List<Repo>> getRepoList() {
         return mRepoList;
     }
 
@@ -51,17 +50,17 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     public void generateData(String json) {
-        Type type = new TypeToken<List<RepoSimple>>() {
+        Type type = new TypeToken<List<Repo>>() {
         }.getType();
-        List<RepoSimple> RepoSimples = mGson.fromJson(json, type);
-        mRepository.insertItems(RepoSimples);
+        List<Repo> repos = mGson.fromJson(json, type);
+        mRepository.insertItems(repos);
     }
 
     public void deleteItem(long id) {
         mRepository.deleteItem(id);
     }
 
-//    public OrderedRealmCollection<RepoSimple> getData() {
+//    public OrderedRealmCollection<Repo> getData() {
 //        return data;
 //    }
 
@@ -72,7 +71,7 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRepoSimpleDataBaseUpdate(IRepoRepository.IOnRepoSimpleDataBaseUpdate event)
+    public void onRepoSimpleDataBaseUpdate(IGitHubRepository.IOnRepoDataBaseUpdate event)
     {
         updateFromRepository();
     }

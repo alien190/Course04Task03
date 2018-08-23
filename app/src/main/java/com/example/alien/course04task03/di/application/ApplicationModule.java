@@ -5,7 +5,7 @@ import android.content.Context;
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.HeaderInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
-import com.example.alien.course04task03.repository.gitHubRepository.IGHRepository;
+import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
 import com.example.oauth2.repository.tokenStorage.ITokenStorage;
 import com.google.gson.Gson;
@@ -36,7 +36,8 @@ public class ApplicationModule extends Module {
 //        bind(Gson.class).toInstance(mGson);
 //        bind(Retrofit.class).toInstance(mGitHubRetrofit);
         bind(IGitHubApi.class).toProviderInstance(this::provideGitHubApiService).providesSingletonInScope();
-        bind(IGHRepository.class).toProvider(GHRepositoryProvider.class).providesSingletonInScope();
+        bind(IGitHubRepository.class).withName("REMOTE").toProvider(GitHubRepositoryRemoteProvider.class).providesSingletonInScope();
+        bind(IGitHubRepository.class).withName("LOCAL").toProvider(GitHubRepositoryLocalProvider.class).providesSingletonInScope();
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
         bind(ITokenStorage.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
     }

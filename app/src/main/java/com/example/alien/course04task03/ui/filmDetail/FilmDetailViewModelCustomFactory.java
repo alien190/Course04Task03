@@ -4,15 +4,15 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.example.alien.course04task03.data.IRepoRepository;
+import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.google.gson.Gson;
 
 public class FilmDetailViewModelCustomFactory implements ViewModelProvider.Factory {
-    private IRepoRepository mRepository;
+    private IGitHubRepository mRepository;
     private Gson mGson;
     private Long mFilmId;
 
-    public FilmDetailViewModelCustomFactory(IRepoRepository repository, Gson gson, Long filmId) {
+    public FilmDetailViewModelCustomFactory(IGitHubRepository repository, Gson gson, Long filmId) {
 
         this.mRepository = repository;
         this.mGson = gson;

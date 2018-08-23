@@ -2,7 +2,7 @@ package com.example.alien.course04task03.di.mainActivity;
 
 import android.app.Application;
 
-import com.example.alien.course04task03.data.IRepoDao;
+import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.ui.common.ViewModelCustomFactory;
 import com.google.gson.Gson;
 
@@ -19,6 +19,6 @@ public class ApplicationModule extends Module{
         bind(Gson.class).toInstance(new Gson());
         bind(ViewModelCustomFactory.class).toProvider(ViewModelCustomFactoryProvider.class).providesSingletonInScope();
         bind(Application.class).toInstance(mApplication);
-        bind(IRepoDao.class).toProvider(RepoDaoProvider.class).providesSingletonInScope();
+        bind(IGitHubDao.class).toProvider(RepoDaoProvider.class).providesSingletonInScope();
     }
 }

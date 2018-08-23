@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.example.alien.course04task03.data.IRepoRepository;
+import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.filmList.ListAllViewModel;
 import com.example.alien.course04task03.ui.search.SearchByDirectorViewModel;
 import com.example.alien.course04task03.ui.search.SearchByNameViewModel;
@@ -13,10 +13,10 @@ import com.example.alien.course04task03.ui.search.SearchByYearViewModel;
 import com.google.gson.Gson;
 
 public class ViewModelCustomFactory implements ViewModelProvider.Factory {
-    private IRepoRepository mRepository;
+    private IGitHubRepository mRepository;
     private Gson mGson;
 
-    public ViewModelCustomFactory(IRepoRepository repository, Gson gson) {
+    public ViewModelCustomFactory(IGitHubRepository repository, Gson gson) {
 
         mRepository = repository;
         mGson = gson;

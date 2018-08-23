@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 @Entity
-public class RepoSimple {
+public class Repo {
 
     @SerializedName("id")
     @PrimaryKey
@@ -155,7 +155,7 @@ public class RepoSimple {
     @Override
     public String toString() {
         return
-                "RepoSimple{" +
+                "Repo{" +
                         "private = '" + jsonMemberPrivate + '\'' +
                         ",stargazers_count = '" + stargazersCount + '\'' +
                         ",pushed_at = '" + pushedAt + '\'' +
