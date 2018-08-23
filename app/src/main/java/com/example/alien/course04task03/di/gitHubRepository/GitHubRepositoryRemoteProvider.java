@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.di.application;
+package com.example.alien.course04task03.di.gitHubRepository;
 
 import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.repository.gitHubRepository.GitHubRepositoryRemoteImpl;

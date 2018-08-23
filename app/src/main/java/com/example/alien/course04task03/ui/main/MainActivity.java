@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.di.gitHubRepository.GitHubApiProvider;
+import com.example.alien.course04task03.di.gitHubRepository.GitHubRepositoryModule;
 import com.example.alien.course04task03.di.mainActivity.MainActivityModule;
 import com.example.alien.course04task03.di.mainActivity.SearchByDirectorActivityModule;
 import com.example.alien.course04task03.di.mainActivity.SearchByNameActivityModule;
@@ -124,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
         }
+
+        Scope appScope = Toothpick.openScope("Application");
+        appScope.installModules(new GitHubRepositoryModule(this));
 
         Scope scope = Toothpick.openScopes("Application", mScopeName);
         scope.installModules(module);
