@@ -11,18 +11,16 @@ import javax.inject.Provider;
 public class RepoDetailViewModelCustomFactoryProvider implements Provider<FilmDetailViewModelCustomFactory> {
 
     protected IGitHubRepository mRepository;
-    private Gson mGson;
     private Long mFilmId;
 
     @Inject
-    public RepoDetailViewModelCustomFactoryProvider(IGitHubRepository mRepository, Gson gson, @Named("FilmId") Long filmId) {
+    public RepoDetailViewModelCustomFactoryProvider(IGitHubRepository mRepository, @Named("FilmId") Long filmId) {
         this.mRepository = mRepository;
-        this.mGson = gson;
         this.mFilmId = filmId;
     }
 
     @Override
     public FilmDetailViewModelCustomFactory get() {
-        return new FilmDetailViewModelCustomFactory(mRepository, mGson, mFilmId);
+        return new FilmDetailViewModelCustomFactory(mRepository, mFilmId);
     }
 }

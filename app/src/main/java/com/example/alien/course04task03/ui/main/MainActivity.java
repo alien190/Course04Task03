@@ -26,6 +26,7 @@ import toothpick.config.Module;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int TYPE_LIST = 0;
     public static final int TYPE_SEARCH_BY_NAME = 1;
     public static final int TYPE_SEARCH_BY_DIRECTOR = 2;
     public static final int TYPE_SEARCH_BY_YEAR = 3;

@@ -9,20 +9,17 @@ import com.google.gson.Gson;
 
 public class FilmDetailViewModelCustomFactory implements ViewModelProvider.Factory {
     private IGitHubRepository mRepository;
-    private Gson mGson;
     private Long mFilmId;
 
-    public FilmDetailViewModelCustomFactory(IGitHubRepository repository, Gson gson, Long filmId) {
-
+    public FilmDetailViewModelCustomFactory(IGitHubRepository repository, Long filmId) {
         this.mRepository = repository;
-        this.mGson = gson;
         this.mFilmId = filmId;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new FilmDetailViewModel(mRepository, mGson, mFilmId);
+        return (T) new FilmDetailViewModel(mRepository, mFilmId);
 
     }
 }

@@ -10,8 +10,8 @@ public class SearchByNameViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByNameQuery = new MutableLiveData<>();
 
-    public SearchByNameViewModel(IGitHubRepository repository, Gson gson) {
-        super(repository, gson);
+    public SearchByNameViewModel(IGitHubRepository repository) {
+        super(repository);
         updateFromRepository();
     }
 

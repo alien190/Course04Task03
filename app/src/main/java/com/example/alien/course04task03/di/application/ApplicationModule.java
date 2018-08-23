@@ -5,8 +5,10 @@ import android.content.Context;
 import com.example.alien.course04task03.BuildConfig;
 import com.example.alien.course04task03.api.HeaderInterceptor;
 import com.example.alien.course04task03.api.IGitHubApi;
+import com.example.alien.course04task03.di.mainActivity.ViewModelCustomFactoryProvider;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.repository.sharedPref.ISharedPref;
+import com.example.alien.course04task03.ui.common.ViewModelCustomFactory;
 import com.example.oauth2.repository.tokenStorage.ITokenStorage;
 import com.google.gson.Gson;
 
@@ -28,6 +30,7 @@ public class ApplicationModule extends Module {
         bind(Context.class).toInstance(mContext);
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
         bind(ITokenStorage.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
+        bind(ViewModelCustomFactory.class).toProvider(ViewModelCustomFactoryProvider.class).providesSingletonInScope();
     }
 
 }

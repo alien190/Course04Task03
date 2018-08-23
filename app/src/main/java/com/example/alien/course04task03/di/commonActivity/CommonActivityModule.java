@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.di.mainActivity;
+package com.example.alien.course04task03.di.commonActivity;
 
 import android.support.v7.app.AppCompatActivity;
 

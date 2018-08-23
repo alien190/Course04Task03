@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ListAllViewModel extends BaseViewModel {
 
-    public ListAllViewModel(IGitHubRepository repository, Gson gson) {
-        super(repository, gson);
+    public ListAllViewModel(IGitHubRepository repository) {
+        super(repository);
         updateFromRepository();
     }
 

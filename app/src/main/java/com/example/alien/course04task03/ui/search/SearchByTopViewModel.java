@@ -12,8 +12,8 @@ public class SearchByTopViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByTopQuery = new MutableLiveData<>();
 
-    public SearchByTopViewModel(IGitHubRepository repository, Gson gson) {
-        super(repository, gson);
+    public SearchByTopViewModel(IGitHubRepository repository) {
+        super(repository);
         updateFromRepository();
     }
 

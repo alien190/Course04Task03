@@ -16,8 +16,8 @@ public class SearchByYearViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByYearQuery = new MutableLiveData<>();
 
-    public SearchByYearViewModel(IGitHubRepository repository, Gson gson) {
-        super(repository, gson);
+    public SearchByYearViewModel(IGitHubRepository repository) {
+        super(repository);
         updateFromRepository();
     }
 

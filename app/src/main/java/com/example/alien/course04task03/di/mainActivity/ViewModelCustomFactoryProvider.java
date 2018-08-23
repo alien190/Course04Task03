@@ -5,21 +5,20 @@ import com.example.alien.course04task03.ui.common.ViewModelCustomFactory;
 import com.google.gson.Gson;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
 
 public class ViewModelCustomFactoryProvider implements Provider<ViewModelCustomFactory> {
 
     protected IGitHubRepository mRepository;
-    private Gson mGson;
 
     @Inject
-    public ViewModelCustomFactoryProvider(IGitHubRepository mRepository, Gson gson) {
+    public ViewModelCustomFactoryProvider(@Named("LOCAL") IGitHubRepository mRepository) {
         this.mRepository = mRepository;
-        this.mGson = gson;
     }
 
     @Override
     public ViewModelCustomFactory get() {
-        return new ViewModelCustomFactory(mRepository, mGson);
+        return new ViewModelCustomFactory(mRepository);
     }
 }

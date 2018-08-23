@@ -4,6 +4,7 @@ package com.example.alien.course04task03.di.mainActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.di.commonActivity.CommonActivityModule;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
 

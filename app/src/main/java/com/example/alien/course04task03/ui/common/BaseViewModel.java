@@ -22,11 +22,9 @@ public abstract class BaseViewModel extends ViewModel {
 
     protected IGitHubRepository mRepository;
 
-    private Gson mGson;
 
-    public BaseViewModel(IGitHubRepository repository, Gson gson) {
+    public BaseViewModel(IGitHubRepository repository) {
         this.mRepository = repository;
-        this.mGson = gson;
 
         EventBus.getDefault().register(this);
 
@@ -50,10 +48,10 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     public void generateData(String json) {
-        Type type = new TypeToken<List<Repo>>() {
-        }.getType();
-        List<Repo> repos = mGson.fromJson(json, type);
-        mRepository.insertItems(repos);
+//        Type type = new TypeToken<List<Repo>>() {
+//        }.getType();
+//        List<Repo> repos = mGson.fromJson(json, type);
+//        mRepository.insertItems(repos);
     }
 
     public void deleteItem(long id) {

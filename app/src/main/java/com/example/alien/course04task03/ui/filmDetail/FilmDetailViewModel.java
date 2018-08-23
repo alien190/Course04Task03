@@ -18,8 +18,8 @@ public class FilmDetailViewModel extends BaseViewModel {
     private Long mRepoId;
     private int mTitleId;
 
-    public FilmDetailViewModel(IGitHubRepository repository, Gson gson, Long repoId) {
-        super(repository, gson);
+    public FilmDetailViewModel(IGitHubRepository repository, Long repoId) {
+        super(repository);
         mIsSaved.postValue(false);
         mRepoId = repoId;
         if (mRepoId >= 0) {

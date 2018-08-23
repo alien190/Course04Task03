@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
+import com.example.alien.course04task03.ui.main.MainActivity;
 import com.example.oauth2.token.TokenFragment;
 
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ public class TokenActivity extends SingleFragmentActivity {
 
     private void tokenObserver(String token) {
         if (token!=null && !token.isEmpty()) {
-           // GhrActivity.startActivity(this);
+            MainActivity.startActivity(this, MainActivity.TYPE_LIST);
             finish();
         }
         Timber.d("tokenObserver.token: %s", token);

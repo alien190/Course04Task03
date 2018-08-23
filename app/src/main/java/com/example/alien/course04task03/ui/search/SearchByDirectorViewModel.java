@@ -10,8 +10,8 @@ public class SearchByDirectorViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByDirectorQuery = new MutableLiveData<>();
 
-    public SearchByDirectorViewModel(IGitHubRepository repository, Gson gson) {
-        super(repository, gson);
+    public SearchByDirectorViewModel(IGitHubRepository repository) {
+        super(repository);
         updateFromRepository();
     }
 

@@ -14,29 +14,26 @@ import com.google.gson.Gson;
 
 public class ViewModelCustomFactory implements ViewModelProvider.Factory {
     private IGitHubRepository mRepository;
-    private Gson mGson;
 
-    public ViewModelCustomFactory(IGitHubRepository repository, Gson gson) {
-
+    public ViewModelCustomFactory(IGitHubRepository repository) {
         mRepository = repository;
-        mGson = gson;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == SearchByNameViewModel.class) {
-            return (T) new SearchByNameViewModel(mRepository, mGson);
+            return (T) new SearchByNameViewModel(mRepository);
         }
         if(modelClass == SearchByDirectorViewModel.class) {
-            return (T) new SearchByDirectorViewModel(mRepository, mGson);
+            return (T) new SearchByDirectorViewModel(mRepository);
         }
         if(modelClass == SearchByYearViewModel.class) {
-            return (T) new SearchByYearViewModel(mRepository, mGson);
+            return (T) new SearchByYearViewModel(mRepository);
         }
         if(modelClass == SearchByTopViewModel.class) {
-            return (T) new SearchByTopViewModel(mRepository, mGson);
+            return (T) new SearchByTopViewModel(mRepository);
         }
-        return (T) new ListAllViewModel(mRepository, mGson);
+        return (T) new ListAllViewModel(mRepository);
     }
 }
