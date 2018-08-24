@@ -4,9 +4,14 @@ import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.schedulers.Schedulers;
 
 public class GitHubRepositoryLocalImpl implements IGitHubRepository {
 
@@ -17,13 +22,23 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public long insertItem(Repo repo) {
-        return 0;
+    public Single<Long> insertItem(Repo repo) {
+        return Single.fromCallable(() -> mIGitHubDao.insertItem(repo))
+                .observeOn(Schedulers.io())
+                .map(itemId -> {
+                    EventBus.getDefault().post(new OnRepoDataBaseUpdate());
+                    return itemId;
+                });
     }
 
     @Override
-    public void insertItems(List<Repo> repos) {
-
+    public Single<List<Long>> insertItems(List<Repo> repos) {
+        return Single.fromCallable(() -> mIGitHubDao.insertItems(repos))
+                .observeOn(Schedulers.io())
+                .map(list -> {
+                    EventBus.getDefault().post(new OnRepoDataBaseUpdate());
+                    return list;
+                });
     }
 
     @Override
@@ -38,7 +53,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
 
     @Override
     public Single<List<Repo>> getAll() {
-        return null;
+        return mIGitHubDao.getAll().subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -80,4 +95,6 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     public Single<User> getUser() {
         return null;
     }
+
+    private class OnRepoDataBaseUpdate implements IOnRepoDataBaseUpdate{}
 }

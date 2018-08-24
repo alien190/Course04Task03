@@ -11,7 +11,8 @@ public class SearchByNameViewModel extends BaseViewModel {
 
     public SearchByNameViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         super(remoteRepository, localRepository);
-        updateFromRepository();
+        updateFromLocalRepository();
+        updateFromRemoteRepository();
     }
 
     public MutableLiveData<String> getSearchByNameQuery() {
@@ -20,11 +21,11 @@ public class SearchByNameViewModel extends BaseViewModel {
 
     public void setSearchByNameQuery(CharSequence query) {
         this.mSearchByNameQuery.setValue(query.toString());
-        updateFromRepository();
+        updateFromLocalRepository();
     }
 
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
         mRepoList.postValue(mRemoteRepository.search(mSearchByNameQuery.getValue()));
     }
 }

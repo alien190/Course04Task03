@@ -36,6 +36,9 @@ public abstract class BaseViewModel extends ViewModel {
 //                RepoSimpleRealmResults.addChangeListener(RepoSimples -> mIsEmpty.postValue(RepoSimples.isEmpty()));
 //            }
         });
+
+//        updateFromLocalRepository();
+//        updateFromRemoteRepository();
     }
 
     public MutableLiveData<List<Repo>> getRepoList() {
@@ -70,8 +73,13 @@ public abstract class BaseViewModel extends ViewModel {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRepoSimpleDataBaseUpdate(IGitHubRepository.IOnRepoDataBaseUpdate event)
     {
-        updateFromRepository();
+        updateFromLocalRepository();
     }
 
-    abstract protected void updateFromRepository();
+    public void updateFromRemoteRepository(){
+        mRemoteRepository.getAll()
+                .flatMap(mLocalRepository::insertItems)
+                .subscribe();
+    }
+    abstract protected void updateFromLocalRepository();
 }

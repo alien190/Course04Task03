@@ -17,7 +17,8 @@ public class SearchByYearViewModel extends BaseViewModel {
 
     public SearchByYearViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         super(remoteRepository, localRepository);
-        updateFromRepository();
+        updateFromLocalRepository();
+        updateFromRemoteRepository();
     }
 
     public MutableLiveData<String> getSearchByYearQuery() {
@@ -26,7 +27,7 @@ public class SearchByYearViewModel extends BaseViewModel {
 
     public void setSearchByYearQuery(CharSequence query) {
         this.mSearchByYearQuery.setValue(query.toString());
-        updateFromRepository();
+        updateFromLocalRepository();
     }
 
     private Pair<Integer, Integer> parseYearQuery() {
@@ -59,7 +60,7 @@ public class SearchByYearViewModel extends BaseViewModel {
     }
 
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
         Pair<Integer, Integer> parseResult = parseYearQuery();
         mRepoList.postValue(mRemoteRepository.searchInBounds(parseResult.first, parseResult.second));
     }

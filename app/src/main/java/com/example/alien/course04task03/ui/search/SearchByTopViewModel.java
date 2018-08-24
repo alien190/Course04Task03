@@ -13,7 +13,8 @@ public class SearchByTopViewModel extends BaseViewModel {
 
     public SearchByTopViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         super(remoteRepository, localRepository);
-        updateFromRepository();
+        updateFromLocalRepository();
+        updateFromRemoteRepository();
     }
 
 
@@ -23,11 +24,11 @@ public class SearchByTopViewModel extends BaseViewModel {
 
     public void setSearchByTopQuery(CharSequence query) {
         this.mSearchByTopQuery.setValue(query.toString());
-        updateFromRepository();
+        updateFromLocalRepository();
     }
 
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
         int count = 0;
         try {
             count = Integer.valueOf(mSearchByTopQuery.getValue());

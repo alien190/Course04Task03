@@ -10,9 +10,9 @@ import io.reactivex.Single;
 
 public interface IGitHubRepository {
 
-    long insertItem(Repo repo);
+    Single<Long> insertItem(Repo repo);
 
-    void insertItems(List<Repo> repos);
+    Single<List<Long>> insertItems(List<Repo> repos);
 
     Repo getItem(long id);
 

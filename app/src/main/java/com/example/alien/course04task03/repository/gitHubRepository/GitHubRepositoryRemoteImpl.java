@@ -7,6 +7,7 @@ import com.example.alien.course04task03.data.model.RepoResponse;
 import com.example.alien.course04task03.data.model.Token;
 import com.example.alien.course04task03.data.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -39,13 +40,13 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public long insertItem(Repo repo) {
-        return 0;
+    public Single<Long> insertItem(Repo repo) {
+        return Single.just(0L);
     }
 
     @Override
-    public void insertItems(List<Repo> repos) {
-
+    public Single<List<Long>> insertItems(List<Repo> repos) {
+        return Single.just(new ArrayList<Long>());
     }
 
     @Override

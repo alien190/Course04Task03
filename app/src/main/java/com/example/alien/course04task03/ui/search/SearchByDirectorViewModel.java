@@ -11,7 +11,8 @@ public class SearchByDirectorViewModel extends BaseViewModel {
 
     public SearchByDirectorViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         super(remoteRepository, localRepository);
-        updateFromRepository();
+        updateFromLocalRepository();
+        updateFromRemoteRepository();
     }
 
 
@@ -21,11 +22,11 @@ public class SearchByDirectorViewModel extends BaseViewModel {
 
     public void setSearchByDirectorQuery(CharSequence query) {
         this.mSearchByDirectorQuery.setValue(query.toString());
-        updateFromRepository();
+        updateFromLocalRepository();
     }
 
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
         mRepoList.postValue(mRemoteRepository.searchByDirector(mSearchByDirectorQuery.getValue()));
     }
 }

@@ -85,7 +85,7 @@ public class RepoDetailViewModel extends BaseViewModel {
     }
 
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
 
     }
 }

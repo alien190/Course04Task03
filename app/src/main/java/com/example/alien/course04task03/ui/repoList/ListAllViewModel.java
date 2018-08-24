@@ -11,14 +11,15 @@ public class ListAllViewModel extends BaseViewModel {
 
     public ListAllViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         super(remoteRepository, localRepository);
-        updateFromRepository();
+        updateFromLocalRepository();
+        updateFromRemoteRepository();
     }
 
     @SuppressLint("CheckResult")
     @Override
-    protected void updateFromRepository() {
+    protected void updateFromLocalRepository() {
        // List<Repo> repos = mRemoteRepository.getAll();
-        mRemoteRepository.getAll().observeOn(Schedulers.io())
+        mLocalRepository.getAll().observeOn(Schedulers.io())
                 .subscribe(mRepoList::postValue);
 
     }
