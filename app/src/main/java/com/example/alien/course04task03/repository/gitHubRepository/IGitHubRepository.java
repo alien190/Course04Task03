@@ -30,7 +30,7 @@ public interface IGitHubRepository {
 
     List<Repo> getTopRepoSimples(int count);
 
-    Single<Long> createRepoAndSave(String name, String description, String homePage);
+    Single<Repo> createItem(String name, String description, String homePage);
 
     Single<Repo> updateItem(String repoFullName, String name, String description, String homePage);
 

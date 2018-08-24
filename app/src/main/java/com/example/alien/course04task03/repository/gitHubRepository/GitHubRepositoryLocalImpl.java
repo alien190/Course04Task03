@@ -90,7 +90,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Long> createRepoAndSave(String name, String description, String homePage) {
+    public Single<Repo> createItem(String name, String description, String homePage) {
         return null;
     }
 

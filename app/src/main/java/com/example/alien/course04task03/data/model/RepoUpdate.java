@@ -13,6 +13,12 @@ public class RepoUpdate{
 	@SerializedName("homepage")
 	private String homepage;
 
+	public RepoUpdate(String name, String description, String homepage) {
+		this.name = name;
+		this.description = description;
+		this.homepage = homepage;
+	}
+
 	public void setName(String name){
 		this.name = name;
 	}

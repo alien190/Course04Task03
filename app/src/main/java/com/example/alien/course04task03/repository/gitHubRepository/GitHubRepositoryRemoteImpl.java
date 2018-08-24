@@ -10,6 +10,7 @@ import com.example.alien.course04task03.data.model.RepoResponse;
 import com.example.alien.course04task03.data.model.RepoUpdate;
 import com.example.alien.course04task03.data.model.Token;
 import com.example.alien.course04task03.data.model.User;
+import com.example.alien.course04task03.repository.sharedPref.SharedPrefImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,10 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
 
     @Override
     public Single<Long> insertItem(Repo repo) {
-        return Single.just(0L);
+        return null;
+//        return mIGitHubApi.createRepo(repo).
+//                map(repoResponse -> 1L)
+//                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -104,16 +108,16 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Long> createRepoAndSave(String name, String description, String homePage) {
-        return null;
+    public Single<Repo> createItem(String name, String description, String homePage) {
+        RepoUpdate repoUpdate = new RepoUpdate(name, description, homePage);
+        return mIGitHubApi.createRepo(repoUpdate)
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
     public Single<Repo> updateItem(String repoFullName, String name, String description, String homePage) {
-        RepoUpdate repoUpdate = new RepoUpdate();
-        repoUpdate.setName(name);
-        repoUpdate.setDescription(description);
-        repoUpdate.setHomepage(homePage);
+        RepoUpdate repoUpdate = new RepoUpdate(name, description, homePage);
         return mIGitHubApi.updateRepo(repoFullName, repoUpdate).subscribeOn(Schedulers.io());
     }
+
 }

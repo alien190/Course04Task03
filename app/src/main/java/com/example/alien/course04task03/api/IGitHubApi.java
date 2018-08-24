@@ -28,7 +28,7 @@ public interface IGitHubApi {
     Single<User> getUser();
 
     @POST("/user/repos")
-    Single<RepoResponse> createRepo(@Body RepoRequest repoRequest);
+    Single<Repo> createRepo(@Body RepoUpdate repoUpdate);
 
     @GET("/user/repos")
     Single<List<Repo>> getRepos();

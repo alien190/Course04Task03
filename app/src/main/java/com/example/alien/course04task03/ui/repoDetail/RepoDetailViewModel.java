@@ -63,10 +63,13 @@ public class RepoDetailViewModel extends BaseViewModel {
     public void apply(String name, String description, String homePage) {
 
         if (mRepoId < 0) {
-            //  mRemoteRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
+            mRemoteRepository.createItem(name, description, homePage)
+                    .flatMap(repo -> mLocalRepository.insertItem(repo))
+                    .subscribe();
         } else {
             mRemoteRepository.updateItem(mRepoFullName, name, description, homePage)
-                    .subscribe(repo -> {},
+                    .subscribe(repo -> {
+                            },
                             this::errorHandler);
         }
 //mIsSaved.postValue(true)
@@ -87,7 +90,7 @@ public class RepoDetailViewModel extends BaseViewModel {
 
     @Override
     protected void onCleared() {
-        mDisposable.dispose();
+      //  mDisposable.dispose();
         super.onCleared();
     }
 }
