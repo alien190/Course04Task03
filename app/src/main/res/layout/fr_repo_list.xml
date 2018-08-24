@@ -5,44 +5,49 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_repo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/srl_repo">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvFilmList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/ll_error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvFilmList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:visibility="visible">
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/ll_error"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_warning_black_96dp" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/list_empty"
-                    android:textColor="@color/colorGray"
-                    android:textSize="48sp" />
-            </LinearLayout>
-        </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_warning_black_96dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/list_empty"
+                        android:textColor="@color/colorGray"
+                        android:textSize="48sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

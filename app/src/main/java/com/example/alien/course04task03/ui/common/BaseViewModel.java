@@ -12,6 +12,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import retrofit2.HttpException;
 
 public abstract class BaseViewModel extends ViewModel {
 
@@ -62,13 +65,17 @@ public abstract class BaseViewModel extends ViewModel {
     @SuppressLint("CheckResult")
     public void deleteItem(String repoFullName) {
         mRemoteRepository.deleteItem(repoFullName)
-                .subscribe(msg -> {
-                }, this::errorHandler);
+                .subscribe((msg) -> {
+                        },
+                        throwable -> {
+                            if (throwable instanceof NoSuchElementException) {
+                                mLocalRepository.deleteItem(repoFullName).subscribe();
+                            } else {
+                                errorHandler(throwable);
+                            }
+                        });
     }
 
-//    public OrderedRealmCollection<Repo> getData() {
-//        return data;
-//    }
 
     @Override
     protected void onCleared() {

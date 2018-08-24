@@ -13,7 +13,7 @@
     <string name="et_empty_error">Поле не может быть пустым</string>
     <string name="name_search_title">Поиск по названию</string>
     <string name="director_search_title">Поиск по имени режисера</string>
-    <string name="main_activity_title">Фильмы</string>
+    <string name="main_activity_title">Репозитории</string>
     <string name="year_search_title">Поиск по году выпуска</string>
     <string name="top_search_title">Список по рейтингу</string>
     <string name="director_search_hint">Режиссер (мин. 4 символа)</string>

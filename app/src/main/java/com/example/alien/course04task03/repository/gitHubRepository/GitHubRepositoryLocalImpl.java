@@ -1,5 +1,7 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
+import android.support.v4.app.INotificationSideChannel;
+
 import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
@@ -25,7 +27,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     @Override
     public Single<Long> insertItem(Repo repo) {
         return Single.fromCallable(() -> mIGitHubDao.insertItem(repo))
-                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .map(itemId -> {
                     EventBus.getDefault().post(new OnRepoDataBaseUpdate());
                     return itemId;
@@ -35,7 +37,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     @Override
     public Single<List<Long>> insertItems(List<Repo> repos) {
         return Single.fromCallable(() -> mIGitHubDao.insertItems(repos))
-                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .map(list -> {
                     EventBus.getDefault().post(new OnRepoDataBaseUpdate());
                     return list;
@@ -49,7 +51,12 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
 
     @Override
     public Single<String> deleteItem(String repoFullName) {
-        return null;
+        return Single.fromCallable(() -> mIGitHubDao.deleteItem(repoFullName))
+                .map(count -> {
+                    EventBus.getDefault().post(new OnRepoDataBaseUpdate());
+                    return String.valueOf(count);
+                })
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
