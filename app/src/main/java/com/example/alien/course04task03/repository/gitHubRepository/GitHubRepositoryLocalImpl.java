@@ -43,13 +43,13 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Repo getItem(long id) {
-        return null;
+    public Single<Repo> getItem(long id) {
+        return mIGitHubDao.getItem(id).subscribeOn(Schedulers.io());
     }
 
     @Override
-    public boolean deleteItem(long id) {
-        return false;
+    public Single<String> deleteItem(String repoFullName) {
+        return null;
     }
 
     @Override
@@ -83,13 +83,13 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public long createRepoAndSave(String name, String director, int year, double rating) {
-        return 0;
+    public Single<Long> createRepoAndSave(String name, String description, String homePage) {
+        return null;
     }
 
     @Override
-    public void createRepoAndUpdate(long id, String name, String director, int year, double rating) {
-
+    public Single<Repo> updateItem(String repoFullName, String name, String description, String homePage) {
+        return null;
     }
 
     @Override

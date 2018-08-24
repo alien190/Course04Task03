@@ -15,7 +15,7 @@ android {
 
         buildConfigField "String", "GET_TOKEN_URL", '"https://github.com/login/oauth/access_token?client_id=a7dc97bc36316b3ddd41&client_secret=e0dd00a3c1ab6fe61a1173d4c6e5f46d4351a0bd"'
         buildConfigField "String", "VALIDATE_TOKEN_URL", '"https://api.github.com/user"'
-        buildConfigField "String", "GET_CODE_URL", '"https://github.com/login/oauth/authorize?client_id=a7dc97bc36316b3ddd41&client_secret=e0dd00a3c1ab6fe61a1173d4c6e5f46d4351a0bd&scopes=user repo"'
+        buildConfigField "String", "GET_CODE_URL", '"https://github.com/login/oauth/authorize?client_id=a7dc97bc36316b3ddd41&client_secret=e0dd00a3c1ab6fe61a1173d4c6e5f46d4351a0bd&scope=user repo delete_repo"'
         buildConfigField "String", "BASE_URL", '"https://github.com"'
 
 

@@ -36,7 +36,7 @@ public class RepoListAdapter extends ListAdapter<Repo, RepoListViewHolder> {
     @NonNull
     @Override
     public RepoListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.li_repo_simple_list, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.li_repo_list, viewGroup, false);
         return new RepoListViewHolder(view);
     }
 

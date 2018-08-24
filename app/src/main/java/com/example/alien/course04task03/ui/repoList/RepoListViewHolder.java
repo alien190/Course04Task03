@@ -19,12 +19,16 @@ public class RepoListViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tvName)
     TextView mTvName;
-    @BindView(R.id.tvDirector)
-    TextView mTvDirector;
-    @BindView(R.id.tvYear)
-    TextView mTvYear;
-    @BindView(R.id.tvRate)
-    TextView mTvRate;
+    @BindView(R.id.tvHomePage)
+    TextView mTvHomePage;
+    @BindView(R.id.tvDescription)
+    TextView mTvDescription;
+    @BindView(R.id.tvSize)
+    TextView mTvSize;
+    @BindView(R.id.tvWatches)
+    TextView mTvWatches;
+
+    private String mRepoFullName;
 
 
     public RepoListViewHolder(@NonNull View itemView) {
@@ -35,14 +39,16 @@ public class RepoListViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Repo repo) {
         mTvName.setText(repo.getName());
-        //mTvDirector.setText(repo.getDirector());
-        //mTvYear.setText(String.valueOf(repo.getYear()));
-        //mTvRate.setText(StringUtils.rateToString(film.getRating()));
+        mTvDescription.setText(repo.getDescription());
+        mTvHomePage.setText(repo.getHomePage());
+        mTvSize.setText(String.valueOf(repo.getSize()));
+        mTvWatches.setText(String.valueOf(repo.getWatchersCount()));
         mId = repo.getId();
+        mRepoFullName = repo.getFullName();
     }
 
     public void setOnItemClickListener(final IOnItemClickListener listener) {
-        view.setOnLongClickListener(view -> listener != null && listener.OnItemLongClick(mId));
+        view.setOnLongClickListener(view -> listener != null && listener.OnItemLongClick(mRepoFullName));
         view.setOnClickListener(view -> {
             if (listener != null) listener.OnItemClick(mId);
         });

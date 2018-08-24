@@ -1,23 +1,25 @@
 package com.example.alien.course04task03.ui.repoDetail;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
-import timber.log.Timber;
+import io.reactivex.disposables.Disposable;
 
 public class RepoDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> mName = new MutableLiveData<>();
-    private MutableLiveData<String> mYear = new MutableLiveData<>();
-    private MutableLiveData<String> mDirector = new MutableLiveData<>();
-    private MutableLiveData<String> mRating = new MutableLiveData<>();
+    private MutableLiveData<String> mDescription = new MutableLiveData<>();
+    private MutableLiveData<String> mHomePage = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsSaved = new MutableLiveData<>();
     private Long mRepoId;
     private int mTitleId;
+    private Disposable mDisposable;
+    private String mRepoFullName;
 
-    public RepoDetailViewModel(IGitHubRepository remoteRepository,IGitHubRepository localRepository, Long repoId) {
+    public RepoDetailViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Long repoId) {
         super(remoteRepository, localRepository);
         mIsSaved.postValue(false);
         mRepoId = repoId;
@@ -30,11 +32,13 @@ public class RepoDetailViewModel extends BaseViewModel {
     }
 
     private void loadFilm() {
-//        Film film = mRemoteRepository.getItem(mRepoId);
-//        mName.postValue(film.getName());
-//        mDirector.postValue(film.getDirector());
-//        mYear.postValue(String.valueOf(film.getYear()));
-//        mRating.postValue(String.valueOf(film.getRating()));
+        mDisposable = mLocalRepository.getItem(mRepoId)
+                .subscribe(repo -> {
+                    mName.postValue(repo.getName());
+                    mDescription.postValue(repo.getDescription());
+                    mHomePage.postValue(repo.getHomePage());
+                    mRepoFullName = repo.getFullName();
+                });
     }
 
     public MutableLiveData<String> getName() {
@@ -45,35 +49,27 @@ public class RepoDetailViewModel extends BaseViewModel {
         this.mName.postValue(mName);
     }
 
-    public MutableLiveData<String> getYear() {
-        return mYear;
+    public MutableLiveData<String> getDescription() {
+        return mDescription;
     }
 
 
-    public MutableLiveData<String> getDirector() {
-        return mDirector;
-    }
-
-    public MutableLiveData<String> getRating() {
-        return mRating;
+    public MutableLiveData<String> getHomePage() {
+        return mHomePage;
     }
 
 
-    public void apply(String name, String director, String year, String rating) {
-        int yearInt = 0;
-        double ratingDbl = 0;
-        try {
-            yearInt = Integer.valueOf(year);
-            ratingDbl = Double.valueOf(rating);
-        } catch (Throwable t) {
-            Timber.d(t);
-        }
+    @SuppressLint("CheckResult")
+    public void apply(String name, String description, String homePage) {
+
         if (mRepoId < 0) {
-          //  mRemoteRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
+            //  mRemoteRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
         } else {
-          //  mRemoteRepository.createFilmAndUpdate(mRepoId, name, director, yearInt, ratingDbl);
+            mRemoteRepository.updateItem(mRepoFullName, name, description, homePage)
+                    .subscribe(repo -> {},
+                            this::errorHandler);
         }
-        mIsSaved.postValue(true);
+//mIsSaved.postValue(true)
     }
 
     public MutableLiveData<Boolean> getIsSaved() {
@@ -87,5 +83,11 @@ public class RepoDetailViewModel extends BaseViewModel {
     @Override
     protected void updateFromLocalRepository() {
 
+    }
+
+    @Override
+    protected void onCleared() {
+        mDisposable.dispose();
+        super.onCleared();
     }
 }

@@ -1,6 +1,8 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
 
+import android.text.BoringLayout;
+
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
 
@@ -14,9 +16,9 @@ public interface IGitHubRepository {
 
     Single<List<Long>> insertItems(List<Repo> repos);
 
-    Repo getItem(long id);
+    Single<Repo> getItem(long id);
 
-    boolean deleteItem(long id);
+    Single<String> deleteItem(String repoFullName);
 
     Single<List<Repo>> getAll();
 
@@ -28,9 +30,9 @@ public interface IGitHubRepository {
 
     List<Repo> getTopRepoSimples(int count);
 
-    long createRepoAndSave(String name, String director, int year, double rating);
+    Single<Long> createRepoAndSave(String name, String description, String homePage);
 
-    void createRepoAndUpdate(long id, String name, String director, int year, double rating);
+    Single<Repo> updateItem(String repoFullName, String name, String description, String homePage);
 
     Single<User> getUser(String token);
 

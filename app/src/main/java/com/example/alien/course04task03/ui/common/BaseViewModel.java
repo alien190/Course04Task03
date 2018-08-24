@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.ui.common;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public abstract class BaseViewModel extends ViewModel {
 
     protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
+    protected  MutableLiveData<String> mResultMessage = new MutableLiveData<>();
   //  protected OrderedRealmCollection<Repo> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
 
@@ -56,8 +58,10 @@ public abstract class BaseViewModel extends ViewModel {
 //        mRemoteRepository.insertItems(repos);
     }
 
-    public void deleteItem(long id) {
-        mRemoteRepository.deleteItem(id);
+    @SuppressLint("CheckResult")
+    public void deleteItem(String repoFullName) {
+        mRemoteRepository.deleteItem(repoFullName)
+                .subscribe(msg ->{}, this::errorHandler);
     }
 
 //    public OrderedRealmCollection<Repo> getData() {
@@ -82,4 +86,8 @@ public abstract class BaseViewModel extends ViewModel {
                 .subscribe();
     }
     abstract protected void updateFromLocalRepository();
+
+    protected void errorHandler(Throwable throwable){
+        mResultMessage.postValue(throwable.getMessage());
+    }
 }

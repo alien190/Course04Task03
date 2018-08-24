@@ -1,17 +1,26 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
+import android.annotation.SuppressLint;
+
 import com.example.alien.course04task03.api.IGitHubApi;
+import com.example.alien.course04task03.data.model.ErrorsItem;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.RepoRequest;
 import com.example.alien.course04task03.data.model.RepoResponse;
+import com.example.alien.course04task03.data.model.RepoUpdate;
 import com.example.alien.course04task03.data.model.Token;
 import com.example.alien.course04task03.data.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+import timber.log.Timber;
 
 public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
 
@@ -50,13 +59,22 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Repo getItem(long id) {
+    public Single<Repo> getItem(long id) {
         return null;
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    public boolean deleteItem(long id) {
-        return false;
+    public Single<String> deleteItem(String repoFullName) {
+        return mIGitHubApi.deleteRepo(repoFullName)
+                .map(errorsItem -> {
+                    if (errorsItem.getCode().startsWith("204")) {
+                        return "";
+                    } else {
+                        return errorsItem.getMessage();
+                    }
+                })
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -86,12 +104,16 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public long createRepoAndSave(String name, String director, int year, double rating) {
-        return 0;
+    public Single<Long> createRepoAndSave(String name, String description, String homePage) {
+        return null;
     }
 
     @Override
-    public void createRepoAndUpdate(long id, String name, String director, int year, double rating) {
-
+    public Single<Repo> updateItem(String repoFullName, String name, String description, String homePage) {
+        RepoUpdate repoUpdate = new RepoUpdate();
+        repoUpdate.setName(name);
+        repoUpdate.setDescription(description);
+        repoUpdate.setHomepage(homePage);
+        return mIGitHubApi.updateRepo(repoFullName, repoUpdate).subscribeOn(Schedulers.io());
     }
 }

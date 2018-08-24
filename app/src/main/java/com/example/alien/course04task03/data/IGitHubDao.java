@@ -10,6 +10,7 @@ import com.example.alien.course04task03.data.model.Repo;
 import java.util.List;
 
 import io.reactivex.Single;
+import retrofit2.http.PATCH;
 
 @Dao
 public interface IGitHubDao {
@@ -24,4 +25,8 @@ public interface IGitHubDao {
 
     @Query("SELECT * from repo where repo.name like :name")
     Single<List<Repo>> searchByName(String name);
+
+    @Query("SELECT * from repo where repo.id = :itemId")
+    Single<Repo> getItem(Long itemId);
+
 }

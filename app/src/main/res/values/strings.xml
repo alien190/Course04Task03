@@ -35,8 +35,8 @@
     <string name="dialog_title_edit_film">Редактировать репозиторий</string>
     <string name="btn_save_label">Сохранить</string>
     <string name="btn_cancel_label">Отмена</string>
-    <string name="name_label">Название фильма</string>
-    <string name="year_label">Год выпуска</string>
-    <string name="director_label">Режиссер</string>
+    <string name="name_label">Название</string>
+    <string name="year_label">Описание</string>
+    <string name="director_label">Домашняя страница</string>
     <string name="rate_label">Рейтинг</string>
 </resources>

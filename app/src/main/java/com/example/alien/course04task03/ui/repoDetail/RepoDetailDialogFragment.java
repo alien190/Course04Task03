@@ -24,7 +24,7 @@ import toothpick.Toothpick;
 public class RepoDetailDialogFragment extends DialogFragment {
 
     private Scope mScope;
-    private static final String KEY_FILM_ID = "RepoDetailDialogFragment.KeyFilmId";
+    private static final String KEY_REPO_ID = "RepoDetailDialogFragment.KeyFilmId";
 
     @Inject
     protected RepoDetailViewModel mViewModel;
@@ -35,27 +35,23 @@ public class RepoDetailDialogFragment extends DialogFragment {
     @BindView(R.id.etName)
     protected EditText etName;
 
-    @BindView(R.id.etDirector)
-    protected EditText etDirector;
+    @BindView(R.id.etHomePage)
+    protected EditText etHomePage;
 
-    @BindView(R.id.etYear)
-    protected EditText etYear;
+    @BindView(R.id.etDescription)
+    protected EditText etDescription;
 
-    @BindView(R.id.etRate)
-    protected EditText etRate;
-
-    private DialogInterface.OnClickListener mOnClickListener = (dialogInterface, i) -> {
+   private DialogInterface.OnClickListener mOnClickListener = (dialogInterface, i) -> {
         mViewModel.apply(etName.getText().toString(),
-                etDirector.getText().toString(),
-                etYear.getText().toString(),
-                etRate.getText().toString());
+                etHomePage.getText().toString(),
+                etDescription.getText().toString());
 
     };
 
     public static RepoDetailDialogFragment newInstance(long id) {
 
         Bundle args = new Bundle();
-        args.putLong(KEY_FILM_ID, id);
+        args.putLong(KEY_REPO_ID, id);
         RepoDetailDialogFragment fragment = new RepoDetailDialogFragment();
         fragment.setArguments(args);
 
@@ -80,10 +76,15 @@ public class RepoDetailDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     private void toothpickInject() {
         long id = -1;
         if (getArguments() != null) {
-            id = getArguments().getLong(KEY_FILM_ID, -1);
+            id = getArguments().getLong(KEY_REPO_ID, -1);
         }
 
         mScope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
@@ -103,9 +104,8 @@ public class RepoDetailDialogFragment extends DialogFragment {
 
         tvTitle.setText(mViewModel.getTitleId());
         mViewModel.getName().observe(this, str -> etName.setText(str));
-        mViewModel.getDirector().observe(this, str -> etDirector.setText(str));
-        mViewModel.getYear().observe(this, str -> etYear.setText(str));
-        mViewModel.getRating().observe(this, str -> etRate.setText(str));
+        mViewModel.getHomePage().observe(this, str -> etHomePage.setText(str));
+        mViewModel.getDescription().observe(this, str -> etDescription.setText(str));
     }
 
 

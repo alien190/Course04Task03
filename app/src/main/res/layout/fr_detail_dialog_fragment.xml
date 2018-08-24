@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/margin"
         android:textSize="@dimen/titleTextSize"
         android:textStyle="bold"
-        tools:text="Добавить новый фильм" />
+        tools:text="Добавить новый репозиторий" />
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -39,43 +39,43 @@
             android:layout_below="@+id/tvName" />
 
         <TextView
-            android:id="@+id/tvYear"
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etName"
             android:text="@string/year_label" />
 
         <EditText
-            android:id="@+id/etYear"
+            android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvYear" />
+            android:layout_below="@+id/tvDescription" />
 
         <TextView
-            android:id="@+id/tvDirector"
+            android:id="@+id/tvHomePage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etYear"
+            android:layout_below="@+id/etDescription"
             android:text="@string/director_label" />
 
         <EditText
-            android:id="@+id/etDirector"
+            android:id="@+id/etHomePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDirector" />
+            android:layout_below="@+id/tvHomePage" />
 
-        <TextView
-            android:id="@+id/tvRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etDirector"
-            android:text="@string/rate_label" />
+        <!--<TextView-->
+            <!--android:id="@+id/tvSize"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/etHomePage"-->
+            <!--android:text="@string/rate_label" />-->
 
-        <EditText
-            android:id="@+id/etRate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvRate" />
+        <!--<EditText-->
+            <!--android:id="@+id/etRate"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/tvSize" />-->
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

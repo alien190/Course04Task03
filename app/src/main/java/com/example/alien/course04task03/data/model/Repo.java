@@ -48,6 +48,9 @@ public class Repo {
     @SerializedName("forks_count")
     private int forksCount;
 
+    @SerializedName("homepage")
+    private String homePage;
+
     public void setJsonMemberPrivate(boolean jsonMemberPrivate) {
         this.jsonMemberPrivate = jsonMemberPrivate;
     }
@@ -150,6 +153,14 @@ public class Repo {
 
     public int getForksCount() {
         return forksCount;
+    }
+
+    public String getHomePage() {
+        return homePage;
+    }
+
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
     }
 
     @Override
