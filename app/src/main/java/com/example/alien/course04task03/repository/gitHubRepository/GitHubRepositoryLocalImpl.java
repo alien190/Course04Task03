@@ -25,12 +25,13 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Long> insertItem(Repo repo) {
+    public Single<Repo> insertItem(Repo repo) {
         return Single.fromCallable(() -> mIGitHubDao.insertItem(repo))
                 .subscribeOn(Schedulers.io())
                 .map(itemId -> {
                     EventBus.getDefault().post(new OnRepoDataBaseUpdate());
-                    return itemId;
+                    repo.setId(itemId.intValue());
+                    return repo;
                 });
     }
 
@@ -89,10 +90,6 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
         return null;
     }
 
-    @Override
-    public Single<Repo> createItem(String name, String description, String homePage) {
-        return null;
-    }
 
     @Override
     public Single<Repo> updateItem(String repoFullName,Repo repoUpdate) {

@@ -3,15 +3,11 @@ package com.example.alien.course04task03.api;
 
 import com.example.alien.course04task03.data.model.ErrorsItem;
 import com.example.alien.course04task03.data.model.Repo;
-import com.example.alien.course04task03.data.model.RepoRequest;
-import com.example.alien.course04task03.data.model.RepoResponse;
-import com.example.alien.course04task03.data.model.RepoUpdate;
 import com.example.alien.course04task03.data.model.User;
 
 import java.util.List;
 
 import io.reactivex.Single;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -28,7 +24,7 @@ public interface IGitHubApi {
     Single<User> getUser();
 
     @POST("/user/repos")
-    Single<Repo> createRepo(@Body RepoUpdate repoUpdate);
+    Single<Repo> createRepo(@Body Repo repo);
 
     @GET("/user/repos")
     Single<List<Repo>> getRepos();

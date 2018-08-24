@@ -1,7 +1,6 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
 
-import android.text.BoringLayout;
 
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
@@ -12,7 +11,7 @@ import io.reactivex.Single;
 
 public interface IGitHubRepository {
 
-    Single<Long> insertItem(Repo repo);
+    Single<Repo> insertItem(Repo repo);
 
     Single<List<Long>> insertItems(List<Repo> repos);
 
@@ -30,7 +29,7 @@ public interface IGitHubRepository {
 
     List<Repo> getTopRepoSimples(int count);
 
-    Single<Repo> createItem(String name, String description, String homePage);
+   // Single<Repo> createItem(String name, String description, String homePage);
 
     Single<Repo> updateItem(String repoFullName,Repo repoUpdate);
 

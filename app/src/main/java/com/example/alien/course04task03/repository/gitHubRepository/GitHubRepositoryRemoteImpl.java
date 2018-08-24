@@ -3,25 +3,14 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 import android.annotation.SuppressLint;
 
 import com.example.alien.course04task03.api.IGitHubApi;
-import com.example.alien.course04task03.data.model.ErrorsItem;
 import com.example.alien.course04task03.data.model.Repo;
-import com.example.alien.course04task03.data.model.RepoRequest;
-import com.example.alien.course04task03.data.model.RepoResponse;
-import com.example.alien.course04task03.data.model.RepoUpdate;
-import com.example.alien.course04task03.data.model.Token;
 import com.example.alien.course04task03.data.model.User;
-import com.example.alien.course04task03.repository.sharedPref.SharedPrefImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
-import timber.log.Timber;
 
 public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
 
@@ -50,11 +39,9 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Long> insertItem(Repo repo) {
-        return null;
-//        return mIGitHubApi.createRepo(repo).
-//                map(repoResponse -> 1L)
-//                .subscribeOn(Schedulers.io());
+    public Single<Repo> insertItem(Repo repo) {
+        return mIGitHubApi.createRepo(repo)
+                .subscribeOn(Schedulers.io());
     }
 
     @Override
@@ -107,12 +94,12 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
         return null;
     }
 
-    @Override
-    public Single<Repo> createItem(String name, String description, String homePage) {
-        RepoUpdate repoUpdate = new RepoUpdate(name, description, homePage);
-        return mIGitHubApi.createRepo(repoUpdate)
-                .subscribeOn(Schedulers.io());
-    }
+//    @Override
+//    public Single<Repo> createItem(String name, String description, String homePage) {
+//        RepoUpdate repoUpdate = new RepoUpdate(name, description, homePage);
+//        return mIGitHubApi.createRepo(repoUpdate)
+//                .subscribeOn(Schedulers.io());
+//    }
 
     @Override
     public Single<Repo> updateItem(String repoFullName,Repo repoUpdate) {

@@ -65,12 +65,14 @@ public class RepoDetailViewModel extends BaseViewModel {
     @SuppressLint("CheckResult")
     public void apply(String name, String description, String homePage) {
 
+        Repo repoUpdate = new Repo(name, description, homePage);
+
         if (mRepoId < 0) {
-            mRemoteRepository.createItem(name, description, homePage)
-                    .flatMap(repo -> mLocalRepository.insertItem(repo))
+            mRemoteRepository.insertItem(repoUpdate)
+                    .flatMap(mLocalRepository::insertItem)
                     .subscribe();
         } else {
-            Repo repoUpdate = new Repo(name, description, homePage);
+
             mRemoteRepository.updateItem(mRepoFullName, repoUpdate)
                     .flatMap(repo -> mLocalRepository.updateItem(mRepoFullName, repo))
                     .subscribe(repo -> {
