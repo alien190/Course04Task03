@@ -1,14 +1,13 @@
 package com.example.alien.course04task03.di.mainActivity;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
-import com.example.alien.course04task03.ui.filmDetail.FilmDetailViewModelCustomFactory;
-import com.google.gson.Gson;
+import com.example.alien.course04task03.ui.repoDetail.RepoDetailViewModelCustomFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 
-public class RepoDetailViewModelCustomFactoryProvider implements Provider<FilmDetailViewModelCustomFactory> {
+public class RepoDetailViewModelCustomFactoryProvider implements Provider<RepoDetailViewModelCustomFactory> {
 
     protected IGitHubRepository mRepository;
     private Long mFilmId;
@@ -20,7 +19,7 @@ public class RepoDetailViewModelCustomFactoryProvider implements Provider<FilmDe
     }
 
     @Override
-    public FilmDetailViewModelCustomFactory get() {
-        return new FilmDetailViewModelCustomFactory(mRepository, mFilmId);
+    public RepoDetailViewModelCustomFactory get() {
+        return new RepoDetailViewModelCustomFactory(mRepository, mFilmId);
     }
 }

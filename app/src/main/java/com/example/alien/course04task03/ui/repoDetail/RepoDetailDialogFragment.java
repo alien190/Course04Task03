@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.filmDetail;
+package com.example.alien.course04task03.ui.repoDetail;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,13 +21,13 @@ import butterknife.ButterKnife;
 import toothpick.Scope;
 import toothpick.Toothpick;
 
-public class FilmDetailDialogFragment extends DialogFragment {
+public class RepoDetailDialogFragment extends DialogFragment {
 
     private Scope mScope;
-    private static final String KEY_FILM_ID = "FilmDetailDialogFragment.KeyFilmId";
+    private static final String KEY_FILM_ID = "RepoDetailDialogFragment.KeyFilmId";
 
     @Inject
-    protected FilmDetailViewModel mViewModel;
+    protected RepoDetailViewModel mViewModel;
 
     @BindView(R.id.tvTitle)
     protected TextView tvTitle;
@@ -52,11 +52,11 @@ public class FilmDetailDialogFragment extends DialogFragment {
 
     };
 
-    public static FilmDetailDialogFragment newInstance(long id) {
+    public static RepoDetailDialogFragment newInstance(long id) {
 
         Bundle args = new Bundle();
         args.putLong(KEY_FILM_ID, id);
-        FilmDetailDialogFragment fragment = new FilmDetailDialogFragment();
+        RepoDetailDialogFragment fragment = new RepoDetailDialogFragment();
         fragment.setArguments(args);
 
         return fragment;

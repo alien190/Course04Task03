@@ -1,15 +1,14 @@
-package com.example.alien.course04task03.ui.filmDetail;
+package com.example.alien.course04task03.ui.repoDetail;
 
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
 
 import timber.log.Timber;
 
-public class FilmDetailViewModel extends BaseViewModel {
+public class RepoDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> mName = new MutableLiveData<>();
     private MutableLiveData<String> mYear = new MutableLiveData<>();
     private MutableLiveData<String> mDirector = new MutableLiveData<>();
@@ -18,7 +17,7 @@ public class FilmDetailViewModel extends BaseViewModel {
     private Long mRepoId;
     private int mTitleId;
 
-    public FilmDetailViewModel(IGitHubRepository repository, Long repoId) {
+    public RepoDetailViewModel(IGitHubRepository repository, Long repoId) {
         super(repository);
         mIsSaved.postValue(false);
         mRepoId = repoId;

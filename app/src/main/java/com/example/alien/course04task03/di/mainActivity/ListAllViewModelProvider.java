@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.ui.common.ViewModelCustomFactory;
-import com.example.alien.course04task03.ui.filmList.ListAllViewModel;
+import com.example.alien.course04task03.ui.repoList.ListAllViewModel;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

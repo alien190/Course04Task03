@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.token;
+package com.example.alien.course04task03.ui.launch;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.alien.course04task03.di.tokenActivity.TokenActivityModule;
 import com.example.alien.course04task03.ui.common.SingleFragmentActivity;
-import com.example.alien.course04task03.ui.main.MainActivity;
+import com.example.alien.course04task03.ui.repoMain.RepoActivity;
 import com.example.oauth2.token.TokenFragment;
 
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
 
-public class TokenActivity extends SingleFragmentActivity {
+public class LaunchActivity extends SingleFragmentActivity {
 
     private static final String START_NEW_AUTH_KEY = "StartNewAuthKey";
 
@@ -54,14 +54,14 @@ public class TokenActivity extends SingleFragmentActivity {
 
     private void tokenObserver(String token) {
         if (token!=null && !token.isEmpty()) {
-            MainActivity.startActivity(this, MainActivity.TYPE_LIST);
+            RepoActivity.startActivity(this, RepoActivity.TYPE_LIST);
             finish();
         }
         Timber.d("tokenObserver.token: %s", token);
     }
 
     public static void startActivity(Context context) {
-        Intent intent = new Intent(context, TokenActivity.class);
+        Intent intent = new Intent(context, LaunchActivity.class);
         intent.putExtra(START_NEW_AUTH_KEY, true);
         context.startActivity(intent);
     }

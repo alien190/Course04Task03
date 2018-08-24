@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.filmList;
+package com.example.alien.course04task03.ui.repoList;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.ui.common.BaseFragment;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.example.alien.course04task03.ui.filmDetail.FilmDetailDialogFragment;
+import com.example.alien.course04task03.ui.repoDetail.RepoDetailDialogFragment;
 
 import javax.inject.Inject;
 
@@ -30,7 +30,7 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
     LinearLayout mErrorLayout;
 
     @Inject
-    protected RepoSimpleListAdapter mAdapter;
+    protected RepoListAdapter mAdapter;
 
     @Inject
     protected BaseViewModel mViewModel;
@@ -84,8 +84,8 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
 
     @Override
     public void OnItemClick(long id) {
-        FilmDetailDialogFragment filmDetailDialogFragment = FilmDetailDialogFragment.newInstance(id);
-        filmDetailDialogFragment.show(getActivity().getSupportFragmentManager(), "filmDetailDialogFragment");
+        RepoDetailDialogFragment repoDetailDialogFragment = RepoDetailDialogFragment.newInstance(id);
+        repoDetailDialogFragment.show(getActivity().getSupportFragmentManager(), "repoDetailDialogFragment");
     }
 
     @Override

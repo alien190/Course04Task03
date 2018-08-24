@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.example.alien.course04task03.di.mainActivity.RepoListFragmentModule;
-import com.example.alien.course04task03.ui.main.MainActivity;
+import com.example.alien.course04task03.ui.repoMain.RepoActivity;
 
 import toothpick.Scope;
 import toothpick.Toothpick;
@@ -21,7 +21,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mParentScopeName = ((MainActivity)context).getScopeName();
+        mParentScopeName = ((RepoActivity)context).getScopeName();
     }
 
     @Override

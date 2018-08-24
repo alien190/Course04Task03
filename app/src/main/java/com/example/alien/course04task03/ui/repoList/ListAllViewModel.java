@@ -1,13 +1,9 @@
-package com.example.alien.course04task03.ui.filmList;
+package com.example.alien.course04task03.ui.repoList;
 
 import android.annotation.SuppressLint;
 
-import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
-
-import java.util.List;
 
 import io.reactivex.schedulers.Schedulers;
 

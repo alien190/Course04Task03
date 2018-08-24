@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.filmList;
+package com.example.alien.course04task03.ui.repoList;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RepoSimpleListViewHolder extends RecyclerView.ViewHolder {
+public class RepoListViewHolder extends RecyclerView.ViewHolder {
     private View view;
     private long mId;
 
@@ -27,7 +27,7 @@ public class RepoSimpleListViewHolder extends RecyclerView.ViewHolder {
     TextView mTvRate;
 
 
-    public RepoSimpleListViewHolder(@NonNull View itemView) {
+    public RepoListViewHolder(@NonNull View itemView) {
         super(itemView);
         view = itemView;
         ButterKnife.bind(this, view);

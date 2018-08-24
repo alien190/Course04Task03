@@ -2,8 +2,8 @@ package com.example.alien.course04task03.di.commonActivity;
 
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.alien.course04task03.ui.filmList.ListAllFragment;
-import com.example.alien.course04task03.ui.main.MainFragment;
+import com.example.alien.course04task03.ui.repoList.ListAllFragment;
+import com.example.alien.course04task03.ui.repoMain.RepoFragment;
 
 import toothpick.config.Module;
 
@@ -18,7 +18,7 @@ public class CommonActivityModule extends Module {
         mScopeName = scopeName;
         mType = type;
 
-        bind(MainFragment.class).toInstance(MainFragment.newInstance(mScopeName, mType));
+        bind(RepoFragment.class).toInstance(RepoFragment.newInstance(mScopeName, mType));
         bind(ListAllFragment.class).toInstance(ListAllFragment.newInstance(mScopeName));
         bind(AppCompatActivity.class).toInstance(mActivity);
     }

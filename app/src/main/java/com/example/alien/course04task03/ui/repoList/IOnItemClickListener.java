@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.filmList;
+package com.example.alien.course04task03.ui.repoList;
 
 public interface IOnItemClickListener {
 

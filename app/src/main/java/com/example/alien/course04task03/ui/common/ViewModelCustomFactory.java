@@ -5,12 +5,11 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
-import com.example.alien.course04task03.ui.filmList.ListAllViewModel;
+import com.example.alien.course04task03.ui.repoList.ListAllViewModel;
 import com.example.alien.course04task03.ui.search.SearchByDirectorViewModel;
 import com.example.alien.course04task03.ui.search.SearchByNameViewModel;
 import com.example.alien.course04task03.ui.search.SearchByTopViewModel;
 import com.example.alien.course04task03.ui.search.SearchByYearViewModel;
-import com.google.gson.Gson;
 
 public class ViewModelCustomFactory implements ViewModelProvider.Factory {
     private IGitHubRepository mRepository;

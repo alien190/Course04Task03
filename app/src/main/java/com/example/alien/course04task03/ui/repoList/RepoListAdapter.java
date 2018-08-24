@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.filmList;
+package com.example.alien.course04task03.ui.repoList;
 
 import android.support.annotation.NonNull;
 import android.support.v7.recyclerview.extensions.ListAdapter;
@@ -11,7 +11,7 @@ import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.data.model.Repo;
 
 
-public class RepoSimpleListAdapter extends ListAdapter<Repo, RepoSimpleListViewHolder> {
+public class RepoListAdapter extends ListAdapter<Repo, RepoListViewHolder> {
 
     private IOnItemClickListener mOnItemClickListener;
 
@@ -28,22 +28,22 @@ public class RepoSimpleListAdapter extends ListAdapter<Repo, RepoSimpleListViewH
     };
 
 
-    public RepoSimpleListAdapter(IOnItemClickListener onItemClickListener) {
+    public RepoListAdapter(IOnItemClickListener onItemClickListener) {
         super(DIFF_CALLBACK);
         mOnItemClickListener = onItemClickListener;
     }
 
     @NonNull
     @Override
-    public RepoSimpleListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RepoListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.li_repo_simple_list, viewGroup, false);
-        return new RepoSimpleListViewHolder(view);
+        return new RepoListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RepoSimpleListViewHolder RepoSimpleListViewHolder, int i) {
-        RepoSimpleListViewHolder.bind(getItem(i));
-        RepoSimpleListViewHolder.setOnItemClickListener(mOnItemClickListener);
+    public void onBindViewHolder(@NonNull RepoListViewHolder RepoListViewHolder, int i) {
+        RepoListViewHolder.bind(getItem(i));
+        RepoListViewHolder.setOnItemClickListener(mOnItemClickListener);
     }
 
 }

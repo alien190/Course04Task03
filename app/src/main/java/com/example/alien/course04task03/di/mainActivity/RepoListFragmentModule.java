@@ -3,8 +3,8 @@ package com.example.alien.course04task03.di.mainActivity;
 
 import android.support.v4.app.Fragment;
 
-import com.example.alien.course04task03.ui.filmList.RepoSimpleListAdapter;
-import com.example.alien.course04task03.ui.filmList.IOnItemClickListener;
+import com.example.alien.course04task03.ui.repoList.RepoListAdapter;
+import com.example.alien.course04task03.ui.repoList.IOnItemClickListener;
 
 import toothpick.config.Module;
 
@@ -15,9 +15,9 @@ public class RepoListFragmentModule extends Module {
         mFragment = fragment;
 
         if (mFragment instanceof IOnItemClickListener) {
-            bind(RepoSimpleListAdapter.class).toInstance(new RepoSimpleListAdapter((IOnItemClickListener) mFragment));
+            bind(RepoListAdapter.class).toInstance(new RepoListAdapter((IOnItemClickListener) mFragment));
         } else {
-            bind(RepoSimpleListAdapter.class).toInstance(new RepoSimpleListAdapter(null));
+            bind(RepoListAdapter.class).toInstance(new RepoListAdapter(null));
         }
     }
 

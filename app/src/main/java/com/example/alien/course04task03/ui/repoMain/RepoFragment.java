@@ -1,4 +1,4 @@
-package com.example.alien.course04task03.ui.main;
+package com.example.alien.course04task03.ui.repoMain;
 
 import android.content.res.AssetManager;
 import android.databinding.ViewDataBinding;
@@ -21,7 +21,7 @@ import com.example.alien.course04task03.databinding.SearchByTopBinding;
 import com.example.alien.course04task03.databinding.SearchByYearBinding;
 import com.example.alien.course04task03.ui.common.BaseFragment;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.example.alien.course04task03.ui.filmDetail.FilmDetailDialogFragment;
+import com.example.alien.course04task03.ui.repoDetail.RepoDetailDialogFragment;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -31,7 +31,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 
-public class MainFragment extends BaseFragment {
+public class RepoFragment extends BaseFragment {
 
     private static final String KEY_TYPE = "KeyType";
 
@@ -42,13 +42,13 @@ public class MainFragment extends BaseFragment {
     private ViewDataBinding mViewDataBinding;
 
 
-    public static MainFragment newInstance(String parentScopeName, int type) {
+    public static RepoFragment newInstance(String parentScopeName, int type) {
 
         Bundle args = new Bundle();
         args.putString(KEY_PARENT_SCOPE_NAME, parentScopeName);
         args.putInt(KEY_TYPE, type);
 
-        MainFragment fragment = new MainFragment();
+        RepoFragment fragment = new RepoFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,19 +60,19 @@ public class MainFragment extends BaseFragment {
         mSearchType = getArguments().getInt(KEY_TYPE, 0);
 
         switch (mSearchType) {
-            case MainActivity.TYPE_SEARCH_BY_DIRECTOR: {
+            case RepoActivity.TYPE_SEARCH_BY_DIRECTOR: {
                 mViewDataBinding = SearchByDirectorBinding.inflate(inflater, container, false);
                 break;
             }
-            case MainActivity.TYPE_SEARCH_BY_NAME: {
+            case RepoActivity.TYPE_SEARCH_BY_NAME: {
                 mViewDataBinding = SearchByNameBinding.inflate(inflater, container, false);
                 break;
             }
-            case MainActivity.TYPE_SEARCH_BY_YEAR: {
+            case RepoActivity.TYPE_SEARCH_BY_YEAR: {
                 mViewDataBinding = SearchByYearBinding.inflate(inflater, container, false);
                 break;
             }
-            case MainActivity.TYPE_SEARCH_BY_TOP: {
+            case RepoActivity.TYPE_SEARCH_BY_TOP: {
                 mViewDataBinding = SearchByTopBinding.inflate(inflater, container, false);
                 break;
             }
@@ -108,25 +108,25 @@ public class MainFragment extends BaseFragment {
                 return true;
             }
             case R.id.mi_add: {
-                FilmDetailDialogFragment filmDetailDialogFragment = FilmDetailDialogFragment.newInstance(-1);
-                filmDetailDialogFragment.show(getActivity().getSupportFragmentManager(), "filmDetailDialogFragment");
+                RepoDetailDialogFragment repoDetailDialogFragment = RepoDetailDialogFragment.newInstance(-1);
+                repoDetailDialogFragment.show(getActivity().getSupportFragmentManager(), "repoDetailDialogFragment");
                 return true;
             }
 
             case R.id.mi_search_by_name: {
-                MainActivity.startActivity(getContext(), MainActivity.TYPE_SEARCH_BY_NAME);
+                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_NAME);
                 return true;
             }
             case R.id.mi_search_by_year: {
-                MainActivity.startActivity(getContext(), MainActivity.TYPE_SEARCH_BY_YEAR);
+                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_YEAR);
                 return true;
             }
             case R.id.mi_search_by_director: {
-                MainActivity.startActivity(getContext(), MainActivity.TYPE_SEARCH_BY_DIRECTOR);
+                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_DIRECTOR);
                 return true;
             }
             case R.id.mi_search_by_top: {
-                MainActivity.startActivity(getContext(), MainActivity.TYPE_SEARCH_BY_TOP);
+                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_TOP);
                 return true;
             }
             default:

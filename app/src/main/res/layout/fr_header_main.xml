@@ -3,7 +3,7 @@
 
     <data class="MainBindin">
 
-        <import type="com.example.alien.course04task03.ui.main.MainActivity"/>
+        <import type="com.example.alien.course04task03.ui.repoMain.RepoActivity"/>
 
     </data>
 
@@ -14,14 +14,14 @@
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_NAME)}"-->
+            <!--android:onClick="@{(view) -> RepoActivity.startActivity(view.getContext(), RepoActivity.TYPE_SEARCH_BY_NAME)}"-->
             <!--android:text="name"-->
             <!--android:id="@+id/btn_name_search"/>-->
 
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_DIRECTOR)}"-->
+            <!--android:onClick="@{(view) -> RepoActivity.startActivity(view.getContext(), RepoActivity.TYPE_SEARCH_BY_DIRECTOR)}"-->
             <!--android:text="director"-->
             <!--android:layout_toEndOf="@+id/btn_name_search"-->
             <!--android:layout_toRightOf="@+id/btn_name_search"-->
@@ -30,7 +30,7 @@
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_YEAR)}"-->
+            <!--android:onClick="@{(view) -> RepoActivity.startActivity(view.getContext(), RepoActivity.TYPE_SEARCH_BY_YEAR)}"-->
             <!--android:text="year"-->
             <!--android:layout_toEndOf="@+id/btn_director_search"-->
             <!--android:layout_toRightOf="@+id/btn_director_search"-->
@@ -39,7 +39,7 @@
         <!--<Button-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:onClick="@{(view) -> MainActivity.startActivity(view.getContext(), MainActivity.TYPE_SEARCH_BY_TOP)}"-->
+            <!--android:onClick="@{(view) -> RepoActivity.startActivity(view.getContext(), RepoActivity.TYPE_SEARCH_BY_TOP)}"-->
             <!--android:text="top"-->
             <!--android:layout_toEndOf="@+id/btn_year_search"-->
             <!--android:layout_toRightOf="@+id/btn_year_search"-->
