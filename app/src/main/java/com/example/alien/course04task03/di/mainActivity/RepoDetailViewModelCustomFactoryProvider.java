@@ -9,17 +9,21 @@ import javax.inject.Provider;
 
 public class RepoDetailViewModelCustomFactoryProvider implements Provider<RepoDetailViewModelCustomFactory> {
 
-    protected IGitHubRepository mRepository;
+    private IGitHubRepository mRemoteRepository;
+    private IGitHubRepository mLocalRepository;
     private Long mFilmId;
 
     @Inject
-    public RepoDetailViewModelCustomFactoryProvider(IGitHubRepository mRepository, @Named("FilmId") Long filmId) {
-        this.mRepository = mRepository;
+    public RepoDetailViewModelCustomFactoryProvider(@Named("REMOTE") IGitHubRepository remoteRepository,
+                                                    @Named("LOCAL") IGitHubRepository localRepository,
+                                                    @Named("FilmId") Long filmId) {
+        this.mRemoteRepository = remoteRepository;
+        this.mLocalRepository = localRepository;
         this.mFilmId = filmId;
     }
 
     @Override
     public RepoDetailViewModelCustomFactory get() {
-        return new RepoDetailViewModelCustomFactory(mRepository, mFilmId);
+        return new RepoDetailViewModelCustomFactory(mRemoteRepository, mLocalRepository, mFilmId);
     }
 }

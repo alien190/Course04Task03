@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
 
 import java.util.regex.Pattern;
 
@@ -16,8 +15,8 @@ public class SearchByYearViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByYearQuery = new MutableLiveData<>();
 
-    public SearchByYearViewModel(IGitHubRepository repository) {
-        super(repository);
+    public SearchByYearViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        super(remoteRepository, localRepository);
         updateFromRepository();
     }
 
@@ -62,6 +61,6 @@ public class SearchByYearViewModel extends BaseViewModel {
     @Override
     protected void updateFromRepository() {
         Pair<Integer, Integer> parseResult = parseYearQuery();
-        mRepoList.postValue(mRepository.searchInBounds(parseResult.first, parseResult.second));
+        mRepoList.postValue(mRemoteRepository.searchInBounds(parseResult.first, parseResult.second));
     }
 }

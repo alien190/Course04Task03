@@ -4,14 +4,13 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
 
 public class SearchByNameViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByNameQuery = new MutableLiveData<>();
 
-    public SearchByNameViewModel(IGitHubRepository repository) {
-        super(repository);
+    public SearchByNameViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        super(remoteRepository, localRepository);
         updateFromRepository();
     }
 
@@ -26,6 +25,6 @@ public class SearchByNameViewModel extends BaseViewModel {
 
     @Override
     protected void updateFromRepository() {
-        mRepoList.postValue(mRepository.search(mSearchByNameQuery.getValue()));
+        mRepoList.postValue(mRemoteRepository.search(mSearchByNameQuery.getValue()));
     }
 }

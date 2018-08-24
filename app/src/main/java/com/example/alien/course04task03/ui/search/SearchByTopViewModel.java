@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
 
 import timber.log.Timber;
 
@@ -12,8 +11,8 @@ public class SearchByTopViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByTopQuery = new MutableLiveData<>();
 
-    public SearchByTopViewModel(IGitHubRepository repository) {
-        super(repository);
+    public SearchByTopViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        super(remoteRepository, localRepository);
         updateFromRepository();
     }
 
@@ -35,6 +34,6 @@ public class SearchByTopViewModel extends BaseViewModel {
         } catch (Throwable t) {
             Timber.d(t);
         }
-        mRepoList.postValue(mRepository.getTopRepoSimples(count));
+        mRepoList.postValue(mRemoteRepository.getTopRepoSimples(count));
     }
 }

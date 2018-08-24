@@ -9,16 +9,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ListAllViewModel extends BaseViewModel {
 
-    public ListAllViewModel(IGitHubRepository repository) {
-        super(repository);
+    public ListAllViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        super(remoteRepository, localRepository);
         updateFromRepository();
     }
 
     @SuppressLint("CheckResult")
     @Override
     protected void updateFromRepository() {
-       // List<Repo> repos = mRepository.getAll();
-        mRepository.getAll().observeOn(Schedulers.io())
+       // List<Repo> repos = mRemoteRepository.getAll();
+        mRemoteRepository.getAll().observeOn(Schedulers.io())
                 .subscribe(mRepoList::postValue);
 
     }

@@ -12,27 +12,29 @@ import com.example.alien.course04task03.ui.search.SearchByTopViewModel;
 import com.example.alien.course04task03.ui.search.SearchByYearViewModel;
 
 public class ViewModelCustomFactory implements ViewModelProvider.Factory {
-    private IGitHubRepository mRepository;
+    private IGitHubRepository mRemoteRepository;
+    private IGitHubRepository mLocalRepository;
 
-    public ViewModelCustomFactory(IGitHubRepository repository) {
-        mRepository = repository;
+    public ViewModelCustomFactory(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        mRemoteRepository = remoteRepository;
+        mLocalRepository = localRepository;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == SearchByNameViewModel.class) {
-            return (T) new SearchByNameViewModel(mRepository);
+            return (T) new SearchByNameViewModel(mRemoteRepository, mLocalRepository);
         }
         if(modelClass == SearchByDirectorViewModel.class) {
-            return (T) new SearchByDirectorViewModel(mRepository);
+            return (T) new SearchByDirectorViewModel(mRemoteRepository, mLocalRepository);
         }
         if(modelClass == SearchByYearViewModel.class) {
-            return (T) new SearchByYearViewModel(mRepository);
+            return (T) new SearchByYearViewModel(mRemoteRepository, mLocalRepository);
         }
         if(modelClass == SearchByTopViewModel.class) {
-            return (T) new SearchByTopViewModel(mRepository);
+            return (T) new SearchByTopViewModel(mRemoteRepository, mLocalRepository);
         }
-        return (T) new ListAllViewModel(mRepository);
+        return (T) new ListAllViewModel(mRemoteRepository, mLocalRepository);
     }
 }

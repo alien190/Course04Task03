@@ -5,26 +5,25 @@ import android.arch.lifecycle.ViewModel;
 
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 public abstract class BaseViewModel extends ViewModel {
+
     protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
   //  protected OrderedRealmCollection<Repo> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
 
-    protected IGitHubRepository mRepository;
+    protected final IGitHubRepository mRemoteRepository;
+    protected final IGitHubRepository mLocalRepository;
 
-
-    public BaseViewModel(IGitHubRepository repository) {
-        this.mRepository = repository;
+    public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        this.mRemoteRepository = remoteRepository;
+        this.mLocalRepository = localRepository;
 
         EventBus.getDefault().register(this);
 
@@ -51,11 +50,11 @@ public abstract class BaseViewModel extends ViewModel {
 //        Type type = new TypeToken<List<Repo>>() {
 //        }.getType();
 //        List<Repo> repos = mGson.fromJson(json, type);
-//        mRepository.insertItems(repos);
+//        mRemoteRepository.insertItems(repos);
     }
 
     public void deleteItem(long id) {
-        mRepository.deleteItem(id);
+        mRemoteRepository.deleteItem(id);
     }
 
 //    public OrderedRealmCollection<Repo> getData() {

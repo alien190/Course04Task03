@@ -4,14 +4,13 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
-import com.google.gson.Gson;
 
 public class SearchByDirectorViewModel extends BaseViewModel {
 
     private MutableLiveData<String> mSearchByDirectorQuery = new MutableLiveData<>();
 
-    public SearchByDirectorViewModel(IGitHubRepository repository) {
-        super(repository);
+    public SearchByDirectorViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+        super(remoteRepository, localRepository);
         updateFromRepository();
     }
 
@@ -27,6 +26,6 @@ public class SearchByDirectorViewModel extends BaseViewModel {
 
     @Override
     protected void updateFromRepository() {
-        mRepoList.postValue(mRepository.searchByDirector(mSearchByDirectorQuery.getValue()));
+        mRepoList.postValue(mRemoteRepository.searchByDirector(mSearchByDirectorQuery.getValue()));
     }
 }

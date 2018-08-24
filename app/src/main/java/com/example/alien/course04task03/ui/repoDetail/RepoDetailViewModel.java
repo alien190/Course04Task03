@@ -17,8 +17,8 @@ public class RepoDetailViewModel extends BaseViewModel {
     private Long mRepoId;
     private int mTitleId;
 
-    public RepoDetailViewModel(IGitHubRepository repository, Long repoId) {
-        super(repository);
+    public RepoDetailViewModel(IGitHubRepository remoteRepository,IGitHubRepository localRepository, Long repoId) {
+        super(remoteRepository, localRepository);
         mIsSaved.postValue(false);
         mRepoId = repoId;
         if (mRepoId >= 0) {
@@ -30,7 +30,7 @@ public class RepoDetailViewModel extends BaseViewModel {
     }
 
     private void loadFilm() {
-//        Film film = mRepository.getItem(mRepoId);
+//        Film film = mRemoteRepository.getItem(mRepoId);
 //        mName.postValue(film.getName());
 //        mDirector.postValue(film.getDirector());
 //        mYear.postValue(String.valueOf(film.getYear()));
@@ -69,9 +69,9 @@ public class RepoDetailViewModel extends BaseViewModel {
             Timber.d(t);
         }
         if (mRepoId < 0) {
-          //  mRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
+          //  mRemoteRepository.createFilmAndSave(name, director, yearInt, ratingDbl);
         } else {
-          //  mRepository.createFilmAndUpdate(mRepoId, name, director, yearInt, ratingDbl);
+          //  mRemoteRepository.createFilmAndUpdate(mRepoId, name, director, yearInt, ratingDbl);
         }
         mIsSaved.postValue(true);
     }
