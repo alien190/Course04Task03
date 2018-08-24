@@ -43,8 +43,8 @@ public class RepoDetailDialogFragment extends DialogFragment {
 
    private DialogInterface.OnClickListener mOnClickListener = (dialogInterface, i) -> {
         mViewModel.apply(etName.getText().toString(),
-                etHomePage.getText().toString(),
-                etDescription.getText().toString());
+                etDescription.getText().toString(),
+                etHomePage.getText().toString());
 
     };
 
