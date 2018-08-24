@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.Body;
 
 public class ListAllFragment extends BaseFragment implements IOnItemClickListener {
     View view;
@@ -28,6 +30,9 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
 
     @BindView(R.id.ll_error)
     LinearLayout mErrorLayout;
+
+    @BindView(R.id.srl_repo)
+    SwipeRefreshLayout mRefreshLayout;
 
     @Inject
     protected RepoListAdapter mAdapter;
@@ -49,7 +54,7 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fr_film_list, container, false);
+        view = inflater.inflate(R.layout.fr_repo_list, container, false);
         ButterKnife.bind(this, view);
 
         return view;
@@ -79,8 +84,22 @@ public class ListAllFragment extends BaseFragment implements IOnItemClickListene
                 mErrorLayout.setVisibility(View.VISIBLE);
             }
         });
+
+        mViewModel.getIsRefreshing().observe(this , mRefreshLayout::setRefreshing);
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRefreshLayout.setOnRefreshListener(() -> mViewModel.updateFromRemoteRepository());
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        mRefreshLayout.setOnRefreshListener(null);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public void OnItemClick(long id) {

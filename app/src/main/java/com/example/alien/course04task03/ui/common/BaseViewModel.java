@@ -16,9 +16,10 @@ import java.util.List;
 public abstract class BaseViewModel extends ViewModel {
 
     protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
-    protected  MutableLiveData<String> mResultMessage = new MutableLiveData<>();
-  //  protected OrderedRealmCollection<Repo> data;
+    protected MutableLiveData<String> mResultMessage = new MutableLiveData<>();
+    //  protected OrderedRealmCollection<Repo> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
+    protected MutableLiveData<Boolean> mIsRefreshing = new MutableLiveData<>();
 
     protected final IGitHubRepository mRemoteRepository;
     protected final IGitHubRepository mLocalRepository;
@@ -61,7 +62,8 @@ public abstract class BaseViewModel extends ViewModel {
     @SuppressLint("CheckResult")
     public void deleteItem(String repoFullName) {
         mRemoteRepository.deleteItem(repoFullName)
-                .subscribe(msg ->{}, this::errorHandler);
+                .subscribe(msg -> {
+                }, this::errorHandler);
     }
 
 //    public OrderedRealmCollection<Repo> getData() {
@@ -75,19 +77,25 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRepoSimpleDataBaseUpdate(IGitHubRepository.IOnRepoDataBaseUpdate event)
-    {
+    public void onRepoSimpleDataBaseUpdate(IGitHubRepository.IOnRepoDataBaseUpdate event) {
         updateFromLocalRepository();
     }
 
-    public void updateFromRemoteRepository(){
+    public void updateFromRemoteRepository() {
         mRemoteRepository.getAll()
+                .doOnSubscribe(disposable -> mIsRefreshing.postValue(true))
                 .flatMap(mLocalRepository::insertItems)
+                .doFinally(() -> mIsRefreshing.postValue(false))
                 .subscribe();
     }
+
     abstract protected void updateFromLocalRepository();
 
-    protected void errorHandler(Throwable throwable){
+    protected void errorHandler(Throwable throwable) {
         mResultMessage.postValue(throwable.getMessage());
+    }
+
+    public MutableLiveData<Boolean> getIsRefreshing() {
+        return mIsRefreshing;
     }
 }
