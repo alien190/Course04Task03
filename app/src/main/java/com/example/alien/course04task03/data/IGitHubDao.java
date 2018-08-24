@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.example.alien.course04task03.data.model.Repo;
 
@@ -33,4 +34,9 @@ public interface IGitHubDao {
     @Query("DELETE from repo where repo.fullName = :repoFullName")
     int deleteItem(String repoFullName);
 
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    int updateItem(Repo repo);
+
+    @Query("SELECT id FROM repo WHERE repo.fullName = :fullName")
+    int getIdByRepoFullName(String fullName);
 }

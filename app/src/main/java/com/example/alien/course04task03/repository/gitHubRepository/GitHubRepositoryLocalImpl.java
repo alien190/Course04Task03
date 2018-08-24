@@ -95,8 +95,13 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Repo> updateItem(String repoFullName, String name, String description, String homePage) {
-        return null;
+    public Single<Repo> updateItem(String repoFullName,Repo repoUpdate) {
+        return Single.fromCallable(() -> {
+            repoUpdate.setId(mIGitHubDao.getIdByRepoFullName(repoFullName));
+            mIGitHubDao.updateItem(repoUpdate);
+            EventBus.getDefault().post(new OnRepoDataBaseUpdate());
+            return repoUpdate;
+        });
     }
 
     @Override

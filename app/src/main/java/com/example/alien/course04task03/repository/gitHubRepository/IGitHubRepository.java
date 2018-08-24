@@ -32,7 +32,7 @@ public interface IGitHubRepository {
 
     Single<Repo> createItem(String name, String description, String homePage);
 
-    Single<Repo> updateItem(String repoFullName, String name, String description, String homePage);
+    Single<Repo> updateItem(String repoFullName,Repo repoUpdate);
 
     Single<User> getUser(String token);
 

@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
+import io.reactivex.SingleSource;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 
 public class RepoDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> mName = new MutableLiveData<>();
@@ -67,10 +70,11 @@ public class RepoDetailViewModel extends BaseViewModel {
                     .flatMap(repo -> mLocalRepository.insertItem(repo))
                     .subscribe();
         } else {
-            mRemoteRepository.updateItem(mRepoFullName, name, description, homePage)
+            Repo repoUpdate = new Repo(name, description, homePage);
+            mRemoteRepository.updateItem(mRepoFullName, repoUpdate)
+                    .flatMap(repo -> mLocalRepository.updateItem(mRepoFullName, repo))
                     .subscribe(repo -> {
-                            },
-                            this::errorHandler);
+                    }, this::errorHandler);
         }
 //mIsSaved.postValue(true)
     }
@@ -90,7 +94,7 @@ public class RepoDetailViewModel extends BaseViewModel {
 
     @Override
     protected void onCleared() {
-      //  mDisposable.dispose();
+        //  mDisposable.dispose();
         super.onCleared();
     }
 }

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity
 public class Repo {
 
+
     @SerializedName("id")
     @PrimaryKey
     private int id;
@@ -50,6 +51,12 @@ public class Repo {
 
     @SerializedName("homepage")
     private String homePage;
+
+    public Repo(String name, String description, String homePage) {
+        this.description = description;
+        this.name = name;
+        this.homePage = homePage;
+    }
 
     public void setJsonMemberPrivate(boolean jsonMemberPrivate) {
         this.jsonMemberPrivate = jsonMemberPrivate;

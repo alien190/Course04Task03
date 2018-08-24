@@ -115,9 +115,9 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<Repo> updateItem(String repoFullName, String name, String description, String homePage) {
-        RepoUpdate repoUpdate = new RepoUpdate(name, description, homePage);
-        return mIGitHubApi.updateRepo(repoFullName, repoUpdate).subscribeOn(Schedulers.io());
+    public Single<Repo> updateItem(String repoFullName,Repo repoUpdate) {
+
+            return mIGitHubApi.updateRepo(repoFullName, repoUpdate).subscribeOn(Schedulers.io());
     }
 
 }

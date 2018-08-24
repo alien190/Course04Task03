@@ -34,7 +34,7 @@ public interface IGitHubApi {
     Single<List<Repo>> getRepos();
 
     @PATCH("/repos/{repoFullName}")
-    Single<Repo> updateRepo(@Path(value = "repoFullName", encoded = true) String repoFullName, @Body RepoUpdate repoUpdate);
+    Single<Repo> updateRepo(@Path(value = "repoFullName", encoded = true) String repoFullName, @Body Repo repoUpdate);
 
     @DELETE("/repos/{repoFullName}")
     Single<ErrorsItem> deleteRepo(@Path(value = "repoFullName", encoded = true) String repoFullName);

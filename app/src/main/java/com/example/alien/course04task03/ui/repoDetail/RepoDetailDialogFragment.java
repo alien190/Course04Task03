@@ -45,7 +45,6 @@ public class RepoDetailDialogFragment extends DialogFragment {
         mViewModel.apply(etName.getText().toString(),
                 etDescription.getText().toString(),
                 etHomePage.getText().toString());
-
     };
 
     public static RepoDetailDialogFragment newInstance(long id) {
