@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.example.alien.course04task03.BR;
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.databinding.MainBindin;
 import com.example.alien.course04task03.databinding.SearchByDirectorBinding;
@@ -91,7 +92,7 @@ public class RepoFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //mViewDataBinding.setVariable(BR.vm, mViewModel);
+        mViewDataBinding.setVariable(BR.vm, mViewModel);
 
     }
 

@@ -66,8 +66,8 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public List<Repo> search(String query) {
-        return null;
+    public Single<List<Repo>> search(String query) {
+        return Single.just(new ArrayList<Repo>());
     }
 
     @Override

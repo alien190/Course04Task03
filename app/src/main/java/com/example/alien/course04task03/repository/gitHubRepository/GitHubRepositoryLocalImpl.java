@@ -6,6 +6,7 @@ import com.example.alien.course04task03.data.model.User;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -57,8 +58,13 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public List<Repo> search(String query) {
-        return null;
+    public Single<List<Repo>> search(String query) {
+        if (query == null || query.length() < 3) {
+            return Single.just(new ArrayList<Repo>());
+        } else {
+            query = "%" + query + "%";
+            return mIGitHubDao.searchByName(query).subscribeOn(Schedulers.io());
+        }
     }
 
     @Override
@@ -96,5 +102,6 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
         return null;
     }
 
-    private class OnRepoDataBaseUpdate implements IOnRepoDataBaseUpdate{}
+    private class OnRepoDataBaseUpdate implements IOnRepoDataBaseUpdate {
+    }
 }

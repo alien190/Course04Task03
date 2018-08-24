@@ -20,7 +20,7 @@ public interface IGitHubRepository {
 
     Single<List<Repo>> getAll();
 
-    List<Repo> search(String query);
+    Single<List<Repo>> search(String query);
 
     List<Repo> searchInBounds(int startYear, int endYear);
 

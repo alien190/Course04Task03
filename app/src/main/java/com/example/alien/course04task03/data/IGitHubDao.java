@@ -21,4 +21,7 @@ public interface IGitHubDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     List<Long> insertItems(List<Repo> repos);
+
+    @Query("SELECT * from repo where repo.name like :name")
+    Single<List<Repo>> searchByName(String name);
 }

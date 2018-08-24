@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_margin="4dp"
             android:text="@{vm.searchByNameQuery}"
-            android:onTextChanged="@{(text, start, before, count) -> vm.setSearchByNameQuery(text)}"
+            android:onTextChanged="@{(text, start, before, count) -> vm.doSearchByNameQuery(text)}"
             android:hint="@string/name_search_hint"/>
 
     </RelativeLayout>
