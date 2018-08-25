@@ -39,4 +39,5 @@
     <string name="year_label">Описание</string>
     <string name="director_label">Домашняя страница</string>
     <string name="rate_label">Рейтинг</string>
+    <string name="no_description">нет описания</string>
 </resources>
