@@ -7,6 +7,7 @@ import com.example.alien.course04task03.api.IGitHubApi;
 import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 
+import io.reactivex.Single;
 import toothpick.config.Module;
 
 public class GitHubRepositoryModule extends Module {
@@ -24,6 +25,7 @@ public class GitHubRepositoryModule extends Module {
         bind(IGitHubDao.class).toProvider(GitHubDaoProvider.class).providesSingletonInScope();
         bind(IGitHubRepository.class).withName("REMOTE").toProvider(GitHubRepositoryRemoteProvider.class).providesSingletonInScope();
         bind(IGitHubRepository.class).withName("LOCAL").toProvider(GitHubRepositoryLocalProvider.class).providesSingletonInScope();
+        bind(Single.class).withName("USER").toProvider(UserProvider.class).providesSingletonInScope();
     }
 
 }

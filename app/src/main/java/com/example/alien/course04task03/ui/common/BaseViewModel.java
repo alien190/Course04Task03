@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.alien.course04task03.data.model.Repo;
+import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,26 +15,26 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import io.reactivex.Single;
 import retrofit2.HttpException;
 
 public abstract class BaseViewModel extends ViewModel {
 
     protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
     protected MutableLiveData<String> mResultMessage = new MutableLiveData<>();
-    //  protected OrderedRealmCollection<Repo> data;
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
     protected MutableLiveData<Boolean> mIsRefreshing = new MutableLiveData<>();
 
     protected final IGitHubRepository mRemoteRepository;
     protected final IGitHubRepository mLocalRepository;
-    protected String mUserLogin;
+    protected MutableLiveData<String> mUserLogin = new MutableLiveData<>();
 
     @SuppressLint("CheckResult")
-    public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
+    public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Single<User> user) {
         this.mRemoteRepository = remoteRepository;
         this.mLocalRepository = localRepository;
 
-        mRemoteRepository.getUser().subscribe(user -> mUserLogin = user.getLogin());
+        user.subscribe(retUser -> mUserLogin.postValue(retUser.getLogin()), this::errorHandler);
         EventBus.getDefault().register(this);
 
         mRepoList.observeForever(list ->
@@ -92,7 +93,7 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     public void updateFromRemoteRepository() {
-        mRemoteRepository.getAll()
+        mRemoteRepository.getAll("")
                 .doOnSubscribe(disposable -> mIsRefreshing.postValue(true))
                 .flatMap(mLocalRepository::insertItems)
                 .doFinally(() -> mIsRefreshing.postValue(false))

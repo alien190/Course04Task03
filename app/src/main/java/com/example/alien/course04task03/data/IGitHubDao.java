@@ -16,8 +16,8 @@ import retrofit2.http.PATCH;
 
 @Dao
 public interface IGitHubDao {
-    @Query("SELECT * from repo")
-    Single<List<Repo>> getAll();
+    @Query("SELECT * FROM repo WHERE repo.login = :userLogin")
+    Single<List<Repo>> getAll(String userLogin);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertItem(Repo repo);

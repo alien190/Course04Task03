@@ -69,7 +69,7 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<List<Repo>> getAll() {
+    public Single<List<Repo>> getAll(String userLogin) {
         return mIGitHubApi.getRepos()
                 .subscribeOn(Schedulers.io());
     }

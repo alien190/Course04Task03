@@ -19,7 +19,7 @@ public interface IGitHubRepository {
 
     Single<String> deleteItem(String repoFullName);
 
-    Single<List<Repo>> getAll();
+    Single<List<Repo>> getAll(String userLogin);
 
     Single<List<Repo>> search(String query);
 

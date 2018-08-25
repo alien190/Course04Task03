@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.ui.repoMain;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.alien.course04task03.R;
+import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.di.gitHubRepository.GitHubRepositoryModule;
 import com.example.alien.course04task03.di.mainActivity.MainActivityModule;
 import com.example.alien.course04task03.di.mainActivity.SearchByNameActivityModule;
@@ -16,6 +18,9 @@ import com.example.alien.course04task03.ui.repoList.ListAllFragment;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 import toothpick.Scope;
 import toothpick.Toothpick;
 import toothpick.config.Module;
@@ -33,12 +38,16 @@ public class RepoActivity extends AppCompatActivity {
     ListAllFragment mListAllFragment;
 
     @Inject
-    @Named("TitleId")
+    @Named("ID_TITLE")
     protected Integer mTitleId;
 
     private String mScopeName;
 
+    @Inject
+    @Named("USER")
+    Single<User> mUser;
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +59,9 @@ public class RepoActivity extends AppCompatActivity {
             changeFragment();
         }
 
-        setTitle(mTitleId);
+        mUser.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(user -> setTitle(getString(mTitleId) +" "+ user.getLogin()),
+                        Timber::e);
     }
 
     @Override

@@ -5,9 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.data.model.Repo;
+import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
+import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
@@ -22,8 +24,8 @@ public class RepoDetailViewModel extends BaseViewModel {
     private Disposable mDisposable;
     private String mRepoFullName;
 
-    public RepoDetailViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Long repoId) {
-        super(remoteRepository, localRepository);
+    public RepoDetailViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Long repoId, Single<User> user) {
+        super(remoteRepository, localRepository, user);
         mIsSaved.postValue(false);
         mRepoId = repoId;
         if (mRepoId >= 0) {

@@ -2,9 +2,11 @@ package com.example.alien.course04task03.ui.search;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 
 public class SearchByNameViewModel extends BaseViewModel {
@@ -12,8 +14,8 @@ public class SearchByNameViewModel extends BaseViewModel {
     private MutableLiveData<String> mSearchByNameQuery = new MutableLiveData<>();
     private Disposable mDisposable;
 
-    public SearchByNameViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
-        super(remoteRepository, localRepository);
+    public SearchByNameViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Single<User> user) {
+        super(remoteRepository, localRepository, user);
         updateFromLocalRepository();
         updateFromRemoteRepository();
     }

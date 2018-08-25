@@ -1,19 +1,12 @@
 package com.example.alien.course04task03.repository.gitHubRepository;
 
-import android.support.v4.app.INotificationSideChannel;
-
 import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-
 import io.reactivex.Single;
-import io.reactivex.SingleOnSubscribe;
 import io.reactivex.schedulers.Schedulers;
 
 public class GitHubRepositoryLocalImpl implements IGitHubRepository {
@@ -61,8 +54,8 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<List<Repo>> getAll() {
-        return mIGitHubDao.getAll().subscribeOn(Schedulers.io());
+    public Single<List<Repo>> getAll(String userLogin) {
+        return mIGitHubDao.getAll(userLogin).subscribeOn(Schedulers.io());
     }
 
     @Override
