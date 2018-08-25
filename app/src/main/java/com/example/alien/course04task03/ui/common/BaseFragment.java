@@ -1,10 +1,12 @@
 package com.example.alien.course04task03.ui.common;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.di.mainActivity.RepoListFragmentModule;
 import com.example.alien.course04task03.ui.repoMain.RepoActivity;
 
@@ -45,4 +47,11 @@ public abstract class BaseFragment extends Fragment {
     public void setScopeName(String scopeName) {
         this.mScopeName = scopeName;
     }
+
+//    public void onAuthErrorRepoCreation() {
+//        new AlertDialog.Builder(getContext())
+//                .setTitle(R.string.auth_error_title)
+//                .setMessage(R.string.auth_error_msg)
+//                .setPositiveButton(R.string.understand, (dialogInterface, i) -> startTokenActivity()).show();
+//    }
 }

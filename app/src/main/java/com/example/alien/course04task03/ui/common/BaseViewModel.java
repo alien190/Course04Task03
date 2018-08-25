@@ -35,7 +35,7 @@ public abstract class BaseViewModel extends ViewModel {
         this.mRemoteRepository = remoteRepository;
         this.mLocalRepository = localRepository;
 
-        user.subscribe(retUser -> mUserLogin.postValue(retUser.getLogin()), this::errorHandler);
+        user.subscribe(retUser -> mUserLogin.postValue(retUser.getLogin()), this::userErrorHandler);
         EventBus.getDefault().register(this);
 
         mRepoList.observeForever(list ->
@@ -50,6 +50,10 @@ public abstract class BaseViewModel extends ViewModel {
 
 //        updateFromLocalRepository();
 //        updateFromRemoteRepository();
+    }
+
+    protected void userErrorHandler(Throwable throwable) {
+
     }
 
     public MutableLiveData<List<Repo>> getRepoList() {
@@ -77,9 +81,9 @@ public abstract class BaseViewModel extends ViewModel {
                                 mLocalRepository.deleteItem(repoFullName).subscribe(
                                         ret -> {
                                         },
-                                        throwableLocalDel -> errorHandler(throwableLocalDel, repoFullName));
+                                        throwableLocalDel -> repoErrorHandler(throwableLocalDel, repoFullName));
                             } else {
-                                errorHandler(throwable, repoFullName);
+                                repoErrorHandler(throwable, repoFullName);
                             }
                         });
     }
@@ -107,17 +111,16 @@ public abstract class BaseViewModel extends ViewModel {
     abstract protected void updateFromLocalRepository();
 
     @SuppressLint("CheckResult")
-    protected void errorHandler(Throwable throwable, String repoFullName) {
+    protected void repoErrorHandler(Throwable throwable, String repoFullName) {
         if (throwable instanceof HttpException) {
-            if (((HttpException) throwable).code() == 404){
+            if (((HttpException) throwable).code() == 404) {
                 mLocalRepository.deleteItem(repoFullName).subscribe(
                         ret -> mResultMessage.postValue("Такой репозиторий не существует на сервере"),
                         throwable1 -> mResultMessage.postValue(throwable.getMessage())
                 );
             }
-            if (((HttpException) throwable).code() == 401){
-
-                );
+            if (((HttpException) throwable).code() == 401) {
+//todo реализовать реакция на http eror 401
             }
         } else {
             mResultMessage.postValue(throwable.getMessage());

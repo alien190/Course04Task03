@@ -78,7 +78,7 @@ public class RepoDetailViewModel extends BaseViewModel {
             mRemoteRepository.updateItem(mRepoFullName, repoUpdate)
                     .flatMap(repo -> mLocalRepository.updateItem(mRepoFullName, repo))
                     .subscribe(repo -> {
-                    }, this::errorHandler);
+                    }, this::userErrorHandler);
         }
 //mIsSaved.postValue(true)
     }
