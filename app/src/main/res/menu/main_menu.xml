@@ -2,4 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="@string/mi_add" android:id="@+id/mi_add"/>
     <item android:title="@string/mi_search_by_name" android:id="@+id/mi_search_by_name"/>
+    <item android:title="@string/mi_logout" android:id="@+id/mi_logout"/>
+    <item android:title="@string/mi_exit" android:id="@+id/mi_exit"/>
 </menu>

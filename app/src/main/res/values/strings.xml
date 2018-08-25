@@ -40,4 +40,6 @@
     <string name="director_label">Домашняя страница</string>
     <string name="rate_label">Рейтинг</string>
     <string name="no_description">нет описания</string>
+    <string name="mi_logout">Выйти из аккаунта</string>
+    <string name="mi_exit">Выйти из приложения</string>
 </resources>

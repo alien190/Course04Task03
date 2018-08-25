@@ -30,7 +30,7 @@ public class ApplicationModule extends Module {
         bind(Context.class).toInstance(mContext);
         bind(ISharedPref.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
         bind(ITokenStorage.class).toProvider(SharedPrefProvider.class).providesSingletonInScope();
-        bind(ViewModelCustomFactory.class).toProvider(ViewModelCustomFactoryProvider.class).providesSingletonInScope();
+
     }
 
 }

@@ -185,4 +185,5 @@ public class TokenFragment extends Fragment {
             cookieSyncMngr.sync();
         }
     }
+
 }

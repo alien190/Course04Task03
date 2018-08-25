@@ -60,6 +60,7 @@ public class LaunchActivity extends SingleFragmentActivity {
     private void tokenObserver(String token) {
         if (token != null && !token.isEmpty()) {
             RepoActivity.startActivity(this, RepoActivity.TYPE_LIST);
+            Toothpick.closeScope(getClass().getSimpleName());
             finish();
         }
         Timber.d("tokenObserver.token: %s", token);

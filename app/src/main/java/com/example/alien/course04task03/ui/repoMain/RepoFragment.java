@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.ui.repoMain;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -19,7 +20,11 @@ import com.example.alien.course04task03.databinding.MainBindin;
 import com.example.alien.course04task03.databinding.SearchByNameBinding;
 import com.example.alien.course04task03.ui.common.BaseFragment;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
+import com.example.alien.course04task03.ui.event.CloseActivityEvent;
+import com.example.alien.course04task03.ui.launch.LaunchActivity;
 import com.example.alien.course04task03.ui.repoDetail.RepoDetailDialogFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -35,6 +40,9 @@ public class RepoFragment extends BaseFragment {
 
     @Inject
     protected BaseViewModel mViewModel;
+
+    @Inject
+    Context mContext;
 
     private int mSearchType;
     private ViewDataBinding mViewDataBinding;
@@ -99,10 +107,27 @@ public class RepoFragment extends BaseFragment {
                 RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_NAME);
                 return true;
             }
+            case R.id.mi_logout: {
+                doLogout();
+                return true;
+            }
 
+            case R.id.mi_exit: {
+                doCloseActivity();
+                return true;
+            }
             default:
                 return false;
         }
+    }
+
+    private void doLogout() {
+        LaunchActivity.startActivity(mContext, true);
+        doCloseActivity();
+    }
+
+    private void doCloseActivity() {
+        EventBus.getDefault().post(new CloseActivityEvent());
     }
 
     private void generateData() {

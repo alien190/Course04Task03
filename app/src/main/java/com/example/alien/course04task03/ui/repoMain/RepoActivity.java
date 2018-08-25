@@ -13,7 +13,12 @@ import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.di.gitHubRepository.GitHubRepositoryModule;
 import com.example.alien.course04task03.di.mainActivity.MainActivityModule;
 import com.example.alien.course04task03.di.mainActivity.SearchByNameActivityModule;
+import com.example.alien.course04task03.ui.event.CloseActivityEvent;
 import com.example.alien.course04task03.ui.repoList.ListAllFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -117,10 +122,9 @@ public class RepoActivity extends AppCompatActivity {
             }
         }
 
-        Scope appScope = Toothpick.openScope("Application");
-        appScope.installModules(new GitHubRepositoryModule(this));
 
         Scope scope = Toothpick.openScopes("Application", mScopeName);
+        scope.installModules(new GitHubRepositoryModule(this));
         scope.installModules(module);
         Toothpick.inject(this, scope);
 
@@ -128,5 +132,23 @@ public class RepoActivity extends AppCompatActivity {
 
     public String getScopeName() {
         return mScopeName;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    protected void onClose(CloseActivityEvent closeActivityEvent){
+        Toothpick.closeScope(mScopeName);
+        finish();
     }
 }
