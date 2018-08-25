@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 
 import io.reactivex.Single;
 import retrofit2.HttpException;
+import timber.log.Timber;
 
 public abstract class BaseViewModel extends ViewModel {
 
@@ -73,9 +74,12 @@ public abstract class BaseViewModel extends ViewModel {
                         },
                         throwable -> {
                             if (throwable instanceof NoSuchElementException) {
-                                mLocalRepository.deleteItem(repoFullName).subscribe();
+                                mLocalRepository.deleteItem(repoFullName).subscribe(
+                                        ret -> {
+                                        },
+                                        throwableLocalDel -> errorHandler(throwableLocalDel, repoFullName));
                             } else {
-                                errorHandler(throwable);
+                                errorHandler(throwable, repoFullName);
                             }
                         });
     }
@@ -102,8 +106,22 @@ public abstract class BaseViewModel extends ViewModel {
 
     abstract protected void updateFromLocalRepository();
 
-    protected void errorHandler(Throwable throwable) {
-        mResultMessage.postValue(throwable.getMessage());
+    @SuppressLint("CheckResult")
+    protected void errorHandler(Throwable throwable, String repoFullName) {
+        if (throwable instanceof HttpException) {
+            if (((HttpException) throwable).code() == 404){
+                mLocalRepository.deleteItem(repoFullName).subscribe(
+                        ret -> mResultMessage.postValue("Такой репозиторий не существует на сервере"),
+                        throwable1 -> mResultMessage.postValue(throwable.getMessage())
+                );
+            }
+            if (((HttpException) throwable).code() == 401){
+
+                );
+            }
+        } else {
+            mResultMessage.postValue(throwable.getMessage());
+        }
     }
 
     public MutableLiveData<Boolean> getIsRefreshing() {
