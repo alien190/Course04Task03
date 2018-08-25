@@ -26,11 +26,14 @@ public abstract class BaseViewModel extends ViewModel {
 
     protected final IGitHubRepository mRemoteRepository;
     protected final IGitHubRepository mLocalRepository;
+    protected String mUserLogin;
 
+    @SuppressLint("CheckResult")
     public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository) {
         this.mRemoteRepository = remoteRepository;
         this.mLocalRepository = localRepository;
 
+        mRemoteRepository.getUser().subscribe(user -> mUserLogin = user.getLogin());
         EventBus.getDefault().register(this);
 
         mRepoList.observeForever(list ->

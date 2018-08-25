@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.data.model;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -51,6 +52,10 @@ public class Repo {
 
     @SerializedName("homepage")
     private String homePage;
+
+    @SerializedName("owner")
+    @Embedded
+    private Owner owner;
 
     public Repo(String name, String description, String homePage) {
         this.description = description;
@@ -168,6 +173,14 @@ public class Repo {
 
     public void setHomePage(String homePage) {
         this.homePage = homePage;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @Override
