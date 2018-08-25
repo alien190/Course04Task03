@@ -86,7 +86,7 @@ public class RepoDetailDialogFragment extends DialogFragment {
             id = getArguments().getLong(KEY_REPO_ID, -1);
         }
 
-        mScope = Toothpick.openScopes("Application", this.getClass().getSimpleName());
+        mScope = Toothpick.openScopes("AuthorizedScope", this.getClass().getSimpleName());
         mScope.installModules(new RepoDetailDialogFragmentModule(this, id));
         Toothpick.inject(this, mScope);
     }

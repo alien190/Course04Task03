@@ -123,8 +123,10 @@ public class RepoActivity extends AppCompatActivity {
         }
 
 
-        Scope scope = Toothpick.openScopes("Application", mScopeName);
-        scope.installModules(new GitHubRepositoryModule(this));
+        Scope gitHubScope = Toothpick.openScopes("Application", "AuthorizedScope");
+        gitHubScope.installModules(new GitHubRepositoryModule(this));
+
+        Scope scope = Toothpick.openScopes("AuthorizedScope", mScopeName);
         scope.installModules(module);
         Toothpick.inject(this, scope);
 
@@ -148,7 +150,7 @@ public class RepoActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     protected void onClose(CloseActivityEvent closeActivityEvent){
-        Toothpick.closeScope(mScopeName);
+        Toothpick.closeScope("AuthorizedScope");
         finish();
     }
 }
