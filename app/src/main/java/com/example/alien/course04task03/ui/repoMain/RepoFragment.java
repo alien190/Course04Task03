@@ -16,10 +16,7 @@ import android.view.ViewGroup;
 import com.example.alien.course04task03.BR;
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.databinding.MainBindin;
-import com.example.alien.course04task03.databinding.SearchByDirectorBinding;
 import com.example.alien.course04task03.databinding.SearchByNameBinding;
-import com.example.alien.course04task03.databinding.SearchByTopBinding;
-import com.example.alien.course04task03.databinding.SearchByYearBinding;
 import com.example.alien.course04task03.ui.common.BaseFragment;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 import com.example.alien.course04task03.ui.repoDetail.RepoDetailDialogFragment;
@@ -61,20 +58,8 @@ public class RepoFragment extends BaseFragment {
         mSearchType = getArguments().getInt(KEY_TYPE, 0);
 
         switch (mSearchType) {
-            case RepoActivity.TYPE_SEARCH_BY_DIRECTOR: {
-                mViewDataBinding = SearchByDirectorBinding.inflate(inflater, container, false);
-                break;
-            }
             case RepoActivity.TYPE_SEARCH_BY_NAME: {
                 mViewDataBinding = SearchByNameBinding.inflate(inflater, container, false);
-                break;
-            }
-            case RepoActivity.TYPE_SEARCH_BY_YEAR: {
-                mViewDataBinding = SearchByYearBinding.inflate(inflater, container, false);
-                break;
-            }
-            case RepoActivity.TYPE_SEARCH_BY_TOP: {
-                mViewDataBinding = SearchByTopBinding.inflate(inflater, container, false);
                 break;
             }
             default: {

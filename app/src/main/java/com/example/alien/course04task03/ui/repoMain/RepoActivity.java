@@ -10,10 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.alien.course04task03.R;
 import com.example.alien.course04task03.di.gitHubRepository.GitHubRepositoryModule;
 import com.example.alien.course04task03.di.mainActivity.MainActivityModule;
-import com.example.alien.course04task03.di.mainActivity.SearchByDirectorActivityModule;
 import com.example.alien.course04task03.di.mainActivity.SearchByNameActivityModule;
-import com.example.alien.course04task03.di.mainActivity.SearchByTopActivityModule;
-import com.example.alien.course04task03.di.mainActivity.SearchByYearActivityModule;
 import com.example.alien.course04task03.ui.repoList.ListAllFragment;
 
 import javax.inject.Inject;
@@ -27,9 +24,6 @@ public class RepoActivity extends AppCompatActivity {
 
     public static final int TYPE_LIST = 0;
     public static final int TYPE_SEARCH_BY_NAME = 1;
-    public static final int TYPE_SEARCH_BY_DIRECTOR = 2;
-    public static final int TYPE_SEARCH_BY_YEAR = 3;
-    public static final int TYPE_SEARCH_BY_TOP = 4;
     private static final String TYPE_KEY = "SearchActivityTypeKey";
 
     @Inject
@@ -100,24 +94,9 @@ public class RepoActivity extends AppCompatActivity {
         int type = getIntent().getIntExtra(TYPE_KEY, 0);
 
         switch (type) {
-            case TYPE_SEARCH_BY_DIRECTOR: {
-                mScopeName = "SEARCH_BY_DIRECTOR_SCOPE";
-                module = new SearchByDirectorActivityModule(this, mScopeName, type);
-                break;
-            }
             case TYPE_SEARCH_BY_NAME: {
                 mScopeName = "SEARCH_BY_NAME_SCOPE";
                 module = new SearchByNameActivityModule(this, mScopeName, type);
-                break;
-            }
-            case TYPE_SEARCH_BY_YEAR: {
-                mScopeName = "SEARCH_BY_YEAR_SCOPE";
-                module = new SearchByYearActivityModule(this, mScopeName, type);
-                break;
-            }
-            case TYPE_SEARCH_BY_TOP: {
-                mScopeName = "SEARCH_BY_TOP_SCOPE";
-                module = new SearchByTopActivityModule(this, mScopeName, type);
                 break;
             }
             default: {
