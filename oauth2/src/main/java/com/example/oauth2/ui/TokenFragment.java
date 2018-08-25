@@ -1,6 +1,8 @@
-package com.example.oauth2.token;
+package com.example.oauth2.ui;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -37,10 +41,16 @@ public class TokenFragment extends Fragment {
     @Inject
     CustomWebViewClient mCustomWebViewClient;
 
-    private static final String PARENT_SCOPE_NAME_KEY = "ParentScopeNameKey";
-    private String mParentScopeName;
+    @Inject
+    Context mContext;
 
-    public static TokenFragment newInstance(String parentScopeName) {
+    private static final String PARENT_SCOPE_NAME_KEY = "ParentScopeNameKey";
+    private static final String DO_LOGOUT_KEY = "DoLogoutKey";
+
+    private String mParentScopeName;
+    private Boolean mDoLogout;
+
+    public static TokenFragment newInstance(String parentScopeName, Boolean doLogout) {
 
 //        if (parentScopeName.isEmpty()) {
 //            throw new Throwable("parentScopeName cant be empty");
@@ -48,6 +58,7 @@ public class TokenFragment extends Fragment {
 
         Bundle args = new Bundle();
         args.putString(PARENT_SCOPE_NAME_KEY, parentScopeName);
+        args.putBoolean(DO_LOGOUT_KEY, doLogout);
         TokenFragment fragment = new TokenFragment();
         fragment.setArguments(args);
         fragment.setRetainInstance(true);
@@ -64,8 +75,13 @@ public class TokenFragment extends Fragment {
             Bundle args = getArguments();
             if (args != null) {
                 mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
+                mDoLogout = args.getBoolean(DO_LOGOUT_KEY, false);
             }
             toothpickInject();
+            if(mDoLogout) {
+                clearCookies(mContext);
+                mViewModel.clearToken();
+            }
             mViewModel.getState().observe(this, this::onChangeState);
             mViewModel.startNewAuth();
         }
@@ -149,5 +165,24 @@ public class TokenFragment extends Fragment {
 
     public MutableLiveData<String> getToken() {
         return mViewModel.getToken();
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void clearCookies(Context context)
+    {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            CookieManager.getInstance().removeAllCookies(null);
+            CookieManager.getInstance().flush();
+        } else
+        {
+            CookieSyncManager cookieSyncMngr=CookieSyncManager.createInstance(context);
+            cookieSyncMngr.startSync();
+            CookieManager cookieManager=CookieManager.getInstance();
+            cookieManager.removeAllCookie();
+            cookieManager.removeSessionCookie();
+            cookieSyncMngr.stopSync();
+            cookieSyncMngr.sync();
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.oauth2.di;
 
 import com.example.oauth2.repository.tokenValidator.ITokenValidator;
-import com.example.oauth2.token.TokenViewModelFactory;
+import com.example.oauth2.ui.TokenViewModelFactory;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

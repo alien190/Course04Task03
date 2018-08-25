@@ -107,4 +107,10 @@ public class TokenValidatorImpl implements ITokenValidator {
                             Timber.e(throwable);
                         });
     }
+
+    @Override
+    public void clearToken() {
+        Disposable disposable = mITokenStorage.clearToken()
+                .subscribe(r -> {}, Timber::e);
+    }
 }

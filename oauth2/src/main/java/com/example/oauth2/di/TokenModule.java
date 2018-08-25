@@ -7,9 +7,9 @@ import com.example.oauth2.api.HeaderInterceptor;
 import com.example.oauth2.api.IAuthApi;
 import com.example.oauth2.repository.gitHubRepository.IGHRepository;
 import com.example.oauth2.repository.tokenValidator.ITokenValidator;
-import com.example.oauth2.token.CustomWebViewClient;
-import com.example.oauth2.token.ITokenViewModel;
-import com.example.oauth2.token.TokenViewModelFactory;
+import com.example.oauth2.ui.CustomWebViewClient;
+import com.example.oauth2.ui.ITokenViewModel;
+import com.example.oauth2.ui.TokenViewModelFactory;
 import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;

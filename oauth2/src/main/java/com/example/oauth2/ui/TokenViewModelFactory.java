@@ -1,4 +1,4 @@
-package com.example.oauth2.token;
+package com.example.oauth2.ui;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

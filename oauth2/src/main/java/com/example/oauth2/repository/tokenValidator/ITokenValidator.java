@@ -23,4 +23,6 @@ public interface ITokenValidator {
     void createToken(String code);
 
     void obtainToken();
+
+    void clearToken();
 }

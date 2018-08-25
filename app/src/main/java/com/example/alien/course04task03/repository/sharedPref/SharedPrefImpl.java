@@ -35,4 +35,14 @@ public class SharedPrefImpl implements ISharedPref, ITokenStorage {
             return true;
         });
     }
+
+    @Override
+    public Single<Boolean> clearToken() {
+        return Single.fromCallable(() -> {
+            mSharedPreferences.edit()
+                    .putString(TOKEN_KEY, "")
+                    .apply();
+            return true;
+        });
+    }
 }

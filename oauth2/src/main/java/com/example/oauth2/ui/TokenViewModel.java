@@ -1,4 +1,4 @@
-package com.example.oauth2.token;
+package com.example.oauth2.ui;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
@@ -81,5 +81,10 @@ public class TokenViewModel extends ViewModel implements ITokenViewModel {
 
     public MutableLiveData<String> getToken() {
         return mToken;
+    }
+
+    @Override
+    public void clearToken() {
+        mTokenValidator.clearToken();
     }
 }

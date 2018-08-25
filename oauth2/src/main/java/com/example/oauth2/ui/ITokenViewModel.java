@@ -1,4 +1,4 @@
-package com.example.oauth2.token;
+package com.example.oauth2.ui;
 
 import android.arch.lifecycle.MutableLiveData;
 
@@ -18,4 +18,6 @@ public interface ITokenViewModel {
     void showAuthorizationForm();
 
     void startNewAuth();
+
+    void clearToken();
 }

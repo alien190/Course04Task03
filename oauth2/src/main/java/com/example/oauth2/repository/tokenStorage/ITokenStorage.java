@@ -5,4 +5,5 @@ import io.reactivex.Single;
 public interface ITokenStorage {
     Single<String> readToken();
     Single<Boolean> writeToken(String token);
+    Single<Boolean> clearToken();
 }
