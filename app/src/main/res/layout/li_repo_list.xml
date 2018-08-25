@@ -124,7 +124,7 @@
                     android:layout_alignBottom="@id/tvSize"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginRight="@dimen/margin"
-                    android:layout_toLeftOf="@rap_content+id/ivWatches"
+                    android:layout_toLeftOf="@+id/ivWatches"
                     tools:text="43" />
 
                 <ImageView

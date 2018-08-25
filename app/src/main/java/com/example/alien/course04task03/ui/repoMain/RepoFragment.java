@@ -104,10 +104,6 @@ public class RepoFragment extends BaseFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.mi_generate: {
-                generateData();
-                return true;
-            }
             case R.id.mi_add: {
                 RepoDetailDialogFragment repoDetailDialogFragment = RepoDetailDialogFragment.newInstance(-1);
                 repoDetailDialogFragment.show(getActivity().getSupportFragmentManager(), "repoDetailDialogFragment");
@@ -118,18 +114,7 @@ public class RepoFragment extends BaseFragment {
                 RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_NAME);
                 return true;
             }
-            case R.id.mi_search_by_year: {
-                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_YEAR);
-                return true;
-            }
-            case R.id.mi_search_by_director: {
-                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_DIRECTOR);
-                return true;
-            }
-            case R.id.mi_search_by_top: {
-                RepoActivity.startActivity(getContext(), RepoActivity.TYPE_SEARCH_BY_TOP);
-                return true;
-            }
+
             default:
                 return false;
         }
