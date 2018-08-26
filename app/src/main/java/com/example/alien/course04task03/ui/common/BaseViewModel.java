@@ -131,7 +131,7 @@ public abstract class BaseViewModel extends ViewModel {
 
 
     protected void handleAuthError(Throwable throwable) {
-        if (((HttpException) throwable).code() == 401) {
+        if (throwable instanceof HttpException && ((HttpException) throwable).code() == 401) {
             EventBus.getDefault().postSticky(new AuthErrorEvent());
             //mIsAuthError.postValue(true);
         } else {

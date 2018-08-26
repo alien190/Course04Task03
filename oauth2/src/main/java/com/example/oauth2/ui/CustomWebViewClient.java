@@ -63,18 +63,6 @@ public class CustomWebViewClient extends WebViewClient {
         }
     }
 
-    interface IOnAuthCallback {
-        void onAuthComplete(String code, String state);
-    }
-
-    interface IOnNeedShowCallback {
-        void onNeedShow();
-    }
-
-    interface IonReceivedHttpError {
-        void onError();
-    }
-
     @Override
     public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
         if (mOnReceivedHttpError != null) {
@@ -87,6 +75,18 @@ public class CustomWebViewClient extends WebViewClient {
         if (mOnReceivedHttpError != null) {
             mOnReceivedHttpError.onError();
         }
+    }
+
+    interface IOnAuthCallback {
+        void onAuthComplete(String code, String state);
+    }
+
+    interface IOnNeedShowCallback {
+        void onNeedShow();
+    }
+
+    interface IonReceivedHttpError {
+        void onError();
     }
 
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,12 @@ import toothpick.Toothpick;
 
 public class TokenFragment extends Fragment {
 
-    public WebView mWebView;
-    public WebView mSplash;
-    public View view;
-    public TextView mTvError;
+    private WebView mWebView;
+    private WebView mSplash;
+    private View view;
+    private TextView mTvError;
+    private SwipeRefreshLayout mRefreshLayout;
+
 
     //todo сделать генератор
     private static final String STATE = "Ece<WIX\":6WQ!Du";
@@ -172,6 +175,7 @@ public class TokenFragment extends Fragment {
         mWebView = view.findViewById(R.id.webView);
         mSplash = view.findViewById(R.id.splashWebView);
         mTvError = view.findViewById(R.id.tvError);
+        mRefreshLayout = view.findViewById(R.id.refresh);
     }
 
     @Override
@@ -204,4 +208,18 @@ public class TokenFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mRefreshLayout.setOnRefreshListener(() -> {
+            startAuth();
+            mRefreshLayout.setRefreshing(false);
+        });
+    }
+
+    @Override
+    public void onStop() {
+        mRefreshLayout.setOnRefreshListener(null);
+        super.onStop();
+    }
 }
