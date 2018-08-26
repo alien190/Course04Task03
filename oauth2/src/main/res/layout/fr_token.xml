@@ -9,14 +9,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/splash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--<TextView-->
+            <!--android:id="@+id/splash"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:text="@string/load_in_progress"-->
+            <!--android:textSize="30sp"-->
+            <!--android:visibility="visible"/>-->
+
+        <WebView
+            android:id="@+id/splashWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/load_in_progress"
-            android:textSize="30sp"
             android:visibility="visible"/>
 
         <WebView
@@ -25,8 +33,6 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="gone">
-
-        </WebView>
+            android:visibility="gone"/>
     </RelativeLayout>
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 
@@ -29,7 +31,8 @@ import toothpick.Toothpick;
 public class TokenFragment extends Fragment {
 
     private WebView mWebView;
-    private TextView mSplash;
+    //private TextView mSplash;
+    private WebView mSplash;
     private View view;
 
     //todo сделать генератор
@@ -72,6 +75,11 @@ public class TokenFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fr_token, container, false);
             initUI(view);
+
+            WebSettings ws = mSplash.getSettings();
+            ws.setDisplayZoomControls(true);
+            mSplash.loadUrl("file:///android_asset/splash.html");
+
             Bundle args = getArguments();
             if (args != null) {
                 mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
@@ -103,6 +111,18 @@ public class TokenFragment extends Fragment {
         WebSettings webViewSettings = mWebView.getSettings();
         webViewSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(mCustomWebViewClient);
+
+
+       // mSplash.setWebViewClient(new WebViewClient());
+//        mSplash.loadUrl("https://www.google.com");
+
+//        String unencodedHtml =
+//                "<html><body>'%28' is the code for '('</body></html>";
+//        String encodedHtml = Base64.encodeToString(unencodedHtml.getBytes(), Base64.NO_PADDING);
+//        mSplash.loadData(encodedHtml, "text/html", "base64");
+
+
+
     }
 
     private void onChangeState(Integer state) {
@@ -137,6 +157,7 @@ public class TokenFragment extends Fragment {
     private void hideWebView() {
         mSplash.setVisibility(View.VISIBLE);
         mWebView.setVisibility(View.GONE);
+
     }
 
     private void startAuth() {
@@ -154,7 +175,7 @@ public class TokenFragment extends Fragment {
 
     private void initUI(View view) {
         mWebView = view.findViewById(R.id.webView);
-        mSplash = view.findViewById(R.id.splash);
+        mSplash = view.findViewById(R.id.splashWebView);
     }
 
     @Override
