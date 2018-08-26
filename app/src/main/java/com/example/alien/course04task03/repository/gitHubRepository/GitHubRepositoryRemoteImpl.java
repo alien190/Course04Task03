@@ -68,6 +68,7 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
                 .subscribeOn(Schedulers.io());
     }
 
+    //todo реализовать загрузку всех репозиториев при страничной выдаче API GitHub
     @Override
     public Single<List<Repo>> getAll(String userLogin) {
         return mIGitHubApi.getRepos()
