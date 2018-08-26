@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import com.example.alien.course04task03.data.model.Repo;
@@ -15,28 +16,39 @@ import retrofit2.http.DELETE;
 import retrofit2.http.PATCH;
 
 @Dao
-public interface IGitHubDao {
+public abstract class IGitHubDao {
     @Query("SELECT * FROM repo WHERE repo.login = :userLogin")
-    Single<List<Repo>> getAll(String userLogin);
+    public abstract Single<List<Repo>> getAll(String userLogin);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertItem(Repo repo);
+    public abstract long insertItem(Repo repo);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    List<Long> insertItems(List<Repo> repos);
+    public abstract List<Long> insertItems(List<Repo> repos);
 
     @Query("SELECT * from repo where repo.name like :name")
-    Single<List<Repo>> searchByName(String name);
+    public abstract Single<List<Repo>> searchByName(String name);
 
     @Query("SELECT * from repo where repo.id = :itemId")
-    Single<Repo> getItem(Long itemId);
+    public abstract Single<Repo> getItem(Long itemId);
 
     @Query("DELETE from repo where repo.fullName = :repoFullName")
-    int deleteItem(String repoFullName);
+    public abstract int deleteItem(String repoFullName);
+
+    @Query("DELETE from repo where repo.login = :userLogin")
+    public abstract int deleteItems(String userLogin);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    int updateItem(Repo repo);
+    public abstract int updateItem(Repo repo);
 
     @Query("SELECT id FROM repo WHERE repo.fullName = :fullName")
-    int getIdByRepoFullName(String fullName);
+    public abstract int getIdByRepoFullName(String fullName);
+
+
+    //todo зделать более интелектуальное обновление БД с учетом удаленных элементов на сервере
+    @Transaction
+    public List<Long> updateRepos(List<Repo> repos, String userLogin) {
+        deleteItems(userLogin);
+        return insertItems(repos);
+    }
 }

@@ -45,7 +45,7 @@ public class GitHubRepositoryRemoteImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<List<Long>> insertItems(List<Repo> repos) {
+    public Single<List<Long>> insertItems(List<Repo> repos, String userLogin) {
         return Single.just(new ArrayList<Long>());
     }
 

@@ -3,9 +3,12 @@ package com.example.alien.course04task03.repository.gitHubRepository;
 import com.example.alien.course04task03.data.IGitHubDao;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
+
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,8 +32,8 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
     }
 
     @Override
-    public Single<List<Long>> insertItems(List<Repo> repos) {
-        return Single.fromCallable(() -> mIGitHubDao.insertItems(repos))
+    public Single<List<Long>> insertItems(List<Repo> repos, String userLogin) {
+        return Single.fromCallable(() -> mIGitHubDao.updateRepos(repos, userLogin))
                 .subscribeOn(Schedulers.io())
                 .map(list -> {
                     EventBus.getDefault().post(new OnRepoDataBaseUpdate());
@@ -85,7 +88,7 @@ public class GitHubRepositoryLocalImpl implements IGitHubRepository {
 
 
     @Override
-    public Single<Repo> updateItem(String repoFullName,Repo repoUpdate) {
+    public Single<Repo> updateItem(String repoFullName, Repo repoUpdate) {
         return Single.fromCallable(() -> {
             repoUpdate.setId(mIGitHubDao.getIdByRepoFullName(repoFullName));
             mIGitHubDao.updateItem(repoUpdate);

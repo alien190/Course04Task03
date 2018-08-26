@@ -13,7 +13,7 @@ public interface IGitHubRepository {
 
     Single<Repo> insertItem(Repo repo);
 
-    Single<List<Long>> insertItems(List<Repo> repos);
+    Single<List<Long>> insertItems(List<Repo> repos, String userLogin);
 
     Single<Repo> getItem(long id);
 
