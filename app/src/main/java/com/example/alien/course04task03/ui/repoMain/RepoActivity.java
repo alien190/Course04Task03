@@ -83,6 +83,7 @@ public class RepoActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setClass(context, RepoActivity.class);
         intent.putExtra(TYPE_KEY, type);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

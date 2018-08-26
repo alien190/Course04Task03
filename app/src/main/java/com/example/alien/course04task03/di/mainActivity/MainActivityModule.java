@@ -16,7 +16,7 @@ public class MainActivityModule extends CommonActivityModule {
         //todo сделать интерфейсы
         bind(BaseViewModel.class).toProvider(ListAllViewModelProvider.class).providesSingletonInScope();
         bind(Integer.class).withName("ID_TITLE").toInstance(R.string.main_activity_title);
-        bind(ViewModelCustomFactory.class).toProvider(ViewModelCustomFactoryProvider.class).providesSingletonInScope();
+
     }
 
 }

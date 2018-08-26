@@ -16,7 +16,7 @@ public class SearchByNameActivityModule extends CommonActivityModule {
         //todo сделать интерфейсы
         bind(BaseViewModel.class).toProvider(SearchByNameViewModelProvider.class).providesSingletonInScope();
        // bind(SearchByNameViewModel.class).toProvider(SearchByNameViewModelProvider.class).providesSingletonInScope();
-        bind(Integer.class).withName("TitleId").toInstance(R.string.name_search_title);
+        bind(Integer.class).withName("ID_TITLE").toInstance(R.string.name_search_title);
     }
 
 }

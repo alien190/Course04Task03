@@ -2,6 +2,8 @@ package com.example.alien.course04task03.di.commonActivity;
 
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.alien.course04task03.di.mainActivity.ViewModelCustomFactoryProvider;
+import com.example.alien.course04task03.ui.common.ViewModelCustomFactory;
 import com.example.alien.course04task03.ui.repoList.ListAllFragment;
 import com.example.alien.course04task03.ui.repoMain.RepoFragment;
 
@@ -21,5 +23,6 @@ public class CommonActivityModule extends Module {
         bind(RepoFragment.class).toInstance(RepoFragment.newInstance(mScopeName, mType));
         bind(ListAllFragment.class).toInstance(ListAllFragment.newInstance(mScopeName));
         bind(AppCompatActivity.class).toInstance(mActivity);
+        bind(ViewModelCustomFactory.class).toProvider(ViewModelCustomFactoryProvider.class).providesSingletonInScope();
     }
 }

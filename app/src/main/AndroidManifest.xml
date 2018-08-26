@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.repoMain.RepoActivity"
-            android:launchMode="singleInstance"/>
+            android:clearTaskOnLaunch="true"/>
     </application>
 
 </manifest>
