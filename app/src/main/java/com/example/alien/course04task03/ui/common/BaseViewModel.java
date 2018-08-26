@@ -25,15 +25,16 @@ public abstract class BaseViewModel extends ViewModel {
     protected MutableLiveData<String> mResultMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
     protected MutableLiveData<Boolean> mIsRefreshing = new MutableLiveData<>();
-
     protected final IGitHubRepository mRemoteRepository;
     protected final IGitHubRepository mLocalRepository;
     protected MutableLiveData<String> mUserLogin = new MutableLiveData<>();
+    protected MutableLiveData<Boolean> mIsAuthError = new MutableLiveData<>();
 
     @SuppressLint("CheckResult")
     public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Single<User> user) {
         this.mRemoteRepository = remoteRepository;
         this.mLocalRepository = localRepository;
+        mIsAuthError.postValue(false);
 
         user.subscribe(retUser -> mUserLogin.postValue(retUser.getLogin()), this::userErrorHandler);
         EventBus.getDefault().register(this);
@@ -120,7 +121,7 @@ public abstract class BaseViewModel extends ViewModel {
                 );
             }
             if (((HttpException) throwable).code() == 401) {
-//todo реализовать реакция на http eror 401
+                mIsAuthError.postValue(true);
             }
         } else {
             mResultMessage.postValue(throwable.getMessage());

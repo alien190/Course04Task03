@@ -144,4 +144,12 @@ public class RepoFragment extends BaseFragment {
         }
         mViewModel.generateData(json);
     }
+    private void handleAuthError(Boolean isAuthError){
+        if(isAuthError!=null && isAuthError) {
+
+
+            LaunchActivity.startActivity(mContext, true);
+            doCloseActivity();
+        }
+    }
 }
