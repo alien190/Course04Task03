@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 
@@ -30,10 +28,10 @@ import toothpick.Toothpick;
 
 public class TokenFragment extends Fragment {
 
-    private WebView mWebView;
-    //private TextView mSplash;
-    private WebView mSplash;
-    private View view;
+    public WebView mWebView;
+    public WebView mSplash;
+    public View view;
+    public TextView mTvError;
 
     //todo сделать генератор
     private static final String STATE = "Ece<WIX\":6WQ!Du";
@@ -75,11 +73,7 @@ public class TokenFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fr_token, container, false);
             initUI(view);
-
-            WebSettings ws = mSplash.getSettings();
-            ws.setDisplayZoomControls(true);
-            mSplash.loadUrl("file:///android_asset/splash.html");
-
+            initSplash();
             Bundle args = getArguments();
             if (args != null) {
                 mParentScopeName = args.getString(PARENT_SCOPE_NAME_KEY, "");
@@ -96,6 +90,12 @@ public class TokenFragment extends Fragment {
         return view;
     }
 
+    private void initSplash() {
+        WebSettings ws = mSplash.getSettings();
+        ws.setDisplayZoomControls(true);
+        mSplash.loadUrl("file:///android_asset/splash.html");
+    }
+
     private void initCustomWebViewClient() {
         mCustomWebViewClient.setOnNeedShowCallback(() -> mViewModel.showAuthorizationForm());
         mCustomWebViewClient.setOnAuthCallback((code, state) -> {
@@ -105,24 +105,18 @@ public class TokenFragment extends Fragment {
                 //todo реализовать обработку ошибки
             }
         });
+        mCustomWebViewClient.setOnReceivedHttpError(this::onHttpError);
     }
 
+    private void onHttpError(){
+        mSplash.setVisibility(View.GONE);
+        mWebView.setVisibility(View.GONE);
+        mTvError.setVisibility(View.VISIBLE);
+    }
     private void initWebView() {
         WebSettings webViewSettings = mWebView.getSettings();
         webViewSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(mCustomWebViewClient);
-
-
-       // mSplash.setWebViewClient(new WebViewClient());
-//        mSplash.loadUrl("https://www.google.com");
-
-//        String unencodedHtml =
-//                "<html><body>'%28' is the code for '('</body></html>";
-//        String encodedHtml = Base64.encodeToString(unencodedHtml.getBytes(), Base64.NO_PADDING);
-//        mSplash.loadData(encodedHtml, "text/html", "base64");
-
-
-
     }
 
     private void onChangeState(Integer state) {
@@ -152,12 +146,13 @@ public class TokenFragment extends Fragment {
     private void showWebView() {
         mSplash.setVisibility(View.GONE);
         mWebView.setVisibility(View.VISIBLE);
+        mTvError.setVisibility(View.GONE);
     }
 
     private void hideWebView() {
         mSplash.setVisibility(View.VISIBLE);
         mWebView.setVisibility(View.GONE);
-
+        mTvError.setVisibility(View.GONE);
     }
 
     private void startAuth() {
@@ -176,6 +171,7 @@ public class TokenFragment extends Fragment {
     private void initUI(View view) {
         mWebView = view.findViewById(R.id.webView);
         mSplash = view.findViewById(R.id.splashWebView);
+        mTvError = view.findViewById(R.id.tvError);
     }
 
     @Override

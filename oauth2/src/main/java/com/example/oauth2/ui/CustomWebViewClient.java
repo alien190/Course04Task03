@@ -3,6 +3,7 @@ package com.example.oauth2.ui;
 import android.net.Uri;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -15,6 +16,8 @@ public class CustomWebViewClient extends WebViewClient {
 
     private IOnAuthCallback mOnAuthCallback;
     private IOnNeedShowCallback mOnNeedShowCallback;
+    private IonReceivedHttpError mOnReceivedHttpError;
+    private boolean mIsNeedShow = false;
 
     private List<String> allowedPath = new ArrayList<String>() {{
         add("/login/oauth/authorize");
@@ -40,12 +43,11 @@ public class CustomWebViewClient extends WebViewClient {
 
         if (uri.getHost().equals("github.com")
                 && allowedPath.contains(uri.getPath())) {
+            mIsNeedShow = true;
 
-            if (mOnNeedShowCallback != null) {
-                mOnNeedShowCallback.onNeedShow();
-            }
             return false;
         } else {
+            mIsNeedShow = false;
             if (mOnAuthCallback != null) {
                 mOnAuthCallback.onAuthComplete(uri.getQueryParameter("code"),
                         uri.getQueryParameter("state"));
@@ -56,8 +58,9 @@ public class CustomWebViewClient extends WebViewClient {
 
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-        super.onReceivedError(view, request, error);
-
+        if (mOnReceivedHttpError != null) {
+            mOnReceivedHttpError.onError();
+        }
     }
 
     interface IOnAuthCallback {
@@ -68,11 +71,41 @@ public class CustomWebViewClient extends WebViewClient {
         void onNeedShow();
     }
 
+    interface IonReceivedHttpError {
+        void onError();
+    }
+
+    @Override
+    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+        if (mOnReceivedHttpError != null) {
+            mOnReceivedHttpError.onError();
+        }
+    }
+
+    @Override
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        if (mOnReceivedHttpError != null) {
+            mOnReceivedHttpError.onError();
+        }
+    }
+
+
     public void setOnAuthCallback(IOnAuthCallback mOnAuthCallback) {
         this.mOnAuthCallback = mOnAuthCallback;
     }
 
     public void setOnNeedShowCallback(IOnNeedShowCallback onNeedShowCallback) {
         mOnNeedShowCallback = onNeedShowCallback;
+    }
+
+    public void setOnReceivedHttpError(IonReceivedHttpError onReceivedHttpError) {
+        mOnReceivedHttpError = onReceivedHttpError;
+    }
+
+    @Override
+    public void onPageCommitVisible(WebView view, String url) {
+        if (mOnNeedShowCallback != null && mIsNeedShow) {
+            mOnNeedShowCallback.onNeedShow();
+        }
     }
 }

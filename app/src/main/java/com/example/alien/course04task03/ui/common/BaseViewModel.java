@@ -99,12 +99,13 @@ public abstract class BaseViewModel extends ViewModel {
         updateFromLocalRepository();
     }
 
+    @SuppressLint("CheckResult")
     public void updateFromRemoteRepository() {
         mRemoteRepository.getAll("")
                 .doOnSubscribe(disposable -> mIsRefreshing.postValue(true))
                 .flatMap(list -> mLocalRepository.insertItems(list, mUserLogin.getValue()))
                 .doFinally(() -> mIsRefreshing.postValue(false))
-                .subscribe();
+                .subscribe((v)->{},this::handleAuthError );
     }
 
     abstract protected void updateFromLocalRepository();

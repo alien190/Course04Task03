@@ -43,7 +43,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/tvName"
                 android:layout_alignBottom="@+id/tvName"
-
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_expand_more_black_24dp"/>
         </RelativeLayout>

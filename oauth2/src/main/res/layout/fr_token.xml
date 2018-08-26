@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <WebView
             android:id="@+id/webView"
@@ -34,5 +34,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/page_load_error"
+            android:textAlignment="center"
+            android:textSize="24sp" />
     </RelativeLayout>
 </LinearLayout>

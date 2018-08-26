@@ -11,4 +11,5 @@
     <string name="auth_error_msg">Произошла ошибка авторизации. Выполнить заново процедуру авторизации и повторите действие.</string>
     <string name="understand">Понятно</string>
     <string name="et_empty_error">Поле не может быть пустым</string>
+    <string name="page_load_error">Что-то пошло не так. Пожалуста, попробуйте еще раз позже.</string>
 </resources>
