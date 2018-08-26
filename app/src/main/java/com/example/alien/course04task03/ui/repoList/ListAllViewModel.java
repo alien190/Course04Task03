@@ -28,7 +28,7 @@ public class ListAllViewModel extends BaseViewModel {
                 .observeOn(Schedulers.io())
                 .doOnSubscribe(disposable -> mIsRefreshing.postValue(true))
                 .doFinally(() -> mIsRefreshing.postValue(false))
-                .subscribe(mRepoList::postValue);
+                .subscribe(mRepoList::postValue, this::handleCommonError);
 
     }
 }

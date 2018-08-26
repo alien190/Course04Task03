@@ -149,7 +149,7 @@ public class RepoActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    protected void onClose(CloseActivityEvent closeActivityEvent){
+    public void onClose(CloseActivityEvent closeActivityEvent){
         Toothpick.closeScope("AuthorizedScope");
         finish();
     }

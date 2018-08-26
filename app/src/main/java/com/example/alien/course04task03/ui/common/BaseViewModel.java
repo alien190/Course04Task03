@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel;
 import com.example.alien.course04task03.data.model.Repo;
 import com.example.alien.course04task03.data.model.User;
 import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepository;
+import com.example.alien.course04task03.ui.event.AuthErrorEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,24 +18,21 @@ import java.util.NoSuchElementException;
 
 import io.reactivex.Single;
 import retrofit2.HttpException;
-import timber.log.Timber;
 
 public abstract class BaseViewModel extends ViewModel {
 
     protected MutableLiveData<List<Repo>> mRepoList = new MutableLiveData<>();
-    protected MutableLiveData<String> mResultMessage = new MutableLiveData<>();
+    protected MutableLiveData<String> mErrorMessage = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsEmpty = new MutableLiveData<>();
     protected MutableLiveData<Boolean> mIsRefreshing = new MutableLiveData<>();
     protected final IGitHubRepository mRemoteRepository;
     protected final IGitHubRepository mLocalRepository;
     protected MutableLiveData<String> mUserLogin = new MutableLiveData<>();
-    protected MutableLiveData<Boolean> mIsAuthError = new MutableLiveData<>();
 
     @SuppressLint("CheckResult")
     public BaseViewModel(IGitHubRepository remoteRepository, IGitHubRepository localRepository, Single<User> user) {
         this.mRemoteRepository = remoteRepository;
         this.mLocalRepository = localRepository;
-        mIsAuthError.postValue(false);
 
         user.subscribe(retUser -> mUserLogin.postValue(retUser.getLogin()), this::userErrorHandler);
         EventBus.getDefault().register(this);
@@ -82,9 +80,9 @@ public abstract class BaseViewModel extends ViewModel {
                                 mLocalRepository.deleteItem(repoFullName).subscribe(
                                         ret -> {
                                         },
-                                        throwableLocalDel -> repoErrorHandler(throwableLocalDel, repoFullName));
+                                        throwableLocalDel -> handleRepoError(throwableLocalDel, repoFullName));
                             } else {
-                                repoErrorHandler(throwable, repoFullName);
+                                handleRepoError(throwable, repoFullName);
                             }
                         });
     }
@@ -111,24 +109,40 @@ public abstract class BaseViewModel extends ViewModel {
 
     abstract protected void updateFromLocalRepository();
 
+
+    //todo сделать класс для централизованной обработки ошибок
     @SuppressLint("CheckResult")
-    protected void repoErrorHandler(Throwable throwable, String repoFullName) {
-        if (throwable instanceof HttpException) {
-            if (((HttpException) throwable).code() == 404) {
-                mLocalRepository.deleteItem(repoFullName).subscribe(
-                        ret -> mResultMessage.postValue("Такой репозиторий не существует на сервере"),
-                        throwable1 -> mResultMessage.postValue(throwable.getMessage())
-                );
-            }
-            if (((HttpException) throwable).code() == 401) {
-                mIsAuthError.postValue(true);
-            }
+    protected void handleRepoError(Throwable throwable, String repoFullName) {
+        if ((throwable instanceof HttpException) && ((HttpException) throwable).code() == 404) {
+            mLocalRepository.deleteItem(repoFullName).subscribe(
+                    //todo перенести строку ошибки в ресурсы
+                    ret -> mErrorMessage.postValue("Такой репозиторий не существует на сервере"),
+                    this::handleAuthError
+            );
         } else {
-            mResultMessage.postValue(throwable.getMessage());
+            handleAuthError(throwable);
         }
     }
 
     public MutableLiveData<Boolean> getIsRefreshing() {
         return mIsRefreshing;
+    }
+
+
+    protected void handleAuthError(Throwable throwable) {
+        if (((HttpException) throwable).code() == 401) {
+            EventBus.getDefault().postSticky(new AuthErrorEvent());
+            //mIsAuthError.postValue(true);
+        } else {
+            handleCommonError(throwable);
+        }
+    }
+
+    protected void handleCommonError(Throwable throwable) {
+        mErrorMessage.postValue(throwable.getMessage());
+    }
+
+    public MutableLiveData<String> getErrorMessage() {
+        return mErrorMessage;
     }
 }

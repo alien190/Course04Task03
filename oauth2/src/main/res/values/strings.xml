@@ -8,7 +8,7 @@
     <string name="success_repo_creation">Репозиторий создан успешно</string>
     <string name="common_error_repo_creation">Неизвестная ошибка создания репозитория</string>
     <string name="auth_error_title">Ошибка авторизации</string>
-    <string name="auth_error_msg">При создании репозитория произошла ошибка авторизации. Необходимо выполнить заново процедуру авторизации.</string>
+    <string name="auth_error_msg">Произошла ошибка авторизации. Выполнить заново процедуру авторизации и повторите действие.</string>
     <string name="understand">Понятно</string>
     <string name="et_empty_error">Поле не может быть пустым</string>
 </resources>

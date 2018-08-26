@@ -1,5 +1,6 @@
 package com.example.alien.course04task03.ui.repoMain;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.databinding.ViewDataBinding;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.example.alien.course04task03.BR;
@@ -20,11 +22,14 @@ import com.example.alien.course04task03.databinding.MainBindin;
 import com.example.alien.course04task03.databinding.SearchByNameBinding;
 import com.example.alien.course04task03.ui.common.BaseFragment;
 import com.example.alien.course04task03.ui.common.BaseViewModel;
+import com.example.alien.course04task03.ui.event.AuthErrorEvent;
 import com.example.alien.course04task03.ui.event.CloseActivityEvent;
 import com.example.alien.course04task03.ui.launch.LaunchActivity;
 import com.example.alien.course04task03.ui.repoDetail.RepoDetailDialogFragment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -86,7 +91,7 @@ public class RepoFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewDataBinding.setVariable(BR.vm, mViewModel);
-
+        mViewModel.getErrorMessage().observe(this, this::handleCommonError);
     }
 
     @Override
@@ -144,12 +149,40 @@ public class RepoFragment extends BaseFragment {
         }
         mViewModel.generateData(json);
     }
-    private void handleAuthError(Boolean isAuthError){
-        if(isAuthError!=null && isAuthError) {
 
-
-            LaunchActivity.startActivity(mContext, true);
-            doCloseActivity();
+    private void handleAuthError(Boolean isAuthError) {
+        if (isAuthError != null && isAuthError) {
+            new AlertDialog.Builder(mContext)
+                    .setTitle(R.string.auth_error_title)
+                    .setMessage(R.string.auth_error_msg)
+                    .setPositiveButton(R.string.understand, (dialogInterface, i) -> {
+                        LaunchActivity.startActivity(mContext, false);
+                        doCloseActivity();
+                    })
+                    .create()
+                    .show();
         }
     }
+
+    private void handleCommonError(String errorMsg) {
+        Toast.makeText(mContext, getString(R.string.error) + errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAuthError(AuthErrorEvent event) {
+        handleAuthError(true);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 }
+

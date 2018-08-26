@@ -8,25 +8,16 @@
     <string name="success_repo_creation">Репозиторий создан успешно</string>
     <string name="common_error_repo_creation">Неизвестная ошибка создания репозитория</string>
     <string name="auth_error_title">Ошибка авторизации</string>
-    <string name="auth_error_msg">При создании репозитория произошла ошибка авторизации. Необходимо выполнить заново процедуру авторизации.</string>
+    <string name="auth_error_msg">Произошла ошибка авторизации. Выполните процедуру авторизации и повторите действие.</string>
     <string name="understand">Понятно</string>
     <string name="et_empty_error">Поле не может быть пустым</string>
     <string name="name_search_title">Поиск по названию</string>
-    <string name="director_search_title">Поиск по имени режисера</string>
     <string name="main_activity_title">Репозитории</string>
-    <string name="year_search_title">Поиск по году выпуска</string>
-    <string name="top_search_title">Список по рейтингу</string>
-    <string name="director_search_hint">Режиссер (мин. 4 символа)</string>
     <string name="name_search_hint">Название (мин. 3 символа)</string>
-    <string name="top_search_hint">Количество фильмов</string>
-    <string name="year_search_hint">2000 или 2000-2020 или -2020</string>
-    <string name="mi_generate">Запонить базу</string>
     <string name="mi_add">Добавить репозиторий</string>
     <string name="mi_search_by_name">Поиск по наименованию</string>
     <string name="mi_search_by_year">Поиск по году</string>
-    <string name="mi_search_by_director">Поиск по режиссеру</string>
-    <string name="mi_search_by_top">Топ фильмов по рейтингу</string>
-    <string name="delete_message">Удаляем фильм?</string>
+    <string name="delete_message">Удаляем репозиторий?</string>
     <string name="no_label">нет</string>
     <string name="yes_label">да</string>
     <string name="start_greeting">Для изменения - короткое нажитие  Для редактирования - длинное</string>
@@ -42,4 +33,5 @@
     <string name="no_description">нет описания</string>
     <string name="mi_logout">Выйти из аккаунта</string>
     <string name="mi_exit">Выйти из приложения</string>
+    <string name="error">Произошла ошибка: </string>
 </resources>

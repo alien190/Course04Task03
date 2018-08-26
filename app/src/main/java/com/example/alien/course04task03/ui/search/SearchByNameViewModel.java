@@ -32,7 +32,7 @@ public class SearchByNameViewModel extends BaseViewModel {
     @Override
     protected void updateFromLocalRepository() {
         mDisposable = mLocalRepository.search(mSearchByNameQuery.getValue())
-                .subscribe(list -> mRepoList.postValue(list));
+                .subscribe(list -> mRepoList.postValue(list), this::handleCommonError);
     }
 
     @Override

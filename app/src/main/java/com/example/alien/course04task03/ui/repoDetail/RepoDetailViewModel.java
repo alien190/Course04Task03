@@ -10,9 +10,7 @@ import com.example.alien.course04task03.repository.gitHubRepository.IGitHubRepos
 import com.example.alien.course04task03.ui.common.BaseViewModel;
 
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 
 public class RepoDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> mName = new MutableLiveData<>();
@@ -29,21 +27,21 @@ public class RepoDetailViewModel extends BaseViewModel {
         mIsSaved.postValue(false);
         mRepoId = repoId;
         if (mRepoId >= 0) {
-            loadFilm();
+            loadRepo();
             mTitleId = R.string.dialog_title_edit_film;
         } else {
             mTitleId = R.string.dialog_title_new_film;
         }
     }
 
-    private void loadFilm() {
+    private void loadRepo() {
         mDisposable = mLocalRepository.getItem(mRepoId)
                 .subscribe(repo -> {
                     mName.postValue(repo.getName());
                     mDescription.postValue(repo.getDescription());
                     mHomePage.postValue(repo.getHomePage());
                     mRepoFullName = repo.getFullName();
-                });
+                }, this::handleCommonError);
     }
 
     public MutableLiveData<String> getName() {
@@ -72,13 +70,13 @@ public class RepoDetailViewModel extends BaseViewModel {
         if (mRepoId < 0) {
             mRemoteRepository.insertItem(repoUpdate)
                     .flatMap(mLocalRepository::insertItem)
-                    .subscribe();
+                    .subscribe((res)->{}, this::handleAuthError);
         } else {
 
             mRemoteRepository.updateItem(mRepoFullName, repoUpdate)
                     .flatMap(repo -> mLocalRepository.updateItem(mRepoFullName, repo))
                     .subscribe(repo -> {
-                    }, this::userErrorHandler);
+                    }, throwable -> handleRepoError(throwable, mRepoFullName));
         }
 //mIsSaved.postValue(true)
     }

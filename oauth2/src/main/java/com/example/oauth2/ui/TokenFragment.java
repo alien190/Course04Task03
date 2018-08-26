@@ -167,6 +167,7 @@ public class TokenFragment extends Fragment {
         return mViewModel.getToken();
     }
 
+    //todo вынести в отделный класс функционал очистки cookies
     @SuppressWarnings("deprecation")
     public static void clearCookies(Context context)
     {
